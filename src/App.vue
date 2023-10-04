@@ -1,30 +1,81 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <v-app id="inspire">
+
+    <!-- Tool bar bovenaan -->
+    <v-toolbar
+      class="text-white pa-3"
+      dark
+      prominent
+      color="#00aaa2"
+      image="banner.png"
+      height="70"
+      elevation="3"
+    >
+
+      <v-img
+        src="logo.png"
+        width="100"
+      ></v-img>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-export</v-icon>
+        <v-tooltip
+          activator="parent"
+        >
+          Uitloggen
+        </v-tooltip>
+      </v-btn>
+    </v-toolbar>
+
+    <!-- Vier hoofdfuncties -->
+    <v-main>
+      <dashboard-buttons/>
+    </v-main>
+
+    <!-- Tab bar onderaan -->
+    <v-bottom-navigation
+      v-model="value"
+      color="#00aaa2"
+      grow
+    >
+      <v-btn>
+        <v-icon>mdi-view-grid</v-icon>
+        Dashboard
+      </v-btn>
+
+      <v-btn>
+        <v-icon>mdi-history</v-icon>
+        Recent
+      </v-btn>
+
+      <v-btn>
+        <v-icon>mdi-magnify</v-icon>
+        Zoeken
+      </v-btn>
+
+      <v-btn>
+        <v-icon>mdi-information</v-icon>
+        Informatie
+      </v-btn>
+    </v-bottom-navigation>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-nav {
-  padding: 30px;
+<script>
+  import DashboardButtons from "@/components/DashboardButtons.vue";
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  export default {
+    name: "App",
+    data() {
+      return {
+        value: 0, // Open app met dashboard
+      }
+    },
+    components: {
+      DashboardButtons
     }
   }
-}
-</style>
+</script>
