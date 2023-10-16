@@ -3,7 +3,7 @@
 
     <!-- Tool bar bovenaan -->
     <v-toolbar
-      class="text-white pa-3"
+      class="text-white pl-3 py-3"
       dark
       prominent
       color="#00aaa2"
@@ -20,9 +20,20 @@
       <v-spacer></v-spacer>
 
       <v-btn icon>
+        <v-icon>mdi-bell</v-icon>
+        <v-tooltip
+          activator="parent"
+          location="bottom"
+        >
+          Meldingen
+        </v-tooltip>
+      </v-btn>
+
+      <v-btn icon>
         <v-icon>mdi-export</v-icon>
         <v-tooltip
           activator="parent"
+          location="bottom"
         >
           Uitloggen
         </v-tooltip>
@@ -32,6 +43,7 @@
     <!-- Vier hoofdfuncties -->
     <v-main>
       <dashboard-buttons/>
+      <!-- <inspections /> -->
     </v-main>
 
     <!-- Tab bar onderaan -->
@@ -66,6 +78,7 @@
 
 <script>
   import DashboardButtons from "@/components/DashboardButtons.vue";
+  import Inspections from "@/components/Inspections.vue";
 
   export default {
     name: "App",
@@ -75,7 +88,8 @@
       }
     },
     components: {
-      DashboardButtons
+      DashboardButtons,
+      Inspections
     }
   }
 </script>

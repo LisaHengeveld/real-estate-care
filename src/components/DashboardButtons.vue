@@ -7,8 +7,8 @@
                 :text="item.text"
                 class="ma-3"
                 color="#00aaa2"
-                min-height="150"
-                min-width="150"
+                height="150"
+                width="150"
                 rounded="xl"
                 stacked
             >
@@ -31,13 +31,15 @@ export default {
             items: [
                 {
                 value: 0,
-                text: "Toegewezen",
-                icon: "mdi-clipboard-text",
+                text: "Toegewezen inspecties",
+                // icon: "mdi-clipboard-text",
+                icon: "mdi-home-search"
                 },
                 {
                 value: 1,
-                text: "Uitgevoerd",
+                text: "Uitgevoerde inspecties",
                 icon: "mdi-clipboard-check",
+                // icon: "mdi-home-edit"
                 },
                 {
                 value: 2,
