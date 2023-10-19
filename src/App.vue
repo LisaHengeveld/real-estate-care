@@ -42,8 +42,8 @@
 
     <!-- Vier hoofdfuncties -->
     <v-main>
-      <dashboard-buttons/>
-      <!-- <inspections /> -->
+      <!-- <dashboard-buttons/> -->
+      <inspections />
     </v-main>
 
     <!-- Tab bar onderaan -->
