@@ -36,8 +36,8 @@ export default {
     methods: {
         fetchInspections() {
             apiClient.fetchData()
-                .then(data => {
-                    this.inspections = data.inspections;
+                .then(inspectionsData => {
+                    this.inspections = inspectionsData;
                 })
                 .catch(error => {
                     console.error("Error: ", error);

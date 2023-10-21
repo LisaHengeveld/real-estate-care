@@ -5,7 +5,7 @@
             "address": "Bredeweg 14",
             "city": "Amsterdam",
             "dateOfInspection": "2023-10-10",
-            "damage": [
+            "damages": [
                 {
                     "location": "keuken",
                     "new": "ja",
@@ -41,7 +41,7 @@
             "address": "Wilhelminastraat 25",
             "city": "Den Haag",
             "dateOfInspection": "2023-10-16",
-            "damage": [],
+            "damages": [],
             "deferredMaintenance": [
                 {
                     "location": "woonkamer",
@@ -58,7 +58,7 @@
             "address": "Singel 28",
             "city": "Amsterdam",
             "dateOfInspection": "2023-10-13",
-            "damage": [
+            "damages": [
                 {
                     "location": "badkamer",
                     "new": "ja",
@@ -86,7 +86,7 @@
             "address": "Molenstraat 2",
             "city": "Rotterdam",
             "dateOfInspection": "2023-10-04",
-            "damage": [
+            "damages": [
                 {
                     "location": "woonkamer",
                     "new": "ja",
@@ -142,7 +142,7 @@
             "address": "Dorpsstraat 8",
             "city": "Utrecht",
             "dateOfInspection": "2023-10-08",
-            "damage": [],
+            "damages": [],
             "deferredMaintenance": [
                 {
                     "location": "hoofdslaapkamer",

@@ -1,8 +1,9 @@
 class Inspections {
-    constructor(id, address, city, dateOfInspections, damages, deferredMaintenance, technicalInstallations, Modifications) {
+    constructor(id, address, city, dateOfInspection, damages, deferredMaintenance, technicalInstallations, Modifications) {
         this.id = id;
         this.address = address;
-        this.dateOfInspections = dateOfInspections;
+        this.city = city;
+        this.dateOfInspection = dateOfInspection;
         this.damages = damages || [];
         this.deferredMaintenance = deferredMaintenance || [];
         this.technicalInstallations = technicalInstallations || [];
@@ -51,3 +52,5 @@ class Modifications {
         this.comments = comments;
     }
 }
+
+export { Inspections, Damages, DeferredMaintenance, TechnicalInstallations, Modifications };
