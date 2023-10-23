@@ -16,7 +16,7 @@
                 },
                 {
                     "location": "badkamer",
-                    "new": "ja",
+                    "new": "nee",
                     "kind": "slijtage",
                     "date": "2023-09-05",
                     "urgent": "nee",
@@ -29,6 +29,30 @@
                     "location": "bovenverdieping",
                     "kind": "verwarming",
                     "reportedMalfunctions": "Verwarming slaat niet meer aan",
+                    "testProcedure": "",
+                    "approved": "nee",
+                    "comments": ""
+                },
+                {
+                    "location": "begane grond",
+                    "kind": "verwarming",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "gehele woning",
+                    "kind": "elektra",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "voordeur",
+                    "kind": "beveiliging",
+                    "reportedMalfunctions": "",
                     "testProcedure": "",
                     "approved": "ja",
                     "comments": ""
@@ -50,7 +74,40 @@
                     "costIndication": "0-500"
                 }
             ],
-            "technicalInstallations": [],
+            "technicalInstallations": [
+                {
+                    "location": "woonkamer",
+                    "kind": "koeling",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "gehele woning",
+                    "kind": "verwarming",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "gehele woning",
+                    "kind": "elektra",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "voordeur",
+                    "kind": "beveiliging",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                }
+            ],
             "modifications": []
         },
         {
@@ -69,7 +126,32 @@
                 }
             ],
             "deferredMaintenance": [],
-            "technicalInstallations": [],
+            "technicalInstallations": [
+                {
+                    "location": "gehele woning",
+                    "kind": "verwarming",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "gehele woning",
+                    "kind": "elektra",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "voordeur",
+                    "kind": "beveiliging",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                }
+            ],
             "modifications": [
                 {
                     "documentedSituation": "",
@@ -118,6 +200,30 @@
             ],
             "technicalInstallations": [
                 {
+                    "location": "gehele woning",
+                    "kind": "verwarming",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "gehele woning",
+                    "kind": "elektra",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "voordeur",
+                    "kind": "beveiliging",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
                     "location": "balkon slaapkamer",
                     "kind": "beveiliging",
                     "reportedMalfunctions": "Slot van balkondeur is verroest",
@@ -157,7 +263,32 @@
                     "costIndication": "1500+"
                 }
             ],
-            "technicalInstallations": [],
+            "technicalInstallations": [
+                {
+                    "location": "gehele woning",
+                    "kind": "verwarming",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "gehele woning",
+                    "kind": "elektra",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                },
+                {
+                    "location": "voordeur",
+                    "kind": "beveiliging",
+                    "reportedMalfunctions": "",
+                    "testProcedure": "",
+                    "approved": "ja",
+                    "comments": ""
+                }
+            ],
             "modifications": [
                 {
                     "documentedSituation": "",

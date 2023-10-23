@@ -37,6 +37,11 @@ export default {
         fetchInspections() {
             apiClient.fetchData()
                 .then(inspectionsData => {
+                    // Sorteren
+                    inspectionsData.sort((a, b) => {
+                        return new Date(b.dateOfInspection) - new Date(a.dateOfInspection);
+                    });
+
                     this.inspections = inspectionsData;
                 })
                 .catch(error => {
