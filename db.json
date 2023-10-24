@@ -48,14 +48,6 @@
                     "testProcedure": "",
                     "approved": "ja",
                     "comments": ""
-                },
-                {
-                    "location": "voordeur",
-                    "kind": "beveiliging",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "ja",
-                    "comments": ""
                 }
             ],
             "modifications": []
@@ -142,14 +134,6 @@
                     "testProcedure": "",
                     "approved": "ja",
                     "comments": ""
-                },
-                {
-                    "location": "voordeur",
-                    "kind": "beveiliging",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "ja",
-                    "comments": ""
                 }
             ],
             "modifications": [
@@ -206,30 +190,6 @@
                     "testProcedure": "",
                     "approved": "ja",
                     "comments": ""
-                },
-                {
-                    "location": "gehele woning",
-                    "kind": "elektra",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "ja",
-                    "comments": ""
-                },
-                {
-                    "location": "voordeur",
-                    "kind": "beveiliging",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "ja",
-                    "comments": ""
-                },
-                {
-                    "location": "balkon slaapkamer",
-                    "kind": "beveiliging",
-                    "reportedMalfunctions": "Slot van balkondeur is verroest",
-                    "testProcedure": "",
-                    "approved": "nee",
-                    "comments": ""
                 }
             ],
             "modifications": [
@@ -266,23 +226,7 @@
             "technicalInstallations": [
                 {
                     "location": "gehele woning",
-                    "kind": "verwarming",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "ja",
-                    "comments": ""
-                },
-                {
-                    "location": "gehele woning",
                     "kind": "elektra",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "ja",
-                    "comments": ""
-                },
-                {
-                    "location": "voordeur",
-                    "kind": "beveiliging",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
                     "approved": "ja",
