@@ -42,34 +42,25 @@
 
     <!-- Vier hoofdfuncties -->
     <v-main>
-      <!-- <dashboard-buttons/> -->
-      <inspections />
+      <router-view />
+      <!-- <inspections /> -->
     </v-main>
 
     <!-- Tab bar onderaan -->
-    <v-bottom-navigation
-      v-model="value"
+    <v-bottom-navigation 
+      :value="currentRouteName"
+      :shift="true"
       color="#00aaa2"
       grow
     >
-      <v-btn>
-        <v-icon>mdi-view-grid</v-icon>
-        Dashboard
-      </v-btn>
-
-      <v-btn>
-        <v-icon>mdi-history</v-icon>
-        Recent
-      </v-btn>
-
-      <v-btn>
-        <v-icon>mdi-magnify</v-icon>
-        Zoeken
-      </v-btn>
-
-      <v-btn>
-        <v-icon>mdi-information</v-icon>
-        Informatie
+      <v-btn 
+        :value="item.name"
+        v-for="item in items"
+        :key="item.name"
+        :to="item.path"
+      >
+        <span>{{ item.title }}</span>
+        <v-icon>{{ item.icon }}</v-icon>
       </v-btn>
     </v-bottom-navigation>
   </v-app>
@@ -77,19 +68,27 @@
 
 
 <script>
-  import DashboardButtons from "@/components/DashboardButtons.vue";
   import Inspections from "@/components/Inspections.vue";
 
   export default {
     name: "App",
     data() {
       return {
-        value: 0, // Open app met dashboard
-      }
+        items: [
+          { title: 'Dashboard', icon: 'mdi-view-grid', path: '/', name: 'dashboard' },
+          { title: 'Recent', icon: 'mdi-history', path: '/recent', name: 'recent' },
+          { title: 'Zoeken', icon: 'mdi-magnify', path: '/zoeken', name: 'zoeken' },
+          { title: 'Informatie', icon: 'mdi-information', path: '/informatie', name: 'informatie' }
+        ]
+      };
     },
     components: {
-      DashboardButtons,
       Inspections
+    },
+    computed: {
+      currentRouteName() {
+        return this.$route.name;
+      }
     }
   }
 </script>

@@ -5,6 +5,7 @@
                 v-for="item in items"
                 :key="item.value"
                 :text="item.text"
+                @click="navigateTo(item.value)"
                 class="ma-3"
                 color="#00aaa2"
                 height="150"
@@ -52,6 +53,13 @@ export default {
                 icon: "mdi-cog",
                 }
             ]
+        }
+    },
+    methods: {
+        navigateTo(itemValue) {
+            if (itemValue === 1) {
+                this.$router.push('/inspectierapporten');
+            }
         }
     }
 }

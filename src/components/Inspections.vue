@@ -5,7 +5,7 @@
         class="mt-5"
         lines="two"
         >
-            <v-list-subheader class="mb-5 text-h5 text-primary">Toegewezen rapporten</v-list-subheader>
+            <v-list-subheader class="mb-5 text-h5 text-primary">Uitgevoerde inspecties</v-list-subheader>
             <v-divider></v-divider>
             <div
                 v-for="inspection in inspections"
@@ -49,7 +49,7 @@ export default {
                 });
         },
     },
-    beforeMount() {
+    created() {
         this.fetchInspections()
     },
   };
