@@ -12,6 +12,7 @@ const realEstateCareLightTheme = {
     surface: '#FFFFFF',
     primary: '#00AAA2',
     'primary-darken-1': '#006661',
+    'primary-lighten-1': '#cceeec',
     secondary: '#475E6C',
     'secondary-darken-1': '#141B1F',
     error: '#B00020',

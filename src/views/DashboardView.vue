@@ -33,14 +33,12 @@ export default {
                 {
                 value: 0,
                 text: "Toegewezen inspecties",
-                // icon: "mdi-clipboard-text",
                 icon: "mdi-home-search"
                 },
                 {
                 value: 1,
                 text: "Uitgevoerde inspecties",
-                icon: "mdi-clipboard-check",
-                // icon: "mdi-home-edit"
+                icon: "mdi-home-edit"
                 },
                 {
                 value: 2,

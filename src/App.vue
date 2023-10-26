@@ -1,15 +1,12 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
 
     <!-- Tool bar bovenaan -->
-    <v-toolbar
+    <v-app-bar
       class="text-white pl-3 py-3"
-      dark
-      prominent
       color="#00aaa2"
       image="banner.png"
-      height="70"
-      elevation="3"
+      height="60"
     >
 
       <v-img
@@ -38,12 +35,12 @@
           Uitloggen
         </v-tooltip>
       </v-btn>
-    </v-toolbar>
+    </v-app-bar>
 
     <!-- Vier hoofdfuncties -->
     <v-main>
       <router-view />
-      <!-- <inspections /> -->
+      <!-- <form-damages /> -->
     </v-main>
 
     <!-- Tab bar onderaan -->
@@ -68,7 +65,7 @@
 
 
 <script>
-  import Inspections from "@/components/Inspections.vue";
+  // import FormDamages from "@/components/FormDamages.vue";
 
   export default {
     name: "App",
@@ -76,15 +73,15 @@
       return {
         items: [
           { title: 'Dashboard', icon: 'mdi-view-grid', path: '/', name: 'dashboard' },
-          { title: 'Recent', icon: 'mdi-history', path: '/recent', name: 'recent' },
-          { title: 'Zoeken', icon: 'mdi-magnify', path: '/zoeken', name: 'zoeken' },
+          { title: 'Recent', icon: 'mdi-history', name: 'recent' },
+          { title: 'Zoeken', icon: 'mdi-magnify', name: 'zoeken' },
           { title: 'Informatie', icon: 'mdi-information', path: '/informatie', name: 'informatie' }
         ]
       };
     },
-    components: {
-      Inspections
-    },
+    // components: {
+    //   FormDamages
+    // },
     computed: {
       currentRouteName() {
         return this.$route.name;

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '../views/DashboardView.vue'
 import InformationView from '../views/InformationView.vue'
 import Inspections from '../components/Inspections.vue'
+import InspectionDetails from '../components/InspectionDetails.vue'
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/inspectierapporten',
     name: 'inspectierapporten',
     component: Inspections
+  },
+  {
+    path: '/inspectiedetails/:id/:city/:address',
+    name: 'inspectiedetails',
+    component: InspectionDetails
   }
 ]
 
