@@ -82,6 +82,9 @@
     // components: {
     //   FormDamages
     // },
+    created() {
+        this.$store.dispatch('fetchInspections');
+    },
     computed: {
       currentRouteName() {
         return this.$route.name;

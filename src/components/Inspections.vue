@@ -26,29 +26,8 @@
 </template>
 
 <script>
-import apiClient from "../services/InspectionsService"
-
 export default {
-    data() {
-        return {
-            inspections: [],
-        }
-    },
     methods: {
-        fetchInspections() {
-            apiClient.fetchData()
-                .then(inspectionsData => {
-                    // Sorteren
-                    inspectionsData.sort((a, b) => {
-                        return new Date(b.dateOfInspection) - new Date(a.dateOfInspection);
-                    });
-
-                    this.inspections = inspectionsData;
-                })
-                .catch(error => {
-                    console.error("Error: ", error);
-                });
-        },
         navigateTo(inspection) {
             this.$router.push({
                 name: 'inspectiedetails',
@@ -60,9 +39,14 @@ export default {
             });
         }
     },
-    created() {
-        this.fetchInspections()
-    },
+    // created() {
+    //     this.$store.dispatch('fetchInspections');
+    // },
+    computed: {
+        inspections() {
+            return this.$store.state.inspections;
+        }
+    }
   };
 </script>
 
