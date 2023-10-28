@@ -29,7 +29,7 @@
                     </v-chip>
                 </v-expansion-panel-title>
                 <v-expansion-panel-text>
-                    <form-damages />
+                    <form-damages :damage="damage" />
                 </v-expansion-panel-text>
             </v-expansion-panel>
         </v-expansion-panels>
@@ -123,11 +123,6 @@
 import FormDamages from "@/components/FormDamages.vue"
 
 export default {
-    data() {
-        return {
-            inspections: []
-        }
-    },
     created() {
         this.id = this.$route.params.id;
         this.city = this.$route.params.city;

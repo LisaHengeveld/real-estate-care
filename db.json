@@ -7,46 +7,46 @@
             "dateOfInspection": "2023-10-10",
             "damages": [
                 {
-                    "location": "keuken",
-                    "newDamage": "ja",
-                    "kind": "slijtage",
+                    "location": "Keuken",
+                    "newDamage": "Ja",
+                    "kind": "Slijtage",
                     "date": "2023-10-10",
-                    "urgent": "ja",
+                    "urgent": "Ja",
                     "description": "De kraan in de keuken lekt en moet onmiddellijk worden gerepareerd."
                 },
                 {
-                    "location": "badkamer",
-                    "newDamage": "nee",
-                    "kind": "slijtage",
+                    "location": "Badkamer",
+                    "newDamage": "Nee",
+                    "kind": "Slijtage",
                     "date": "2023-09-05",
-                    "urgent": "nee",
+                    "urgent": "Nee",
                     "description": "Tegels in de badkamer vertonen tekenen van slijtage en moeten worden vervangen."
                 }
             ],
             "deferredMaintenance": [],
             "technicalInstallations": [
                 {
-                    "location": "bovenverdieping",
-                    "kind": "verwarming",
+                    "location": "Bovenverdieping",
+                    "kind": "Verwarming",
                     "reportedMalfunctions": "Verwarming slaat niet meer aan",
                     "testProcedure": "",
-                    "approved": "nee",
+                    "approved": "Nee",
                     "comments": ""
                 },
                 {
-                    "location": "begane grond",
-                    "kind": "verwarming",
+                    "location": "Begane grond",
+                    "kind": "Verwarming",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 },
                 {
-                    "location": "gehele woning",
-                    "kind": "elektra",
+                    "location": "Gehele woning",
+                    "kind": "Elektra",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 }
             ],
@@ -60,43 +60,43 @@
             "damages": [],
             "deferredMaintenance": [
                 {
-                    "location": "woonkamer",
-                    "kind": "schilderwerk",
-                    "urgent": "nee",
+                    "location": "Woonkamer",
+                    "kind": "Schilderwerk",
+                    "urgent": "Nee",
                     "costIndication": "0-500"
                 }
             ],
             "technicalInstallations": [
                 {
-                    "location": "woonkamer",
-                    "kind": "koeling",
+                    "location": "Woonkamer",
+                    "kind": "Koeling",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 },
                 {
-                    "location": "gehele woning",
-                    "kind": "verwarming",
+                    "location": "Gehele woning",
+                    "kind": "Verwarming",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 },
                 {
-                    "location": "gehele woning",
-                    "kind": "elektra",
+                    "location": "Gehele woning",
+                    "kind": "Elektra",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 },
                 {
-                    "location": "voordeur",
-                    "kind": "beveiliging",
+                    "location": "Voordeur",
+                    "kind": "Beveiliging",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 }
             ],
@@ -109,40 +109,40 @@
             "dateOfInspection": "2023-10-13",
             "damages": [
                 {
-                    "location": "badkamer",
-                    "newDamage": "ja",
-                    "kind": "slijtage",
+                    "location": "Badkamer",
+                    "newDamage": "Ja",
+                    "kind": "Slijtage",
                     "date": "2023-10-13",
-                    "urgent": "ja",
+                    "urgent": "Ja",
                     "description": "De douchekop in de badkamer lekt en moet worden vervangen."
                 }
             ],
             "deferredMaintenance": [],
             "technicalInstallations": [
                 {
-                    "location": "gehele woning",
-                    "kind": "verwarming",
+                    "location": "Gehele woning",
+                    "kind": "Verwarming",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 },
                 {
-                    "location": "gehele woning",
-                    "kind": "elektra",
+                    "location": "Gehele woning",
+                    "kind": "Elektra",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 }
             ],
             "modifications": [
                 {
                     "documentedSituation": "",
-                    "location": "woonkamer",
-                    "executedBy": "huurder",
+                    "location": "Woonkamer",
+                    "executedBy": "Huurder",
                     "description": "Vloerbedekking in de woonkamer geïnstalleerd.",
-                    "action": "laten verwijderen",
+                    "action": "Laten verwijderen",
                     "comments": ""
                 }
             ]
@@ -154,51 +154,51 @@
             "dateOfInspection": "2023-10-04",
             "damages": [
                 {
-                    "location": "woonkamer",
-                    "newDamage": "ja",
-                    "kind": "slijtage",
+                    "location": "Woonkamer",
+                    "newDamage": "Ja",
+                    "kind": "Slijtage",
                     "date": "2023-08-25",
-                    "urgent": "nee",
+                    "urgent": "Nee",
                     "description": "Er is een kleine barst in de muur van de woonkamer die herstel vereist."
                 }
             ],
             "deferredMaintenance": [
                 {
-                    "location": "woonkamer",
-                    "kind": "schilderwerk",
-                    "urgent": "nee",
+                    "location": "Woonkamer",
+                    "kind": "Schilderwerk",
+                    "urgent": "Nee",
                     "costIndication": "0-500"
                 },
                 {
-                    "location": "keuken",
-                    "kind": "elektra",
-                    "urgent": "ja",
+                    "location": "Keuken",
+                    "kind": "Elektra",
+                    "urgent": "Ja",
                     "costIndication": "500-1000"
                 },
                 {
-                    "location": "hal",
-                    "kind": "schilderwerk",
-                    "urgent": "nee",
+                    "location": "Hal",
+                    "kind": "Schilderwerk",
+                    "urgent": "Nee",
                     "costIndication": "0-500"
                 }
             ],
             "technicalInstallations": [
                 {
-                    "location": "gehele woning",
-                    "kind": "verwarming",
+                    "location": "Gehele woning",
+                    "kind": "Verwarming",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 }
             ],
             "modifications": [
                 {
                     "documentedSituation": "",
-                    "location": "benedenverdieping",
-                    "executedBy": "huurder",
+                    "location": "Benedenverdieping",
+                    "executedBy": "Huurder",
                     "description": "Laminaat geïnstalleerd.",
-                    "action": "laten aanpassen en keuren",
+                    "action": "Laten aanpassen en keuren",
                     "comments": ""
                 }
             ]
@@ -211,43 +211,43 @@
             "damages": [],
             "deferredMaintenance": [
                 {
-                    "location": "hoofdslaapkamer",
-                    "kind": "schilderwerk",
-                    "urgent": "nee",
+                    "location": "Hoofdslaapkamer",
+                    "kind": "Schilderwerk",
+                    "urgent": "Nee",
                     "costIndication": "0-500"
                 },
                 {
-                    "location": "begane grond",
-                    "kind": "beglazing",
-                    "urgent": "nee",
+                    "location": "Begane grond",
+                    "kind": "Beglazing",
+                    "urgent": "Nee",
                     "costIndication": "1500+"
                 }
             ],
             "technicalInstallations": [
                 {
-                    "location": "gehele woning",
-                    "kind": "elektra",
+                    "location": "Gehele woning",
+                    "kind": "Elektra",
                     "reportedMalfunctions": "",
                     "testProcedure": "",
-                    "approved": "ja",
+                    "approved": "Ja",
                     "comments": ""
                 }
             ],
             "modifications": [
                 {
                     "documentedSituation": "",
-                    "location": "ramen buitenzijde",
-                    "executedBy": "huurder",
+                    "location": "Ramen buitenzijde",
+                    "executedBy": "Huurder",
                     "description": "Solar screens geplaatst",
-                    "action": "accepted",
+                    "action": "Accepteren",
                     "comments": ""
                 },
                 {
                     "documentedSituation": "",
-                    "location": "keuken",
-                    "executedBy": "aannemer",
+                    "location": "Keuken",
+                    "executedBy": "Aannemer",
                     "description": "Nieuwe keukenapparatuur geïnstalleerd",
-                    "action": "accepteren",
+                    "action": "Accepteren",
                     "comments": ""
                 }
             ]

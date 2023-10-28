@@ -31,6 +31,9 @@ export default createStore({
     // Only return the requested inspection
     getInspection: (state) => (id) => {
       return state.inspections.find(insp => insp.id === +id);
+    },
+    getDamage(state, id, index) {
+      return getters.getInspection(id).damage[index];
     }
   },
   modules: {

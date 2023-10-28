@@ -1,14 +1,14 @@
 <template>
     <form class="pt-2" @submit.prevent="submit">
         <v-text-field
-        v-model="location"
+        :model-value="damage.location"
         color="primary"
         label="Locatie"
         variant="outlined"
         ></v-text-field>
 
         <v-radio-group
-        v-model="newDamage"
+        :model-value="damage.newDamage"
         color="primary"
         inline
         >
@@ -17,16 +17,16 @@
         </template>
         <v-radio
             label="Ja"
-            value="ja"
+            value="Ja"
         ></v-radio>
         <v-radio
             label="Nee"
-            value="nee"
+            value="Nee"
         ></v-radio>
         </v-radio-group>
 
         <v-select
-        v-model="kind"
+        :model-value="damage.kind"
         color="primary"
         label="Soort schade"
         :items="['Moedwillig', 'Slijtage', 'Geweld', 'Normaal gebruik', 'Calamiteit', 'Anders']"
@@ -34,7 +34,7 @@
         ></v-select>
 
         <v-text-field
-            v-model="date"
+            :model-value="damage.date"
             color="primary"
             label="Datum"
             type="date"
@@ -42,7 +42,7 @@
         ></v-text-field>
 
         <v-radio-group
-        v-model="urgent"
+        :model-value="damage.urgent"
         color="primary"
         inline
         >
@@ -51,20 +51,20 @@
         </template>
         <v-radio
             label="Ja"
-            value="ja"
+            value="Ja"
         ></v-radio>
         <v-radio
             label="Nee"
-            value="nee"
+            value="Nee"
         ></v-radio>
         </v-radio-group>
 
-        <v-text-field
-            v-model="description"
+        <v-textarea
+            :model-value="damage.description"
             color="primary"
             label="Omschrijving"
             variant="outlined"
-        ></v-text-field>
+        ></v-textarea>
 
         <v-btn
         class="me-4"
@@ -77,8 +77,6 @@
 </template>
 
 <script>
-import apiClient from "../services/InspectionsService"
-
 export default {
     data() {
         return {
@@ -92,24 +90,9 @@ export default {
             urgent: null
         }
     },
-    methods: {
-        fetchInspection() {
-            apiClient.fetchData()
-                .then(inspectionsData => {
-                    this.inspection = inspectionsData.find(obj => obj.id === +this.id);
-                })
-                .catch(error => {
-                    console.error("Error: ", error);
-                });
-        }
-    },
-    created() {
-        this.id = this.$route.params.id;
-        this.city = this.$route.params.city;
-        this.address = this.$route.params.address;
-
-        this.fetchInspection();
-    },
+    props: [
+        'damage'
+    ]
 }
 </script>
 

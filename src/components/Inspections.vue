@@ -39,9 +39,6 @@ export default {
             });
         }
     },
-    // created() {
-    //     this.$store.dispatch('fetchInspections');
-    // },
     computed: {
         inspections() {
             return this.$store.state.inspections;
