@@ -1,14 +1,14 @@
 <template>
-    <form class="pt-2" @submit.prevent="submit">
+    <v-form class="pt-2" @submit.prevent="submitForm">
         <v-text-field
-        :model-value="damage.location"
+        v-model="formData.location"
         color="primary"
         label="Locatie"
         variant="outlined"
         ></v-text-field>
 
         <v-radio-group
-        :model-value="damage.newDamage"
+        v-model="formData.newDamage"
         color="primary"
         inline
         >
@@ -26,7 +26,7 @@
         </v-radio-group>
 
         <v-select
-        :model-value="damage.kind"
+        v-model="formData.kind"
         color="primary"
         label="Soort schade"
         :items="['Moedwillig', 'Slijtage', 'Geweld', 'Normaal gebruik', 'Calamiteit', 'Anders']"
@@ -34,7 +34,7 @@
         ></v-select>
 
         <v-text-field
-            :model-value="damage.date"
+            v-model="formData.date"
             color="primary"
             label="Datum"
             type="date"
@@ -42,7 +42,7 @@
         ></v-text-field>
 
         <v-radio-group
-        :model-value="damage.urgent"
+        v-model="formData.urgent"
         color="primary"
         inline
         >
@@ -60,7 +60,7 @@
         </v-radio-group>
 
         <v-textarea
-            :model-value="damage.description"
+            v-model="formData.description"
             color="primary"
             label="Omschrijving"
             variant="outlined"
@@ -73,26 +73,26 @@
         >
         opslaan
         </v-btn>
-    </form>
+    </v-form>
 </template>
 
 <script>
 export default {
     data() {
         return {
-            inspection: {},
-            
-            location: null,
-            description: null,
-            newDamage: null,
-            kind: null,
-            date: null,
-            urgent: null
+            formData: this.damage
         }
     },
     props: [
         'damage'
-    ]
+    ],
+    methods: {
+    submitForm() {
+      // Emit an event with the updated data to notify the parent
+      this.$emit('updateData', this.formData);
+    },
+    emits: ['updateData']
+  },
 }
 </script>
 

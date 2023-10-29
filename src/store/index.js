@@ -1,5 +1,6 @@
-import { createStore } from 'vuex'
-import apiClient from "../services/InspectionsService.js"
+import { createStore } from 'vuex';
+import InspectionsService from "../services/InspectionsService.js";
+// import axios from 'axios';
 
 export default createStore({
   state: {
@@ -12,20 +13,17 @@ export default createStore({
   },
   actions: {
     // Get data
-    fetchInspections(context) {
-      apiClient.fetchData()
-        .then(inspectionsData => {
-            // Sort by date
-            inspectionsData.sort((a, b) => {
-                return new Date(b.dateOfInspection) - new Date(a.dateOfInspection);
-            });
-
-            context.commit('SET_INSPECTIONS', inspectionsData);
-        })
-        .catch(error => {
-            console.error("Error: ", error);
-        });
+    async fetchInspections({ commit }) {
+      try {
+        const inspectionsData = await InspectionsService.fetchData();
+        commit('SET_INSPECTIONS', inspectionsData);
+      } catch (error) {
+        console.error("Error: ", error);
+      }
     },
+    sendInspection(context) {
+      // Komt nog
+    }
   },
   getters: {
     // Only return the requested inspection

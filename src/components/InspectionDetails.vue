@@ -19,7 +19,7 @@
                     <div>{{ damage.location }} - {{ damage.kind }}</div>
                     <v-spacer></v-spacer>
                     <v-chip
-                    v-if="damage.urgent === 'ja'"
+                    v-if="damage.urgent === 'Ja'"
                     class="mr-5"
                     density="compact"
                     color="red"
@@ -29,7 +29,7 @@
                     </v-chip>
                 </v-expansion-panel-title>
                 <v-expansion-panel-text>
-                    <form-damages :damage="damage" />
+                    <form-damages @updateData="onUpdateData($event, id, index)" :damage="damage" />
                 </v-expansion-panel-text>
             </v-expansion-panel>
         </v-expansion-panels>
@@ -135,6 +135,11 @@ export default {
         inspection() {
             // Get requested inspection data
             return this.$store.getters.getInspection(this.id);
+        }
+    },
+    method: {
+        onUpdateData(data, id, index) {
+            // return this.$store.dispatch.functienaam(data, id, index);
         }
     }
 }

@@ -41,7 +41,7 @@ export default {
     },
     computed: {
         inspections() {
-            return this.$store.state.inspections;
+            return this.$store.state.inspections
         }
     }
   };
