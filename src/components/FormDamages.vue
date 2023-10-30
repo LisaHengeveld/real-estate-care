@@ -1,97 +1,105 @@
 <template>
-    <v-form class="pt-2" @submit.prevent="submitForm">
-        <v-text-field
-        v-model="damage.location"
-        color="primary"
-        label="Locatie"
-        variant="outlined"
-        ></v-text-field>
+  <v-form class="pt-2" @submit.prevent="submitForm" disabled>
 
-        <v-radio-group
-        v-model="damage.newDamage"
-        color="primary"
-        inline
-        >
-        <template v-slot:label>
-            <div>Nieuwe schade</div>
-        </template>
-        <v-radio
-            label="Ja"
-            value="Ja"
-        ></v-radio>
-        <v-radio
-            label="Nee"
-            value="Nee"
-        ></v-radio>
-        </v-radio-group>
+    <!-- Textfield for location damage -->
+    <v-text-field
+      v-model="damage.location"
+      color="primary"
+      label="Locatie"
+      variant="outlined"
+      :rules="[rules.required]"
+    ></v-text-field>
 
-        <v-select
-        v-model="damage.kind"
-        color="primary"
-        label="Soort schade"
-        :items="['Moedwillig', 'Slijtage', 'Geweld', 'Normaal gebruik', 'Calamiteit', 'Anders']"
-        variant="outlined"
-        ></v-select>
+    <!-- Radio group yes/no for new damage -->
+    <v-radio-group
+      v-model="damage.newDamage"
+      color="primary"
+      inline
+      :rules="[rules.required]"
+    >
+      <template v-slot:label>
+        <div>Nieuwe schade</div>
+      </template>
+      <v-radio label="Ja" value="Ja"></v-radio>
+      <v-radio label="Nee" value="Nee"></v-radio>
+    </v-radio-group>
 
-        <v-text-field
-            v-model="damage.date"
-            color="primary"
-            label="Datum"
-            type="date"
-            variant="outlined"
-        ></v-text-field>
+    <!-- Select field for kind of damage -->
+    <v-select
+      v-model="damage.kind"
+      color="primary"
+      label="Soort schade"
+      :items="[
+        'Moedwillig',
+        'Slijtage',
+        'Geweld',
+        'Normaal gebruik',
+        'Calamiteit',
+        'Anders',
+      ]"
+      variant="outlined"
+      :rules="[rules.required]"
+    ></v-select>
 
-        <v-radio-group
-        v-model="damage.urgent"
-        color="primary"
-        inline
-        >
-        <template v-slot:label>
-            <div>Accute actie vereist</div>
-        </template>
-        <v-radio
-            label="Ja"
-            value="Ja"
-        ></v-radio>
-        <v-radio
-            label="Nee"
-            value="Nee"
-        ></v-radio>
-        </v-radio-group>
+    <!-- Text field for date of registering damage -->
+    <v-text-field
+      v-model="damage.date"
+      color="primary"
+      label="Datum"
+      type="date"
+      variant="outlined"
+      :rules="[rules.required]"
+    ></v-text-field>
 
-        <v-textarea
-            v-model="damage.description"
-            color="primary"
-            label="Omschrijving"
-            variant="outlined"
-        ></v-textarea>
+    <!-- Radio group yes/no if acute action is required -->
+    <v-radio-group
+      v-model="damage.urgent"
+      color="primary"
+      inline
+      :rules="[rules.required]"
+    >
+      <template v-slot:label>
+        <div>Accute actie vereist</div>
+      </template>
+      <v-radio label="Ja" value="Ja"></v-radio>
+      <v-radio label="Nee" value="Nee"></v-radio>
+    </v-radio-group>
 
-        <v-btn
+    <!-- Text area for description of damage -->
+    <v-textarea
+      v-model="damage.description"
+      color="primary"
+      label="Omschrijving"
+      variant="outlined"
+      :rules="[rules.required]"
+    ></v-textarea>
+
+    <!-- Submit button -->
+    <v-btn
         class="me-4"
         type="submit"
         color="primary"
-        >
-        opslaan
-        </v-btn>
-    </v-form>
+        disabled
+    > 
+        Opslaan
+    </v-btn>
+  </v-form>
 </template>
 
 <script>
 export default {
-    // Wordt ook gelijk aangepast in oudercomponent???
-    props: [
-        'damage'
-    ],
-    methods: {
-        submitForm() {
-        // Emit an event with the updated data to notify the parent
-        this.$emit('updateData', this.formData);
-        },
+  data: () => ({
+    rules: {
+      required: value => !!value || 'Veld is verplicht',
     },
-    emits: ['updateData']
-}
+  }),
+  props: ["damage"], // Data of relevant damage
+  methods: {
+    submitForm() {
+      // To be implemented
+    },
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

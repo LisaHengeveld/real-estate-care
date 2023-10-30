@@ -1,10 +1,10 @@
 <template>
   <v-app>
 
-    <!-- Tool bar bovenaan -->
+    <!-- Tool bar top -->
     <v-app-bar
       class="text-white pl-3 py-3"
-      color="#00aaa2"
+      color="primary"
       image="banner.png"
       height="60"
     >
@@ -37,17 +37,16 @@
       </v-btn>
     </v-app-bar>
 
-    <!-- Vier hoofdfuncties -->
+    <!-- Router view -->
     <v-main>
       <router-view />
-      <!-- <form-damages /> -->
     </v-main>
 
-    <!-- Tab bar onderaan -->
+    <!-- Tab bar bottom -->
     <v-bottom-navigation 
       :value="currentRouteName"
       :shift="true"
-      color="#00aaa2"
+      color="primary"
       grow
     >
       <v-btn 
@@ -65,12 +64,11 @@
 
 
 <script>
-  // import FormDamages from "@/components/FormDamages.vue";
-
   export default {
     name: "App",
     data() {
       return {
+        // Buttons in the bottom navigation
         items: [
           { title: 'Dashboard', icon: 'mdi-view-grid', path: '/', name: 'dashboard' },
           { title: 'Recent', icon: 'mdi-history', name: 'recent' },
@@ -79,10 +77,8 @@
         ]
       };
     },
-    // components: {
-    //   FormDamages
-    // },
     created() {
+        // Fill the store with the data
         this.$store.dispatch('fetchInspections');
     },
     computed: {

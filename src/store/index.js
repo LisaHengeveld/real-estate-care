@@ -1,12 +1,13 @@
 import { createStore } from 'vuex';
 import InspectionsService from "../services/InspectionsService.js";
-// import axios from 'axios';
 
 export default createStore({
   state: {
+    // Data of completed inspections
     inspections: []
   },
   mutations: {
+    // Place retrieved data in state object
     SET_INSPECTIONS(state, payload) {
       state.inspections = payload;
     },
@@ -20,25 +21,12 @@ export default createStore({
       } catch (error) {
         console.error("Error: ", error);
       }
-    },
-
-    // Werkt nog niet
-    async updateInspection(context, value) {
-      try {
-        await InspectionsService.updateData(value);
-        // Optionally, you can commit mutations to update the local state here if needed.
-      } catch (error) {
-        console.error("Error: ", error);
-      }
     }
   },
   getters: {
-    // Only return the requested inspection
+    // Only return data of the requested inspection
     getInspection: (state) => (id) => {
       return state.inspections.find(insp => insp.id === +id);
-    },
-    getDamage(state, id, index) {
-      return getters.getInspection(id).damage[index];
     }
   },
   modules: {
