@@ -1,5 +1,6 @@
+// Classes for the data structure in the JSON database
 class Inspections {
-    constructor(id, address, city, dateOfInspection, damages, deferredMaintenance, technicalInstallations, Modifications) {
+    constructor(id, address, city, dateOfInspection, damages, deferredMaintenance, technicalInstallations, modifications) {
         this.id = id;
         this.address = address;
         this.city = city;
@@ -7,7 +8,7 @@ class Inspections {
         this.damages = damages || [];
         this.deferredMaintenance = deferredMaintenance || [];
         this.technicalInstallations = technicalInstallations || [];
-        this.Modifications = Modifications || [];
+        this.modifications = modifications || [];
     }
 }
 

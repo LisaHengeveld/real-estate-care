@@ -1,4 +1,5 @@
 <template>
+    <!-- Buttons for main functions -->
     <v-container class="dashboard-btns fill-height">
         <v-row justify="center">
             <v-btn
@@ -7,7 +8,7 @@
                 :text="item.text"
                 @click="navigateTo(item.value)"
                 class="ma-3"
-                color="#00aaa2"
+                color="primary"
                 height="150"
                 width="150"
                 rounded="xl"
@@ -28,7 +29,7 @@ export default {
     name: "DashboardButtons",
     data() {
         return {
-            // Vier hoofdfuncties
+            // Four main functions
             items: [
                 {
                 value: 0,
@@ -55,8 +56,17 @@ export default {
     },
     methods: {
         navigateTo(itemValue) {
-            if (itemValue === 1) {
-                this.$router.push('/inspectierapporten');
+            switch(itemValue) {
+                case 0:
+                    break;
+                case 1:
+                    this.$router.push('/inspectierapporten');
+                    break;
+                case 2:
+                    this.$router.push('/kennisbase');
+                    break;
+                case 3:
+                    break;
             }
         }
     }
