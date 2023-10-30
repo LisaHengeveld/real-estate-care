@@ -1,14 +1,14 @@
 <template>
     <v-form class="pt-2" @submit.prevent="submitForm">
         <v-text-field
-        v-model="formData.location"
+        v-model="damage.location"
         color="primary"
         label="Locatie"
         variant="outlined"
         ></v-text-field>
 
         <v-radio-group
-        v-model="formData.newDamage"
+        v-model="damage.newDamage"
         color="primary"
         inline
         >
@@ -26,7 +26,7 @@
         </v-radio-group>
 
         <v-select
-        v-model="formData.kind"
+        v-model="damage.kind"
         color="primary"
         label="Soort schade"
         :items="['Moedwillig', 'Slijtage', 'Geweld', 'Normaal gebruik', 'Calamiteit', 'Anders']"
@@ -34,7 +34,7 @@
         ></v-select>
 
         <v-text-field
-            v-model="formData.date"
+            v-model="damage.date"
             color="primary"
             label="Datum"
             type="date"
@@ -42,7 +42,7 @@
         ></v-text-field>
 
         <v-radio-group
-        v-model="formData.urgent"
+        v-model="damage.urgent"
         color="primary"
         inline
         >
@@ -60,7 +60,7 @@
         </v-radio-group>
 
         <v-textarea
-            v-model="formData.description"
+            v-model="damage.description"
             color="primary"
             label="Omschrijving"
             variant="outlined"
@@ -78,21 +78,17 @@
 
 <script>
 export default {
-    data() {
-        return {
-            formData: this.damage
-        }
-    },
+    // Wordt ook gelijk aangepast in oudercomponent???
     props: [
         'damage'
     ],
     methods: {
-    submitForm() {
-      // Emit an event with the updated data to notify the parent
-      this.$emit('updateData', this.formData);
+        submitForm() {
+        // Emit an event with the updated data to notify the parent
+        this.$emit('updateData', this.formData);
+        },
     },
     emits: ['updateData']
-  },
 }
 </script>
 

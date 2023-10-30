@@ -21,8 +21,15 @@ export default createStore({
         console.error("Error: ", error);
       }
     },
-    sendInspection(context) {
-      // Komt nog
+
+    // Werkt nog niet
+    async updateInspection(context, value) {
+      try {
+        await InspectionsService.updateData(value);
+        // Optionally, you can commit mutations to update the local state here if needed.
+      } catch (error) {
+        console.error("Error: ", error);
+      }
     }
   },
   getters: {

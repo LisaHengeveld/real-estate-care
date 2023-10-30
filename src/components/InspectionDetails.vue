@@ -29,7 +29,7 @@
                     </v-chip>
                 </v-expansion-panel-title>
                 <v-expansion-panel-text>
-                    <form-damages @updateData="onUpdateData($event, id, index)" :damage="damage" />
+                    <form-damages @updateData="onUpdateData([id, 'damages', index, $event])" :damage="damage" />
                 </v-expansion-panel-text>
             </v-expansion-panel>
         </v-expansion-panels>
@@ -137,9 +137,9 @@ export default {
             return this.$store.getters.getInspection(this.id);
         }
     },
-    method: {
-        onUpdateData(data, id, index) {
-            // return this.$store.dispatch.functienaam(data, id, index);
+    methods: {
+        onUpdateData(data) {
+            this.$store.dispatch.updateInspection(data);
         }
     }
 }
