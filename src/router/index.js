@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import DashboardView from '../views/DashboardView.vue'
 import InformationView from '../views/InformationView.vue'
-import Inspections from '../components/Inspections.vue'
+import InspectionsList from '../components/InspectionsList.vue'
 import InspectionDetails from '../components/InspectionDetails.vue'
 import KnowledgeBase from '../components/KnowledgeBase.vue'
 import TestProcedures from '../components/TestProcedures.vue'
@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/inspectierapporten',
     name: 'inspectierapporten',
-    component: Inspections
+    component: InspectionsList
   },
   {
     path: '/inspectiedetails/:id/:city/:address',
