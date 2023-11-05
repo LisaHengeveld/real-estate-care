@@ -142,10 +142,10 @@
             "modifications": [
                 {
                     "documentedSituation": "",
-                    "location": "Woonkamer",
-                    "executedBy": "Huurder",
-                    "description": "Vloerbedekking in de woonkamer geïnstalleerd.",
-                    "action": "Laten verwijderen",
+                    "location": "Keuken",
+                    "executedBy": "Aannemer",
+                    "description": "Nieuwe keukenapparatuur geïnstalleerd",
+                    "action": "Accepteren",
                     "comments": ""
                 }
             ]
@@ -180,10 +180,10 @@
                     "costIndication": "500-1000"
                 },
                 {
-                    "location": "Hal",
-                    "kind": "Schilderwerk",
+                    "location": "Begane grond",
+                    "kind": "Beglazing",
                     "urgent": "Nee",
-                    "costIndication": "0-500"
+                    "costIndication": "1500+"
                 }
             ],
             "technicalInstallations": [
@@ -209,56 +209,6 @@
         },
         {
             "id": 4,
-            "address": "Dorpsstraat 8",
-            "city": "Utrecht",
-            "dateOfInspection": "2023-10-08",
-            "completed": "Ja",
-            "damages": [],
-            "deferredMaintenance": [
-                {
-                    "location": "Hoofdslaapkamer",
-                    "kind": "Schilderwerk",
-                    "urgent": "Nee",
-                    "costIndication": "0-500"
-                },
-                {
-                    "location": "Begane grond",
-                    "kind": "Beglazing",
-                    "urgent": "Nee",
-                    "costIndication": "1500+"
-                }
-            ],
-            "technicalInstallations": [
-                {
-                    "location": "Gehele woning",
-                    "kind": "Elektra",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "Ja",
-                    "comments": ""
-                }
-            ],
-            "modifications": [
-                {
-                    "documentedSituation": "",
-                    "location": "Ramen buitenzijde",
-                    "executedBy": "Huurder",
-                    "description": "Solar screens geplaatst",
-                    "action": "Accepteren",
-                    "comments": ""
-                },
-                {
-                    "documentedSituation": "",
-                    "location": "Keuken",
-                    "executedBy": "Aannemer",
-                    "description": "Nieuwe keukenapparatuur geïnstalleerd",
-                    "action": "Accepteren",
-                    "comments": ""
-                }
-            ]
-        },
-        {
-            "id": 5,
             "address": "Ringbaan Zuid 25",
             "city": "Tilburg",
             "dateOfInspection": "",
@@ -294,7 +244,7 @@
             "modifications": []
         },
         {
-            "id": 6,
+            "id": 5,
             "address": "Heuvelring 18",
             "city": "Tilburg",
             "dateOfInspection": "",
