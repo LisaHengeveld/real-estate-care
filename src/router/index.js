@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '../views/DashboardView.vue'
 import InformationView from '../views/InformationView.vue'
 import InspectionsList from '../components/InspectionsList.vue'
-import InspectionDetails from '../components/InspectionDetails.vue'
+import InspectionForm from '../components/InspectionForm.vue'
 import KnowledgeBase from '../components/KnowledgeBase.vue'
 import TestProcedures from '../components/TestProcedures.vue'
 import DocumentationModifications from '../components/DocumentationModifications.vue'
@@ -20,14 +20,14 @@ const routes = [
     component: InformationView
   },
   {
-    path: '/inspectierapporten',
+    path: '/inspectierapporten/:type',
     name: 'inspectierapporten',
     component: InspectionsList
   },
   {
-    path: '/inspectiedetails/:id/:city/:address',
-    name: 'inspectiedetails',
-    component: InspectionDetails
+    path: '/inspectieformulier/:id/:city/:address',
+    name: 'inspectieformulier',
+    component: InspectionForm
   },
   {
     path: '/kennisbase',

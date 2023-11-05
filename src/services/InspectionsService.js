@@ -67,16 +67,13 @@ export default {
                 insp.address,
                 insp.city,
                 insp.dateOfInspection,
+                insp.completed,
+                insp.requiredTasks,
                 damages,
                 deferredMaintenance,
                 technicalInstallations,
                 modifications
             );
-            });
-
-            // Sort by date
-            inspectionsData.sort((a, b) => {
-            return new Date(b.dateOfInspection) - new Date(a.dateOfInspection);
             });
             
             return inspectionsData;

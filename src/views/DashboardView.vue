@@ -55,12 +55,24 @@ export default {
         }
     },
     methods: {
+        // Navigation for the buttons for main functions
         navigateTo(itemValue) {
             switch(itemValue) {
                 case 0:
+                    this.$router.push({
+                        name: 'inspectierapporten',
+                        params: {
+                            type: "toegewezen"
+                        }
+                    });
                     break;
                 case 1:
-                    this.$router.push('/inspectierapporten');
+                    this.$router.push({
+                        name: 'inspectierapporten',
+                        params: {
+                            type: "uitgevoerd"
+                        }
+                    });
                     break;
                 case 2:
                     this.$router.push('/kennisbase');

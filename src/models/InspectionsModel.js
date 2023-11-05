@@ -1,10 +1,12 @@
 // Classes for the data structure in the JSON database
 class Inspections {
-    constructor(id, address, city, dateOfInspection, damages, deferredMaintenance, technicalInstallations, modifications) {
+    constructor(id, address, city, dateOfInspection, completed, requiredTasks, damages, deferredMaintenance, technicalInstallations, modifications) {
         this.id = id;
         this.address = address;
         this.city = city;
         this.dateOfInspection = dateOfInspection;
+        this.completed = completed;
+        this.requiredTasks = requiredTasks;
         this.damages = damages || [];
         this.deferredMaintenance = deferredMaintenance || [];
         this.technicalInstallations = technicalInstallations || [];
