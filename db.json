@@ -5,7 +5,8 @@
             "address": "Bredeweg 14",
             "city": "Amsterdam",
             "dateOfInspection": "2023-10-10",
-            "completed": "Ja",
+            "completed": true,
+            "requiredTasks": ["damages", "technicalInstallations"],
             "damages": [
                 {
                     "location": "Keuken",
@@ -24,7 +25,14 @@
                     "description": "Tegels in de badkamer vertonen tekenen van slijtage en moeten worden vervangen."
                 }
             ],
-            "deferredMaintenance": [],
+            "deferredMaintenance": [
+                {
+                    "location": "Keuken",
+                    "kind": "Elektra",
+                    "urgent": "Ja",
+                    "costIndication": "500-1000"
+                }
+            ],
             "technicalInstallations": [
                 {
                     "location": "Bovenverdieping",
@@ -41,14 +49,6 @@
                     "testProcedure": "",
                     "approved": "Ja",
                     "comments": ""
-                },
-                {
-                    "location": "Gehele woning",
-                    "kind": "Elektra",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "Ja",
-                    "comments": ""
                 }
             ],
             "modifications": []
@@ -58,7 +58,8 @@
             "address": "Wilhelminastraat 25",
             "city": "Den Haag",
             "dateOfInspection": "2023-10-16",
-            "completed": "Ja",
+            "completed": true,
+            "requiredTasks": ["deferredMaintenance", "technicalInstallations"],
             "damages": [],
             "deferredMaintenance": [
                 {
@@ -109,7 +110,8 @@
             "address": "Singel 28",
             "city": "Amsterdam",
             "dateOfInspection": "2023-10-13",
-            "completed": "Ja",
+            "completed": true,
+            "requiredTasks": ["damages", "modifications"],
             "damages": [
                 {
                     "location": "Badkamer",
@@ -121,24 +123,7 @@
                 }
             ],
             "deferredMaintenance": [],
-            "technicalInstallations": [
-                {
-                    "location": "Gehele woning",
-                    "kind": "Verwarming",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "Ja",
-                    "comments": ""
-                },
-                {
-                    "location": "Gehele woning",
-                    "kind": "Elektra",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "Ja",
-                    "comments": ""
-                }
-            ],
+            "technicalInstallations": [],
             "modifications": [
                 {
                     "documentedSituation": "",
@@ -147,56 +132,7 @@
                     "description": "Nieuwe keukenapparatuur geïnstalleerd",
                     "action": "Accepteren",
                     "comments": ""
-                }
-            ]
-        },
-        {
-            "id": 3,
-            "address": "Molenstraat 2",
-            "city": "Rotterdam",
-            "dateOfInspection": "2023-10-04",
-            "completed": "Ja",
-            "damages": [
-                {
-                    "location": "Woonkamer",
-                    "newDamage": "Ja",
-                    "kind": "Slijtage",
-                    "date": "2023-08-25",
-                    "urgent": "Nee",
-                    "description": "Er is een kleine barst in de muur van de woonkamer die herstel vereist."
-                }
-            ],
-            "deferredMaintenance": [
-                {
-                    "location": "Woonkamer",
-                    "kind": "Schilderwerk",
-                    "urgent": "Nee",
-                    "costIndication": "0-500"
                 },
-                {
-                    "location": "Keuken",
-                    "kind": "Elektra",
-                    "urgent": "Ja",
-                    "costIndication": "500-1000"
-                },
-                {
-                    "location": "Begane grond",
-                    "kind": "Beglazing",
-                    "urgent": "Nee",
-                    "costIndication": "1500+"
-                }
-            ],
-            "technicalInstallations": [
-                {
-                    "location": "Gehele woning",
-                    "kind": "Verwarming",
-                    "reportedMalfunctions": "",
-                    "testProcedure": "",
-                    "approved": "Ja",
-                    "comments": ""
-                }
-            ],
-            "modifications": [
                 {
                     "documentedSituation": "",
                     "location": "Benedenverdieping",
@@ -208,29 +144,14 @@
             ]
         },
         {
-            "id": 4,
+            "id": 3,
             "address": "Ringbaan Zuid 25",
             "city": "Tilburg",
             "dateOfInspection": "",
-            "completed": "Nee",
-            "damages": [
-                {
-                    "location": "",
-                    "newDamage": "",
-                    "kind": "",
-                    "date": "",
-                    "urgent": "",
-                    "description": ""
-                }
-            ],
-            "deferredMaintenance": [
-                {
-                    "location": "",
-                    "kind": "",
-                    "urgent": "",
-                    "costIndication": ""
-                }
-            ],
+            "completed": false,
+            "requiredTasks": ["damages", "deferredMaintenance", "technicalInstallations"],
+            "damages": [],
+            "deferredMaintenance": [],
             "technicalInstallations": [
                 {
                     "location": "Gehele woning",
@@ -244,33 +165,16 @@
             "modifications": []
         },
         {
-            "id": 5,
+            "id": 4,
             "address": "Heuvelring 18",
             "city": "Tilburg",
             "dateOfInspection": "",
-            "completed": "Nee",
-            "damages": [
-                {
-                    "location": "",
-                    "newDamage": "",
-                    "kind": "",
-                    "date": "",
-                    "urgent": "",
-                    "description": ""
-                }
-            ],
+            "completed": false,
+            "requiredTasks": ["damages", "modifications"],
+            "damages": [],
             "deferredMaintenance": [],
             "technicalInstallations": [],
-            "modifications": [
-                {
-                    "documentedSituation": "",
-                    "location": "",
-                    "executedBy": "",
-                    "description": "",
-                    "action": "",
-                    "comments": ""
-                }
-            ]
+            "modifications": []
         }   
     ]
 }
