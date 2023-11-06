@@ -1,38 +1,19 @@
 <template>
   <div v-if="inspection">
     <!-- Show dialog with required tasks when inspection is started -->
-    <v-dialog
-      v-if="inspection.completed === false"
-      v-model="dialog"
-      width="auto"
-    >
-      <v-card>
-        <v-card-title>
-          Start inspectie
-        </v-card-title>
-        <v-card-text>
-          <p>U gaat nu beginnen aan de inspectie aan de {{ address }} te {{ city }}.</p>
-          <p>Het doel van deze inspectie is: <span class="text-primary">{{ requiredTasks }}</span></p>
-          <p>Let op: Het is altijd mogelijk om extra onderdelen toe te voegen via het plusteken aan de rechterkant.</p>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" @click="closeDialog">Sluiten</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <inspection-form-intro v-if="inspection.completed === false" :address="address" :city="city" :requiredTasks="inspection.requiredTasks"/>
 
     <!-- Title -->
     <div class="mx-4 mt-9 pt-4 text-h5 text-primary">
       {{ address }}, {{ city }}
     </div>
-    <div 
+    <div
       v-if="inspection.completed === false"
       class="ml-4 mb-6 text-subtitle-1 text-primary"
     >
       Geplande inspectiedatum: {{ inspection.dateOfInspection }}
     </div>
-    <div 
+    <div
       v-if="inspection.completed === true"
       class="ml-4 mb-6 text-subtitle-1 text-primary"
     >
@@ -53,13 +34,9 @@
       ></v-icon>
 
       <!-- Button for adding new damage (yet to be implemented) -->
-      <v-btn
-        icon="mdi-plus"
-        size="compact"
-        variant="plain"
-      ></v-btn>
+      <v-btn icon="mdi-plus" size="compact" variant="plain"></v-btn>
     </div>
-    
+
     <v-expansion-panels variant="accordion">
       <v-expansion-panel
         v-for="(damage, index) in inspection.damages"
@@ -67,7 +44,6 @@
         :key="index"
         :value="index"
       >
-        
         <!-- Damage item -->
         <v-expansion-panel-title>
           <div>{{ damage.location }} - {{ damage.kind }}</div>
@@ -85,7 +61,8 @@
 
         <!-- Form with details -->
         <v-expansion-panel-text>
-          <inspection-form-damages :damage="damage" /> <!-- Send relevent data to form -->
+          <inspection-form-damages :damage="damage" />
+          <!-- Send relevent data to form -->
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -121,7 +98,6 @@
         :key="index"
         :value="index"
       >
-
         <!-- Deferred maintenance item -->
         <v-expansion-panel-title>
           <div>{{ maintenance.location }} - {{ maintenance.kind }}</div>
@@ -139,7 +115,8 @@
 
         <!-- Form with details -->
         <v-expansion-panel-text>
-          <inspection-form-maintenances :maintenance="maintenance"/> <!-- Send relevent data to form -->
+          <inspection-form-maintenances :maintenance="maintenance" />
+          <!-- Send relevent data to form -->
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -175,7 +152,6 @@
         :key="index"
         :value="index"
       >
-
         <!-- Technical installation item -->
         <v-expansion-panel-title>
           <div>{{ installation.location }} - {{ installation.kind }}</div>
@@ -183,7 +159,10 @@
 
         <!-- Form with details -->
         <v-expansion-panel-text>
-          <inspection-form-technical-installations :installation="installation"/> <!-- Send relevent data to form -->
+          <inspection-form-technical-installations
+            :installation="installation"
+          />
+          <!-- Send relevent data to form -->
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -219,7 +198,6 @@
         :key="index"
         :value="index"
       >
-
         <!-- Modification item -->
         <v-expansion-panel-title>
           <div>{{ modification.location }}</div>
@@ -227,7 +205,8 @@
 
         <!-- Form with details -->
         <v-expansion-panel-text>
-          <inspection-form-modifications :modification="modification" /> <!-- Send relevent data to form -->
+          <inspection-form-modifications :modification="modification" />
+          <!-- Send relevent data to form -->
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -237,69 +216,35 @@
 </template>
 
 <script>
+import InspectionFormIntro from "@/components/InspectionFormIntro.vue";
 import InspectionFormDamages from "@/components/InspectionFormDamages.vue";
 import InspectionFormMaintenances from "@/components/InspectionFormDeferredMaintenances.vue";
 import InspectionFormTechnicalInstallations from "@/components/InspectionFormTechnicalInstallations.vue";
 import InspectionFormModifications from "@/components/InspectionFormModifications.vue";
 
 export default {
-  data() {
-    return {
-      dialog: false,
-    }
-  },
-  mounted() {
-    // Show dialog with required tasks when inspection is started
-    this.dialog = true;
-  },
   created() {
     this.id = this.$route.params.id;
     this.city = this.$route.params.city;
     this.address = this.$route.params.address;
   },
-  methods: {
-    closeDialog() {
-      this.dialog = false;
-    },
-  },
   components: {
+    InspectionFormIntro,
     InspectionFormDamages,
     InspectionFormMaintenances,
     InspectionFormTechnicalInstallations,
-    InspectionFormModifications
+    InspectionFormModifications,
   },
   computed: {
     // Get requested inspection data
     inspection() {
       return this.$store.getters.getInspection(this.id);
     },
-
-    // Get translated array of required tasks
-    requiredTasks() {
-      const translatedTasks = this.inspection.requiredTasks.map(task => {
-        switch(task) {
-          case "damages":
-            task = "schade opnemen";
-            break;
-          case "deferredMaintenance":
-            task = "controleren op achterstallig onderhoud";
-            break;
-          case "technicalInstallations":
-            task = "technische installaties keuren";
-            break;
-          case "modifications":
-            task = "controleren op modificaties";
-        }
-        return task;
-      });
-
-      return translatedTasks.join(", ");
-    }
   },
 };
 </script>
 
-<style>
+<style scoped>
 .inspection-header {
   display: flex;
   color: white;
