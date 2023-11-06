@@ -1,7 +1,12 @@
 <template>
   <div v-if="inspection">
     <!-- Show dialog with required tasks when inspection is started -->
-    <inspection-form-intro v-if="inspection.completed === false" :address="address" :city="city" :requiredTasks="inspection.requiredTasks"/>
+    <inspection-form-intro
+      v-if="inspection.completed === false"
+      :address="address"
+      :city="city"
+      :requiredTasks="inspection.requiredTasks"
+    />
 
     <!-- Title -->
     <div class="mx-4 mt-9 pt-4 text-h5 text-primary">
@@ -33,8 +38,13 @@
         color="white"
       ></v-icon>
 
-      <!-- Button for adding new damage (yet to be implemented) -->
-      <v-btn icon="mdi-plus" size="compact" variant="plain"></v-btn>
+      <!-- Button for adding new damage -->
+      <v-btn
+        @click="addForm(inspection.damages)"
+        icon="mdi-plus"
+        size="compact"
+        variant="text"
+      ></v-btn>
     </div>
 
     <v-expansion-panels variant="accordion">
@@ -46,7 +56,8 @@
       >
         <!-- Damage item -->
         <v-expansion-panel-title>
-          <div>{{ damage.location }} - {{ damage.kind }}</div>
+          <div v-if="damage.location && damage.kind">{{ damage.location }} - {{ damage.kind }}</div>
+          <div v-else class="text-grey-lighten-1">Voer in...</div>
           <v-spacer></v-spacer>
           <v-chip
             v-if="damage.urgent === 'Ja'"
@@ -82,12 +93,13 @@
         color="white"
       ></v-icon>
 
-      <!-- Button for adding new maintenance (yet to be implemented) -->
+      <!-- Button for adding new maintenance -->
       <v-btn
+        @click="addForm(inspection.deferredMaintenance)"
         class="ml-auto"
         icon="mdi-plus"
         size="compact"
-        variant="plain"
+        variant="text"
       ></v-btn>
     </div>
 
@@ -100,7 +112,8 @@
       >
         <!-- Deferred maintenance item -->
         <v-expansion-panel-title>
-          <div>{{ maintenance.location }} - {{ maintenance.kind }}</div>
+          <div v-if="maintenance.location && maintenance.kind">{{ maintenance.location }} - {{ maintenance.kind }}</div>
+          <div v-else class="text-grey-lighten-1">Voer in...</div>
           <v-spacer></v-spacer>
           <v-chip
             v-if="maintenance.urgent === 'Ja'"
@@ -136,12 +149,13 @@
         color="white"
       ></v-icon>
 
-      <!-- Button for adding new installation (yet to be implemented) -->
+      <!-- Button for adding new installation -->
       <v-btn
+        @click="addForm(inspection.technicalInstallations)"
         class="ml-auto"
         icon="mdi-plus"
         size="compact"
-        variant="plain"
+        variant="text"
       ></v-btn>
     </div>
 
@@ -154,7 +168,8 @@
       >
         <!-- Technical installation item -->
         <v-expansion-panel-title>
-          <div>{{ installation.location }} - {{ installation.kind }}</div>
+          <div v-if="installation.location && installation.kind">{{ installation.location }} - {{ installation.kind }}</div>
+          <div v-else class="text-grey-lighten-1">Voer in...</div>
         </v-expansion-panel-title>
 
         <!-- Form with details -->
@@ -182,12 +197,13 @@
         color="white"
       ></v-icon>
 
-      <!-- Button for adding new modification (yet to be implemented) -->
+      <!-- Button for adding new modification -->
       <v-btn
+        @click="addForm(inspection.modifications)"
         class="ml-auto"
         icon="mdi-plus"
         size="compact"
-        variant="plain"
+        variant="text"
       ></v-btn>
     </div>
 
@@ -200,7 +216,8 @@
       >
         <!-- Modification item -->
         <v-expansion-panel-title>
-          <div>{{ modification.location }}</div>
+          <div v-if="modification.location">{{ modification.location }}</div>
+          <div v-else class="text-grey-lighten-1">Voer in...</div>
         </v-expansion-panel-title>
 
         <!-- Form with details -->
@@ -241,6 +258,11 @@ export default {
       return this.$store.getters.getInspection(this.id);
     },
   },
+  methods: {
+    addForm(task) {
+      task.push({});
+    }
+  }
 };
 </script>
 

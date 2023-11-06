@@ -1,5 +1,5 @@
 <template>
-    <v-form class="pt-2" @submit.prevent="submitForm" disabled>
+    <v-form class="pt-2" @submit.prevent="submitForm">
   
       <!-- Textfield for location installation -->
       <v-text-field
@@ -71,7 +71,6 @@
           class="me-4"
           type="submit"
           color="primary"
-          disabled
       > 
           Opslaan
       </v-btn>

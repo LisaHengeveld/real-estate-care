@@ -2,7 +2,6 @@
     <v-form
       class="pt-2"
       @submit.prevent="submitForm"
-      disabled
     >
     
       <!-- Textfield for link to docs on current state and modifications -->
@@ -74,7 +73,6 @@
           class="me-4"
           type="submit"
           color="primary"
-          disabled
       > 
           Opslaan
       </v-btn>
