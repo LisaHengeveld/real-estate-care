@@ -26,216 +26,78 @@
     </div>
 
     <!-- List of damages -->
-    <div class="inspection-header">
-      <span>Schade</span>
-      <v-spacer></v-spacer>
+    <inspection-form-task
+      :title="'Schade'"
+      :requiredTask="inspection.requiredTasks.includes('damages')"
+      :taskItems="inspection.damages"
+    >
+      <template v-slot="{ index }">
+        <inspection-form-damages
+        :inspectionId="inspection.id"
+        :index="index" />
+      </template>
+    </inspection-form-task>
 
-      <!-- Show chip if checking for damages is a required task in this inspection -->
-      <v-icon
-        v-if="inspection.requiredTasks.includes('damages')"
-        class="mx-2"
-        icon="mdi-alert-octagon"
-        color="white"
-      ></v-icon>
-
-      <!-- Button for adding new damage -->
-      <v-btn
-        @click="addForm(inspection.damages)"
-        icon="mdi-plus"
-        size="compact"
-        variant="text"
-      ></v-btn>
-    </div>
-
-    <v-expansion-panels variant="accordion">
-      <v-expansion-panel
-        v-for="(damage, index) in inspection.damages"
-        justify="space-between"
-        :key="index"
-        :value="index"
-      >
-        <!-- Damage item -->
-        <v-expansion-panel-title>
-          <div v-if="damage.location && damage.kind">{{ damage.location }} - {{ damage.kind }}</div>
-          <div v-else class="text-grey-lighten-1">Voer in...</div>
-          <v-spacer></v-spacer>
-          <v-chip
-            v-if="damage.urgent === 'Ja'"
-            class="mr-5"
-            density="compact"
-            color="red"
-            text-color="white"
-          >
-            acute actie
-          </v-chip>
-        </v-expansion-panel-title>
-
-        <!-- Form with details -->
-        <v-expansion-panel-text>
-          <inspection-form-damages :damage="damage" />
-          <!-- Send relevent data to form -->
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-    </v-expansion-panels>
-
-    <v-divider></v-divider>
-
-    <!-- List of deferred maintenances -->
-    <div class="inspection-header">
-      <span>Achterstallig onderhoud</span>
-      <v-spacer></v-spacer>
-
-      <!-- Show exclamation mark if checking for deferred maintences is a required task in this inspection -->
-      <v-icon
-        v-if="inspection.requiredTasks.includes('deferredMaintenance')"
-        class="mx-2"
-        icon="mdi-alert-octagon"
-        color="white"
-      ></v-icon>
-
-      <!-- Button for adding new maintenance -->
-      <v-btn
-        @click="addForm(inspection.deferredMaintenance)"
-        class="ml-auto"
-        icon="mdi-plus"
-        size="compact"
-        variant="text"
-      ></v-btn>
-    </div>
-
-    <v-expansion-panels variant="accordion">
-      <v-expansion-panel
-        v-for="(maintenance, index) in inspection.deferredMaintenance"
-        justify="space-between"
-        :key="index"
-        :value="index"
-      >
-        <!-- Deferred maintenance item -->
-        <v-expansion-panel-title>
-          <div v-if="maintenance.location && maintenance.kind">{{ maintenance.location }} - {{ maintenance.kind }}</div>
-          <div v-else class="text-grey-lighten-1">Voer in...</div>
-          <v-spacer></v-spacer>
-          <v-chip
-            v-if="maintenance.urgent === 'Ja'"
-            class="mr-5"
-            density="compact"
-            color="red"
-            text-color="white"
-          >
-            acute actie
-          </v-chip>
-        </v-expansion-panel-title>
-
-        <!-- Form with details -->
-        <v-expansion-panel-text>
-          <inspection-form-maintenances :maintenance="maintenance" />
-          <!-- Send relevent data to form -->
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-    </v-expansion-panels>
-
-    <v-divider></v-divider>
+    <!-- List of deferred maintenance -->
+    <inspection-form-task
+      :title="'Achterstallig onderhoud'"
+      :requiredTask="inspection.requiredTasks.includes('deferredMaintenance')"
+      :taskItems="inspection.deferredMaintenance"
+    >
+      <template v-slot="{ index }">
+        <inspection-form-deferred-maintenance
+        :inspectionId="inspection.id"
+        :index="index" />
+      </template>
+    </inspection-form-task>
 
     <!-- List of technical installations -->
-    <div class="inspection-header">
-      <span>Technische installaties</span>
-      <v-spacer></v-spacer>
-
-      <!-- Show exclamation mark if the checkup for technical installations is a required task in this inspection -->
-      <v-icon
-        v-if="inspection.requiredTasks.includes('technicalInstallations')"
-        class="mx-2"
-        icon="mdi-alert-octagon"
-        color="white"
-      ></v-icon>
-
-      <!-- Button for adding new installation -->
-      <v-btn
-        @click="addForm(inspection.technicalInstallations)"
-        class="ml-auto"
-        icon="mdi-plus"
-        size="compact"
-        variant="text"
-      ></v-btn>
-    </div>
-
-    <v-expansion-panels variant="accordion">
-      <v-expansion-panel
-        v-for="(installation, index) in inspection.technicalInstallations"
-        justify="space-between"
-        :key="index"
-        :value="index"
-      >
-        <!-- Technical installation item -->
-        <v-expansion-panel-title>
-          <div v-if="installation.location && installation.kind">{{ installation.location }} - {{ installation.kind }}</div>
-          <div v-else class="text-grey-lighten-1">Voer in...</div>
-        </v-expansion-panel-title>
-
-        <!-- Form with details -->
-        <v-expansion-panel-text>
-          <inspection-form-technical-installations
-            :installation="installation"
-          />
-          <!-- Send relevent data to form -->
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-    </v-expansion-panels>
-
-    <v-divider></v-divider>
+    <inspection-form-task
+      :title="'Technische installaties'"
+      :requiredTask="inspection.requiredTasks.includes('technicalInstallations')"
+      :taskItems="inspection.technicalInstallations"
+    >
+      <template v-slot="{ index }">
+        <inspection-form-technical-installations
+        :inspectionId="inspection.id"
+        :index="index" />
+      </template>
+    </inspection-form-task>
 
     <!-- List of modifications -->
-    <div class="inspection-header">
-      <span>Modificaties</span>
-      <v-spacer></v-spacer>
+    <inspection-form-task
+      :title="'Modificaties'"
+      :requiredTask="inspection.requiredTasks.includes('modifications')"
+      :taskItems="inspection.modifications"
+    >
+      <template v-slot="{ index }">
+        <inspection-form-modifications
+        :inspectionId="inspection.id"
+        :index="index" />
+      </template>
+    </inspection-form-task>
 
-      <!-- Show exclamation mark if checking for modifications is a required task in this inspection -->
-      <v-icon
-        v-if="inspection.requiredTasks.includes('modifications')"
-        class="mx-2"
-        icon="mdi-alert-octagon"
-        color="white"
-      ></v-icon>
-
-      <!-- Button for adding new modification -->
+    <!-- Button for finishing the inspection -->
+    <v-container
+    v-if="inspection.completed === false"
+    class="text-center"
+    >
       <v-btn
-        @click="addForm(inspection.modifications)"
-        class="ml-auto"
-        icon="mdi-plus"
-        size="compact"
-        variant="text"
-      ></v-btn>
-    </div>
-
-    <v-expansion-panels>
-      <v-expansion-panel
-        v-for="(modification, index) in inspection.modifications"
-        justify="space-between"
-        :key="index"
-        :value="index"
+      class="mx-auto"
+        prepend-icon="mdi-check-bold"
+        color="secondary"
       >
-        <!-- Modification item -->
-        <v-expansion-panel-title>
-          <div v-if="modification.location">{{ modification.location }}</div>
-          <div v-else class="text-grey-lighten-1">Voer in...</div>
-        </v-expansion-panel-title>
-
-        <!-- Form with details -->
-        <v-expansion-panel-text>
-          <inspection-form-modifications :modification="modification" />
-          <!-- Send relevent data to form -->
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-    </v-expansion-panels>
-
-    <v-divider></v-divider>
+        Voltooi inspectie
+      </v-btn>
+    </v-container>
   </div>
 </template>
 
 <script>
 import InspectionFormIntro from "@/components/InspectionFormIntro.vue";
+import InspectionFormTask from "@/components/InspectionFormTask.vue";
 import InspectionFormDamages from "@/components/InspectionFormDamages.vue";
-import InspectionFormMaintenances from "@/components/InspectionFormDeferredMaintenances.vue";
+import InspectionFormDeferredMaintenance from "@/components/InspectionFormDeferredMaintenance.vue";
 import InspectionFormTechnicalInstallations from "@/components/InspectionFormTechnicalInstallations.vue";
 import InspectionFormModifications from "@/components/InspectionFormModifications.vue";
 
@@ -247,8 +109,9 @@ export default {
   },
   components: {
     InspectionFormIntro,
+    InspectionFormTask,
     InspectionFormDamages,
-    InspectionFormMaintenances,
+    InspectionFormDeferredMaintenance,
     InspectionFormTechnicalInstallations,
     InspectionFormModifications,
   },
@@ -258,25 +121,5 @@ export default {
       return this.$store.getters.getInspection(this.id);
     },
   },
-  methods: {
-    addForm(task) {
-      task.push({});
-    }
-  }
 };
 </script>
-
-<style scoped>
-.inspection-header {
-  display: flex;
-  color: white;
-  background-color: rgb(var(--v-theme-primary));
-  padding: 14px 20px;
-  font-size: large;
-  font-weight: bold;
-}
-
-.v-expansion-panels {
-  z-index: auto;
-}
-</style>

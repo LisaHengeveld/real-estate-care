@@ -28,18 +28,34 @@ export default createStore({
   },
 
   getters: {
-    // Return data of the assigned inspections
+    // Get data of the assigned inspections
     getAssignedInspections: (state) => {
       return state.inspections.filter(insp => insp.completed === false);
     },
-    // Return data of the completed inspections
+    // Get data of the completed inspections
     getCompletedInspections: (state) => {
       return state.inspections.filter(insp => insp.completed === true);
     },
-    // Only return data of the requested inspection
+    // Get data of the requested inspection
     getInspection: (state) => (id) => {
       return state.inspections.find(insp => insp.id === +id);
-    }
+    },
+    // Get damage at the requested index of the requested inspection
+    getDamage: (state) => (id, index) => {
+      return state.inspections.find(insp => insp.id === +id).damages[+index];
+    },
+    // Get deferred maintenance at the requested index of the requested inspection
+    getDeferredMaintenance: (state) => (id, index) => {
+      return state.inspections.find(insp => insp.id === +id).deferredMaintenance[+index];
+    },
+    // Get technical installation at the requested index of the requested inspection
+    getTechnicalInstallation: (state) => (id, index) => {
+      return state.inspections.find(insp => insp.id === +id).technicalInstallations[+index];
+    },
+    // Get modification at the requested index of the requested inspection
+    getModification: (state) => (id, index) => {
+      return state.inspections.find(insp => insp.id === +id).modifications[+index];
+    },
   },
 
   modules: {

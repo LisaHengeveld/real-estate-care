@@ -79,8 +79,19 @@
         class="me-4"
         type="submit"
         color="primary"
+        width="110px"
     > 
         Opslaan
+    </v-btn>
+
+    <!-- Delete form button -->
+    <v-btn
+        class="me-4"
+        color="red-darken-3"
+        width="110px"
+        @click="deleteForm()"
+    > 
+        Verwijder
     </v-btn>
   </v-form>
 </template>
@@ -92,10 +103,22 @@ export default {
       required: value => !!value || 'Veld is verplicht',
     },
   }),
-  props: ["damage"], // Data of relevant damage
+  props: ["inspectionId", "index"],
   methods: {
     submitForm() {
-      // To be implemented
+      // Emit an event to notify the parent component to save this form.
+    },
+    deleteForm() {
+      // Emit an event to notify the parent component to delete this form.
+      // this.$emit('delete-form');
+    }
+  },
+  computed: {
+    // Get data
+    damage() {
+      const data = this.$store.getters.getDamage(this.inspectionId, this.index);
+      console.log(data);
+      return data;
     },
   },
 };

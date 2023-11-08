@@ -74,20 +74,42 @@
       > 
           Opslaan
       </v-btn>
+
+      <!-- Delete form button -->
+      <v-btn
+          class="me-4"
+          color="red-darken-3"
+          width="110px"
+          @click="deleteForm()"
+      > 
+          Verwijder
+      </v-btn>
     </v-form>
   </template>
   
   <script>
   export default {
-  data: () => ({
-    rules: {
-      required: value => !!value || 'Veld is verplicht',
-    },
-  }),
-    props: ["installation"], // Data of relevant damage
+    data: () => ({
+      rules: {
+        required: value => !!value || 'Veld is verplicht',
+      },
+    }),
+    props: ["inspectionId", "index"],
     methods: {
       submitForm() {
         // To be implemented
+      },
+      deleteForm() {
+        // Emit an event to notify the parent component to delete this form.
+        this.$emit('delete-form');
+      }
+    },
+    computed: {
+      // Get data
+      installation() {
+        const data = this.$store.getters.getTechnicalInstallation(this.inspectionId, this.index);
+        console.log(data);
+        return data;
       },
     },
   };

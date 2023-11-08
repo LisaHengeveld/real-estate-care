@@ -62,6 +62,16 @@
       > 
           Opslaan
       </v-btn>
+
+      <!-- Delete form button -->
+      <v-btn
+          class="me-4"
+          color="red-darken-3"
+          width="110px"
+          @click="deleteForm()"
+      > 
+          Verwijder
+      </v-btn>
     </v-form>
   </template>
   
@@ -72,10 +82,21 @@
         required: value => !!value || 'Veld is verplicht',
       },
     }),
-    props: ["maintenance"], // Data of relevant maintenance
+    props: ["inspectionId", "index"],
     methods: {
       submitForm() {
         // To be implemented
+      },
+      deleteForm() {
+        // Emit an event to notify the parent component to delete this form.
+        this.$emit('delete-form');
+      }
+    },
+    computed: {
+      // Get data
+      maintenance() {
+        const data = this.$store.getters.getMaintenance(this.inspectionId, this.index);
+        return data;
       },
     },
   };
