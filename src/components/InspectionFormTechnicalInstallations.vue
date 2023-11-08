@@ -107,9 +107,7 @@
     computed: {
       // Get data
       installation() {
-        const data = this.$store.getters.getTechnicalInstallation(this.inspectionId, this.index);
-        console.log(data);
-        return data;
+        return this.$store.getters.getTechnicalInstallation(this.inspectionId, this.index);
       },
     },
   };

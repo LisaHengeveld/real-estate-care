@@ -110,15 +110,13 @@ export default {
     },
     deleteForm() {
       // Emit an event to notify the parent component to delete this form.
-      // this.$emit('delete-form');
+      this.$emit('delete-form');
     }
   },
   computed: {
     // Get data
     damage() {
-      const data = this.$store.getters.getDamage(this.inspectionId, this.index);
-      console.log(data);
-      return data;
+      return this.$store.getters.getDamage(this.inspectionId, this.index);
     },
   },
 };

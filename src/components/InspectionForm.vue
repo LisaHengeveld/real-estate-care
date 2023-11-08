@@ -30,11 +30,14 @@
       :title="'Schade'"
       :requiredTask="inspection.requiredTasks.includes('damages')"
       :taskItems="inspection.damages"
+      @add-form="addForm(inspection.damages)"
     >
       <template v-slot="{ index }">
         <inspection-form-damages
-        :inspectionId="inspection.id"
-        :index="index" />
+          :inspectionId="inspection.id"
+          :index="index"
+          @delete-form="deleteForm(inspection.damages, index)" 
+        />
       </template>
     </inspection-form-task>
 
@@ -43,11 +46,14 @@
       :title="'Achterstallig onderhoud'"
       :requiredTask="inspection.requiredTasks.includes('deferredMaintenance')"
       :taskItems="inspection.deferredMaintenance"
+      @add-form="addForm(inspection.deferredMaintenance)"
     >
       <template v-slot="{ index }">
         <inspection-form-deferred-maintenance
-        :inspectionId="inspection.id"
-        :index="index" />
+          :inspectionId="inspection.id"
+          :index="index"
+          @delete-form="deleteForm(inspection.deferredMaintenance, index)"
+        />
       </template>
     </inspection-form-task>
 
@@ -56,11 +62,14 @@
       :title="'Technische installaties'"
       :requiredTask="inspection.requiredTasks.includes('technicalInstallations')"
       :taskItems="inspection.technicalInstallations"
+      @add-form="addForm(inspection.technicalInstallations)"
     >
       <template v-slot="{ index }">
         <inspection-form-technical-installations
-        :inspectionId="inspection.id"
-        :index="index" />
+          :inspectionId="inspection.id"
+          :index="index"
+          @delete-form="deleteForm(inspection.technicalInstallations, index)"
+        />
       </template>
     </inspection-form-task>
 
@@ -69,11 +78,14 @@
       :title="'Modificaties'"
       :requiredTask="inspection.requiredTasks.includes('modifications')"
       :taskItems="inspection.modifications"
+      @add-form="addForm(inspection.modifications)"
     >
       <template v-slot="{ index }">
         <inspection-form-modifications
-        :inspectionId="inspection.id"
-        :index="index" />
+          :inspectionId="inspection.id"
+          :index="index"
+          @delete-form="deleteForm(inspection.modifications, index)" 
+        />
       </template>
     </inspection-form-task>
 
@@ -121,5 +133,13 @@ export default {
       return this.$store.getters.getInspection(this.id);
     },
   },
+  methods: {
+    addForm(item) {
+      item.push({});
+    },
+    deleteForm(item, index) {
+      item.splice(index, 1);
+    }
+  }
 };
 </script>

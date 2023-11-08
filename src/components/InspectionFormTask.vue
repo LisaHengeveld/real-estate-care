@@ -32,10 +32,13 @@
             >
                 <!-- Item -->
                 <v-expansion-panel-title>
+                    <!-- Show location and kind as title if available. Otherwise show 'Voer in...' -->
                     <div v-if="item.location && item.kind">{{ item.location }} - {{ item.kind }}</div>
                     <div v-else-if="item.location && !('kind' in item)">{{ item.location }}</div>
                     <div v-else class="text-grey-lighten-1">Voer in...</div>
                     <v-spacer></v-spacer>
+
+                    <!-- Show chip when immediate action is required -->
                     <v-chip
                         v-if="item.urgent === 'Ja'"
                         class="mr-5"
@@ -67,6 +70,12 @@ export default {
         'requiredTask',
         'taskItems'
     ],
+    methods: {
+        addForm() {
+            // Notify parent component to add new form
+            this.$emit('add-form');
+        }
+    }
 }
 </script>
 

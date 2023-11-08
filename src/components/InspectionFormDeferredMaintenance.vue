@@ -95,8 +95,7 @@
     computed: {
       // Get data
       maintenance() {
-        const data = this.$store.getters.getMaintenance(this.inspectionId, this.index);
-        return data;
+        return this.$store.getters.getDeferredMaintenance(this.inspectionId, this.index);
       },
     },
   };

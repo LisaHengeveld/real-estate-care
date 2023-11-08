@@ -109,9 +109,7 @@
     computed: {
     // Get data
     modification() {
-      const data = this.$store.getters.getModification(this.inspectionId, this.index);
-      console.log(data);
-      return data;
+      return this.$store.getters.getModification(this.inspectionId, this.index);
     },
   },
   };
