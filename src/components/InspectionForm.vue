@@ -89,6 +89,13 @@
       </template>
     </inspection-form-task>
 
+    <!-- Confirmation dialog when deleting a form from the database -->
+    <inspection-form-confirmation-dialog
+      v-if="viewDialog === true"
+      @confirmed="handleConfirm"
+      @canceled="handleCancel"
+    />
+
     <!-- Button for finishing the inspection -->
     <v-container
     v-if="inspection.completed === false"
@@ -112,8 +119,16 @@ import InspectionFormDamages from "@/components/InspectionFormDamages.vue";
 import InspectionFormDeferredMaintenance from "@/components/InspectionFormDeferredMaintenance.vue";
 import InspectionFormTechnicalInstallations from "@/components/InspectionFormTechnicalInstallations.vue";
 import InspectionFormModifications from "@/components/InspectionFormModifications.vue";
+import InspectionFormConfirmationDialog from "./InspectionFormConfirmationDialog.vue";
 
 export default {
+  data() {
+    return {
+      viewDialog: false,
+      currentItemToDelete: null,
+      currentIndexToDelete: null
+    }
+  },
   created() {
     this.id = this.$route.params.id;
     this.city = this.$route.params.city;
@@ -126,6 +141,7 @@ export default {
     InspectionFormDeferredMaintenance,
     InspectionFormTechnicalInstallations,
     InspectionFormModifications,
+    InspectionFormConfirmationDialog
   },
   computed: {
     // Get requested inspection data
@@ -138,7 +154,27 @@ export default {
       item.push({});
     },
     deleteForm(item, index) {
-      item.splice(index, 1);
+      if(Object.keys(item[index]).length === 0) {
+        item.splice(index, 1);
+      } else {
+        // Store the current item and index to be deleted after confirmation
+        this.currentItemToDelete = item;
+        this.currentIndexToDelete = index;
+        this.viewDialog = true; // Show the confirmation dialog
+      } 
+    },
+    handleConfirm() {
+      // Perform the delete operation
+      // if (this.currentItemToDelete && this.currentIndexToDelete != null) {
+      //   this.currentItemToDelete.splice(this.currentIndexToDelete, 1);
+      // }
+      console.log('Confirm delete');
+      this.viewDialog = false; // Close the confirmation dialog
+    },
+    handleCancel() {
+      // Close the dialog without deleting anything
+      console.log('Cancel delete');
+      this.viewDialog = false;
     }
   }
 };

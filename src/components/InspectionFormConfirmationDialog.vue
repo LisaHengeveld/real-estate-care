@@ -1,7 +1,7 @@
 <template>
-    <v-dialog 
-        v-model="dialog" 
-        width="auto"
+    <v-dialog
+      v-model="viewDialog"
+      width="auto"
     >
         <v-card>
             <v-card-title>
@@ -20,13 +20,17 @@
 
 <script>
 export default {
+  data () {
+      return {
+        viewDialog: true,
+      }
+    },
   methods: {
     confirm() {
-      this.dialog = false;
-      this.$emit('confirmed', true);
+      this.$emit('confirmed', true); // Emit an event to the parent component
     },
     cancel() {
-      this.dialog = false;
+      this.$emit('canceled', false); // Emit an event to the parent component
     },
   },
 };
