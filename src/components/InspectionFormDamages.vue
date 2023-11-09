@@ -107,6 +107,7 @@ export default {
   methods: {
     submitForm() {
       // Emit an event to notify the parent component to save this form.
+      this.$emit('submit-form');
     },
     deleteForm() {
       // Emit an event to notify the parent component to delete this form.

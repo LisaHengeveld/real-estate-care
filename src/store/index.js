@@ -13,6 +13,12 @@ export default createStore({
     SET_INSPECTIONS(state, payload) {
       state.inspections = payload;
     },
+    UPDATE_INSPECTION(state, { id, updatedInspectionData }) {
+      const index = state.inspections.findIndex(insp => insp.id === id);
+      if (index !== -1) {
+          state.inspections[index] = updatedInspectionData;
+      } 
+    },
   },
 
   actions: {
@@ -22,8 +28,25 @@ export default createStore({
         const inspectionsData = await InspectionsService.fetchData();
         commit('SET_INSPECTIONS', inspectionsData);
       } catch (error) {
-        console.error("Error: ", error);
+        console.error("Error retrieving data: ", error);
       }
+    },
+    // Delete data
+    deleteFormData() {
+
+    },
+    // Save new data
+    async updateInspectionData({ commit }, { id, updatedData }) {
+      try {
+        const updatedInspectionData = await InspectionsService.updateData(id, updatedData);
+        // commit('UPDATE_INSPECTION', { id, updatedInspectionData });
+      } catch (error) {
+        console.error("Error updating data: ", error);
+      }
+    },
+    // Save assigned inspection as completed inspection
+    completeInspection() {
+
     }
   },
 

@@ -79,4 +79,23 @@ export default {
             return inspectionsData;
         });
     },
+
+    // Update data on web API
+    updateData(id, updatedData) {
+        return axios
+        .put(`${this.baseURL}/inspections/${id}`, updatedData)
+        .then(response => {
+            console.log('Update response:', response.data);
+            // return response.data;
+
+            // Introduce a delay
+            return new Promise(resolve => setTimeout(resolve, 5000));
+        }).then(() => {
+            // Immediately fetch the record to see if the update "took place"
+            return axios.get(`${this.baseURL}/inspections/${id}?` + new Date().getTime());
+        }).then(response => {
+            // Log the fetched data to see the update
+            console.log('Fetch Response', response.data);
+        })
+    },
 };

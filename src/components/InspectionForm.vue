@@ -36,6 +36,7 @@
         <inspection-form-damages
           :inspectionId="inspection.id"
           :index="index"
+          @submit-form="submitForm()"
           @delete-form="deleteForm(inspection.damages, index)" 
         />
       </template>
@@ -152,6 +153,11 @@ export default {
   methods: {
     addForm(item) {
       item.push({});
+    },
+    submitForm() {
+      const id = this.inspection.id;
+      const updatedData = this.inspection;
+      this.$store.dispatch('updateInspectionData', { id, updatedData });
     },
     deleteForm(item, index) {
       if(Object.keys(item[index]).length === 0) {
