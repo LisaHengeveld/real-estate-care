@@ -3,6 +3,7 @@
 
     <!-- Tool bar top -->
     <v-app-bar
+      v-if="isLoggedIn"
       class="text-white pl-3 py-3"
       color="primary"
       image="banner.png"
@@ -26,7 +27,10 @@
         </v-tooltip>
       </v-btn>
 
-      <v-btn icon>
+      <v-btn
+        icon
+        @click="handleSignOut"
+      >
         <v-icon>mdi-export</v-icon>
         <v-tooltip
           activator="parent"
@@ -43,7 +47,8 @@
     </v-main>
 
     <!-- Tab bar bottom -->
-    <v-bottom-navigation 
+    <v-bottom-navigation
+      v-if="isLoggedIn"
       :value="currentRouteName"
       :shift="true"
       color="primary"
@@ -62,10 +67,36 @@
   </v-app>
 </template>
 
+<script setup>
+  import { onMounted, ref } from "vue";
+  import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import router from "./router";
+
+  const isLoggedIn = ref(false);
+
+  let auth;
+  onMounted(() => {
+    auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        isLoggedIn.value = true;
+      } else {
+        isLoggedIn.value = false;
+      }
+    });
+  });
+
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      router.push("/inloggen");
+    });
+  };
+</script>
 
 <script>
   export default {
     name: "App",
+
     data() {
       return {
         // Buttons in the bottom navigation

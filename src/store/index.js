@@ -1,5 +1,4 @@
 import { createStore } from 'vuex';
-import { storage } from '@/firebase';
 import InspectionsService from "../services/InspectionsService.js";
 
 export default createStore({
