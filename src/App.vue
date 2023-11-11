@@ -86,8 +86,8 @@
 
   const isLoggedIn = ref(false);
   const store = useStore();
-
   let auth;
+
   onMounted(() => {
     auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -96,6 +96,7 @@
         // Fill the store with the data
         store.dispatch('fetchInspections');
       } else {
+        store.dispatch('unsubscribeInspections');  // Dispatch the action to unsubscribe
         isLoggedIn.value = false;
       }
     });
@@ -103,7 +104,10 @@
 
   const handleSignOut = () => {
     signOut(auth).then(() => {
-      router.push("/inloggen");
+        store.dispatch('unsubscribeInspections'); // Dispatch the action to unsubscribe
+        router.push("/inloggen");
+    }).catch((error) => {
+        console.error("Sign out error:", error);
     });
   };
 </script>

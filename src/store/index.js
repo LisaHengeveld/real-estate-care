@@ -4,6 +4,7 @@ import InspectionsService from "../services/InspectionsService.js";
 export default createStore({
   state: {
     inspections: [], // Data of all completed and assigned inspections
+    unsubscribeInspections: null,
     isLoading: false,
     error: null,
   },
@@ -18,29 +19,44 @@ export default createStore({
     SET_INSPECTIONS(state, payload) {
       state.inspections = payload;
     },
+    SET_UNSUBSCRIBE_INSPECTIONS(state, unsubscribe) {
+      state.unsubscribeInspections = unsubscribe;
+    },
+    CLEAR_UNSUBSCRIBE_INSPECTIONS(state) {
+      state.unsubscribeInspections = null;
+    },
     UPDATE_INSPECTION(state, { id, updatedInspectionData }) {
-      const index = state.inspections.findIndex(insp => insp.id === id);
-      if (index !== -1) {
-          state.inspections[index] = updatedInspectionData;
-      } 
+      // const index = state.inspections.findIndex(insp => insp.id === id);
+      // if (index !== -1) {
+      //     state.inspections[index] = updatedInspectionData;
+      // } 
     },
   },
 
   actions: {
     // Get data of inspections
-    async fetchInspections({ commit }) {
+    fetchInspections({ commit }) {
       commit('SET_LOADING', true); // Start loading
       commit('SET_ERROR', null); // Reset errors
-      try {
-        const inspectionsData = await InspectionsService.fetchData();
-        commit('SET_INSPECTIONS', inspectionsData); // Update state with fetched inspections
-        commit('SET_LOADING', false); // Loading done
-        console.log(inspectionsData);
-        console.log("Data fetched");
-      } catch (error) {
-        commit('SET_ERROR', error); // Handle errors
-        commit('SET_LOADING', false); // Loading done
-        console.error("Error fetching inspections: ", error);
+
+      const unsubscribe = InspectionsService.fetchData(
+        (inspectionsData) => {
+            commit('SET_INSPECTIONS', inspectionsData); // Update state with fetched inspections
+            commit('SET_LOADING', false); // Loading done
+        },
+        (error) => {
+            commit('SET_ERROR', error); // Handle the error
+            commit('SET_LOADING', false);
+        }
+      );
+
+      commit('SET_UNSUBSCRIBE_INSPECTIONS', unsubscribe);
+    },
+    // Unsubscribe from Firestore
+    unsubscribeInspections({ commit, state }) {
+      if (state.unsubscribeInspections) {
+        state.unsubscribeInspections(); // Unsubscribe from Firestore
+        commit('CLEAR_UNSUBSCRIBE_INSPECTIONS'); // Clear the reference
       }
     },
     // Delete data

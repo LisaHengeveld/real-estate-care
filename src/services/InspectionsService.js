@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase";
 import {
   Inspections,
@@ -9,15 +9,10 @@ import {
 } from "../models/InspectionsModel.js";
 
 export default {
-    // Url of web API JSON database
-    baseURL: "https://my-json-server.typicode.com/LisaHengeveld/real-estate-care",
-
-    async fetchData() {
-        try {
-            const querySnapshot = await getDocs(collection(db, "inspections"));
-            let inspectionsData = [];
+    fetchData(callback, onError) {
+        const unsubscribe = onSnapshot(collection(db, "inspections"), (querySnapshot) => {
+            const inspectionsData = [];
             querySnapshot.forEach((insp) => {
-                // console.log(insp.id, " => ", insp.data());
                 const damages = insp.data().damages.map(
                     (damage) =>
                     new Damages(
@@ -73,30 +68,14 @@ export default {
                     technicalInstallations,
                     modifications
                 ));
-
             });
-            return inspectionsData;
-        } catch (error) {
-            console.error("Error retrieving data: ", error);
-        }
+            callback(inspectionsData);
+        }, onError);
+        return unsubscribe;
     },
 
     // Update data on web API
     updateData(id, updatedData) {
-        // return axios
-        // .put(`${this.baseURL}/inspections/${id}`, updatedData)
-        // .then(response => {
-        //     console.log('Update response:', response.data);
-        //     // return response.data;
 
-        //     // Introduce a delay
-        //     return new Promise(resolve => setTimeout(resolve, 5000));
-        // }).then(() => {
-        //     // Immediately fetch the record to see if the update "took place"
-        //     return axios.get(`${this.baseURL}/inspections/${id}?` + new Date().getTime());
-        // }).then(response => {
-        //     // Log the fetched data to see the update
-        //     console.log('Fetch Response', response.data);
-        // })
     },
 };
