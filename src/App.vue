@@ -1,5 +1,16 @@
 <template>
   <v-app>
+    <!-- Loading spinner for when fetching data -->
+    <v-overlay
+      :model-value="loadingSpinner"
+      class="align-center justify-center"
+    >
+      <v-progress-circular
+        color="primary"
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
 
     <!-- Tool bar top -->
     <v-app-bar
@@ -70,9 +81,11 @@
 <script setup>
   import { onMounted, ref } from "vue";
   import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import router from "./router";
+  import { useStore } from "vuex";
+  import router from "./router";
 
   const isLoggedIn = ref(false);
+  const store = useStore();
 
   let auth;
   onMounted(() => {
@@ -80,6 +93,8 @@ import router from "./router";
     onAuthStateChanged(auth, (user) => {
       if (user) {
         isLoggedIn.value = true;
+        // Fill the store with the data
+        store.dispatch('fetchInspections');
       } else {
         isLoggedIn.value = false;
       }
@@ -108,11 +123,10 @@ import router from "./router";
         ]
       };
     },
-    created() {
-        // Fill the store with the data
-        this.$store.dispatch('fetchInspections');
-    },
     computed: {
+      loadingSpinner() {
+        return this.$store.state.isLoading;
+      },
       currentRouteName() {
         return this.$route.name;
       }
