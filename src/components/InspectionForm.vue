@@ -27,6 +27,7 @@
 
     <!-- List of damages -->
     <inspection-form-task
+      ref="inspectionFormTaskRef-damages"
       :title="'Schade'"
       :requiredTask="inspection.requiredTasks.includes('damages')"
       :taskItems="inspection.damages"
@@ -44,6 +45,7 @@
 
     <!-- List of deferred maintenance -->
     <inspection-form-task
+      ref="inspectionFormTaskRef-deferredMaintenance"
       :title="'Achterstallig onderhoud'"
       :requiredTask="inspection.requiredTasks.includes('deferredMaintenance')"
       :taskItems="inspection.deferredMaintenance"
@@ -61,6 +63,7 @@
 
     <!-- List of technical installations -->
     <inspection-form-task
+      ref="inspectionFormTaskRef-technicalInstallations"
       :title="'Technische installaties'"
       :requiredTask="inspection.requiredTasks.includes('technicalInstallations')"
       :taskItems="inspection.technicalInstallations"
@@ -78,6 +81,7 @@
 
     <!-- List of modifications -->
     <inspection-form-task
+      ref="inspectionFormTaskRef-modifications"
       :title="'Modificaties'"
       :requiredTask="inspection.requiredTasks.includes('modifications')"
       :taskItems="inspection.modifications"
@@ -185,11 +189,18 @@ export default {
     addForm(item) {
       item.push({});
     },
+
     async updateData(id, task, formData) {
       this.$store.dispatch('setLoading', true); // Start loading
       const newFormData = JSON.parse(JSON.stringify(formData));
       try {
         await inspectionService.updateInspection(id, task, newFormData); // Update the data
+        // Close panels
+        const refName = `inspectionFormTaskRef-${task}`;
+        if (this.$refs[refName]) {
+          this.$refs[refName].closeAllPanels();
+        }
+
         this.$store.dispatch('setLoading', false); // Loading done
         this.$store.dispatch('showSnackbar', 'Data opgeslagen'); // Show snackbar with confirmation 
       } catch (error) {
@@ -197,6 +208,7 @@ export default {
         this.$store.dispatch('setLoading', false); // Loading done
       }
     },
+
     deleteForm(index, id, task, formData) {
       if(Object.keys(formData[index]).length === 0) {
         formData.splice(index, 1);
@@ -209,12 +221,14 @@ export default {
         this.viewDialogDelete = true; // Show the confirmation dialog
       }
     },
+
     async handleConfirmDelete() {
       this.currentDataToUpdate.splice(this.currentIndexToDelete, 1) // Perform the delete operation
       await this.updateData(this.currentIdToUpdate, this.currentTaskToUpdate, this.currentDataToUpdate); // Update the data with the deleted form
       this.viewDialogDelete = false; // Close the confirmation dialog
       this.$store.dispatch('showSnackbar', 'Data verwijderd'); // Show snackbar with confirmation 
     },
+
     async handleConfirmComplete() {
       this.$store.dispatch('setLoading', true); // Start loading
       await new Promise(resolve => setTimeout(resolve, 1000)); // For a cleaner transition ;)
@@ -230,6 +244,7 @@ export default {
         this.$store.dispatch('setLoading', false); // Loading done
       }
     },
+
     handleCancel() {
       // Close the dialog
       this.viewDialogDelete = false;

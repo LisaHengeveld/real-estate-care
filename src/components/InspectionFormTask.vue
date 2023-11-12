@@ -23,7 +23,7 @@
         </div>
 
         <!-- Container for expansion panels -->
-        <v-expansion-panels variant="accordion">
+        <v-expansion-panels v-model="panel" variant="accordion">
             <v-expansion-panel
                 v-for="(item, index) in taskItems"
                 justify="space-between"
@@ -65,6 +65,11 @@
 
 <script>
 export default {
+    data() {
+      return {
+        panel: null,
+      }
+    },
     props: [
         'title',
         'requiredTask',
@@ -74,6 +79,9 @@ export default {
         addForm() {
             // Notify parent component to add new form
             this.$emit('add-form');
+        },
+        closeAllPanels() {
+            this.panel = null;
         }
     }
 }
