@@ -7,17 +7,21 @@ export default createStore({
     unsubscribeInspections: null,
     isLoading: false,
     error: null,
+    snackbar: {
+      show: false,
+      text: ""
+    }
   },
 
   mutations: {
-    SET_LOADING(state, isLoading) {
-      state.isLoading = isLoading;
+    SET_LOADING(state, loading) {
+      state.isLoading = loading;
     },
-    SET_ERROR(state, error) {
-      state.error = error;
+    SET_ERROR(state, errorMessage) {
+      state.error = errorMessage;
     },
-    SET_INSPECTIONS(state, payload) {
-      state.inspections = payload;
+    SET_INSPECTIONS(state, inspections) {
+      state.inspections = inspections;
     },
     SET_UNSUBSCRIBE_INSPECTIONS(state, unsubscribe) {
       state.unsubscribeInspections = unsubscribe;
@@ -25,12 +29,21 @@ export default createStore({
     CLEAR_UNSUBSCRIBE_INSPECTIONS(state) {
       state.unsubscribeInspections = null;
     },
-    UPDATE_INSPECTION(state, { id, updatedInspectionData }) {
-      // const index = state.inspections.findIndex(insp => insp.id === id);
-      // if (index !== -1) {
-      //     state.inspections[index] = updatedInspectionData;
-      // } 
+    SHOW_SNACKBAR(state, text) {
+      let timeout = 0;
+      // When currently a snackbar is shown, hide it and set a timeout before new one is shown
+      if (state.snackbar.show) {
+        state.snackbar.show = false;
+        timeout = 300;
+      }
+      setTimeout(() => {
+        state.snackbar.show = true;
+        state.snackbar.text = text;
+      }, timeout);
     },
+    HIDE_SNACKBAR(state) {
+      state.snackbar.show = false;
+    }
   },
 
   actions: {
@@ -52,30 +65,12 @@ export default createStore({
 
       commit('SET_UNSUBSCRIBE_INSPECTIONS', unsubscribe);
     },
-    // Unsubscribe from Firestore
-    unsubscribeInspections({ commit, state }) {
-      if (state.unsubscribeInspections) {
-        state.unsubscribeInspections(); // Unsubscribe from Firestore
-        commit('CLEAR_UNSUBSCRIBE_INSPECTIONS'); // Clear the reference
-      }
+    setLoading({ commit }, payload) {
+      commit('SET_LOADING', payload);
     },
-    // Delete data
-    deleteFormData() {
-
+    showSnackbar({ commit }, text) {
+      commit('SHOW_SNACKBAR', text);
     },
-    // Save new data
-    // async updateInspectionData({ commit }, { id, updatedData }) {
-    //   try {
-    //     const updatedInspectionData = await InspectionsService.updateData(id, updatedData);
-    //     // commit('UPDATE_INSPECTION', { id, updatedInspectionData });
-    //   } catch (error) {
-    //     console.error("Error updating data: ", error);
-    //   }
-    // },
-    // Save assigned inspection as completed inspection
-    completeInspection() {
-
-    }
   },
 
   getters: {

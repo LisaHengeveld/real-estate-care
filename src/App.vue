@@ -57,6 +57,9 @@
       <router-view />
     </v-main>
 
+    <!-- Snackbar -->
+    <snackbar />
+
     <!-- Tab bar bottom -->
     <v-bottom-navigation
       v-if="isLoggedIn"
@@ -113,9 +116,11 @@
 </script>
 
 <script>
+import Snackbar from "@/components/Snackbar.vue";
+
   export default {
     name: "App",
-
+    components: { Snackbar },
     data() {
       return {
         // Buttons in the bottom navigation

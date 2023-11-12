@@ -92,10 +92,17 @@
 
     <!-- Confirmation dialog when deleting a form from the database -->
     <inspection-form-confirmation-dialog
-      v-if="viewDialog === true"
-      @confirmed="handleConfirm"
+      v-if="viewDialogDelete === true"
+      @confirmed="handleConfirmDelete"
       @canceled="handleCancel"
-    />
+    >
+      <template #title>
+        <p>Verwijder formulier?</p>
+      </template>   
+        <template #text>
+          <p>Weet u zeker dat u dit formulier wilt verwijderen?</p>
+        </template>  
+    </inspection-form-confirmation-dialog>
 
     <!-- Button for finishing the inspection -->
     <v-container
@@ -103,13 +110,29 @@
     class="text-center"
     >
       <v-btn
-      class="mx-auto"
+        class="mx-auto"
         prepend-icon="mdi-check-bold"
         color="secondary"
+        @click="viewDialogComplete = true"
       >
         Voltooi inspectie
       </v-btn>
     </v-container>
+
+    <!-- Confirmation dialog when completing inspection -->
+    <inspection-form-confirmation-dialog
+      v-if="viewDialogComplete === true"
+      @confirmed="handleConfirmComplete"
+      @canceled="handleCancel"
+    >
+      <template #title>
+        <p>Inspectie voltooien?</p>
+      </template>   
+        <template #text>
+          <p>Weet u zeker dat u de inspectie wilt voltooien?</p>
+          <p>Let op: onopgeslagen wijzigingen gaan verloren.</p>
+        </template>  
+    </inspection-form-confirmation-dialog>
   </div>
 </template>
 
@@ -122,12 +145,15 @@ import InspectionFormTechnicalInstallations from "@/components/InspectionFormTec
 import InspectionFormModifications from "@/components/InspectionFormModifications.vue";
 import InspectionFormConfirmationDialog from "./InspectionFormConfirmationDialog.vue";
 
+import inspectionService from "@/services/InspectionsService.js";
+
 export default {
   data() {
     return {
-      viewDialog: false,
       currentItemToDelete: null,
-      currentIndexToDelete: null
+      currentIndexToDelete: null,
+      viewDialogDelete: false,
+      viewDialogComplete: false,
     }
   },
   created() {
@@ -166,22 +192,36 @@ export default {
         // Store the current item and index to be deleted after confirmation
         this.currentItemToDelete = item;
         this.currentIndexToDelete = index;
-        this.viewDialog = true; // Show the confirmation dialog
+        this.viewDialogDelete = true; // Show the confirmation dialog
       } 
     },
-    handleConfirm() {
+    handleConfirmDelete() {
       // Perform the delete operation
       // if (this.currentItemToDelete && this.currentIndexToDelete != null) {
       //   this.currentItemToDelete.splice(this.currentIndexToDelete, 1);
       // }
-      console.log('Confirm delete');
-      this.viewDialog = false; // Close the confirmation dialog
+      this.viewDialogDelete = false; // Close the confirmation dialog
+    },
+    async handleConfirmComplete() {
+      this.$store.dispatch('setLoading', true); // Start loading
+      await new Promise(resolve => setTimeout(resolve, 1000)); // For a cleaner transition ;)
+      try {
+        this.viewDialogComplete = false;
+        this.$router.push({ name: 'dashboard' }); // Send the user back to the dashboard
+        await inspectionService.completeInspection(this.id); // Set the "completed" field of the inspection to true
+        this.$store.dispatch('setLoading', false); // Loading done
+        this.$store.dispatch('showSnackbar', 'Inspectie voltooid'); // Show snackbar with confirmation
+      } catch (error) {
+        this.viewDialogComplete = false;
+        console.error("Complete inspection error: ", error);
+        this.$store.dispatch('setLoading', false); // Loading done
+      }
     },
     handleCancel() {
-      // Close the dialog without deleting anything
-      console.log('Cancel delete');
-      this.viewDialog = false;
-    }
+      // Close the dialog
+      this.viewDialogDelete = false;
+      this.viewDialogComplete = false;
+    },
   }
 };
 </script>

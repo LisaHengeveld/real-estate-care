@@ -1,4 +1,4 @@
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import {
   Inspections,
@@ -9,6 +9,7 @@ import {
 } from "../models/InspectionsModel.js";
 
 export default {
+    // Fetch data of all inspections
     fetchData(callback, onError) {
         const unsubscribe = onSnapshot(collection(db, "inspections"), (querySnapshot) => {
             const inspectionsData = [];
@@ -74,8 +75,13 @@ export default {
         return unsubscribe;
     },
 
-    // Update data on web API
-    updateData(id, updatedData) {
-
-    },
+    // Complete a inspection
+    async completeInspection(id) {
+        const inspectionRef = doc(db, "inspections", id);
+    
+        // Set the "completed" field of the inspection to true
+        await updateDoc(inspectionRef, {
+          completed: true
+        });	
+    }
 };

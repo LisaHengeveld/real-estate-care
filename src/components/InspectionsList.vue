@@ -1,7 +1,6 @@
 <template>
-    <div>
-
-        <!-- List of all completed inspections -->
+    <div class="fill-height">
+        <!-- List of all inspections -->
         <v-list 
             v-if="inspections.length"
             class="mt-10"
@@ -28,6 +27,16 @@
                 <v-divider></v-divider>
             </div>
         </v-list>
+
+        <!-- Fallback for when there are no inspections to be listed -->
+        <v-container v-else class="no-inspections fill-height" fluid>
+            <v-row justify="center" align="center" class="fill-height">
+                <div class="text-center">
+                    <v-icon color="primary" size="80">mdi-home-search</v-icon>
+                    <div class="text-h5 text-primary">Geen geplande inspecties</div>
+                </div>
+            </v-row>
+        </v-container>
     </div>
 </template>
 
@@ -78,6 +87,19 @@ export default {
   };
 </script>
 
-<style>
+<style scoped>
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 80px);
+  }
 
+  .no-inspections {
+    /* position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); */
+    opacity: 0.5;
+  }
 </style>

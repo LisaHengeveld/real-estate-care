@@ -1,6 +1,6 @@
 <template>
     <!-- Buttons for main functions -->
-    <v-container class="dashboard-btns fill-height">
+    <v-container class="dashboard-btns fill-height" fluid>
         <v-row justify="center">
             <v-btn
                 v-for="item in items"
