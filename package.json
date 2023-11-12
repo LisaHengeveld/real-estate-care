@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
-    "axios": "^1.6.0",
     "core-js": "^3.8.3",
     "firebase": "^10.5.2",
     "roboto-fontface": "*",

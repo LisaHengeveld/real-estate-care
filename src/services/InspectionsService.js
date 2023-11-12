@@ -13,6 +13,7 @@ export default {
     fetchData(callback, onError) {
         const unsubscribe = onSnapshot(collection(db, "inspections"), (querySnapshot) => {
             const inspectionsData = [];
+            // Set data in right format
             querySnapshot.forEach((insp) => {
                 const damages = insp.data().damages.map(
                     (damage) =>
@@ -75,13 +76,26 @@ export default {
         return unsubscribe;
     },
 
-    // Complete a inspection
+    // Update data in an inspection
+    async updateInspection(id, task, formData) {
+        const inspectionRef = doc(db, "inspections", id);
+
+        // Update given task with new data
+        await updateDoc(inspectionRef, {
+            [task]: formData
+        })
+    },
+
+    // Complete an inspection
     async completeInspection(id) {
         const inspectionRef = doc(db, "inspections", id);
-    
+        const dateToday = new Date().toISOString().slice(0, 10);
+
+        // To be sure, update inspection date to today
         // Set the "completed" field of the inspection to true
         await updateDoc(inspectionRef, {
-          completed: true
+            dateOfInspection: dateToday,
+            completed: true
         });	
     }
 };

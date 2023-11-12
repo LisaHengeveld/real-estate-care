@@ -33,7 +33,7 @@
             <v-row justify="center" align="center" class="fill-height">
                 <div class="text-center">
                     <v-icon color="primary" size="80">mdi-home-search</v-icon>
-                    <div class="text-h5 text-primary">Geen geplande inspecties</div>
+                    <div class="text-h5 text-primary">Geen beschikbare inspecties</div>
                 </div>
             </v-row>
         </v-container>

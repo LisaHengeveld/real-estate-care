@@ -36,8 +36,8 @@
         <inspection-form-damages
           :inspectionId="inspection.id"
           :index="index"
-          @submit-form="submitForm()"
-          @delete-form="deleteForm(inspection.damages, index)" 
+          @submit-form="updateData(inspection.id, 'damages', inspection.damages)"
+          @delete-form="deleteForm(index, inspection.id, 'damages', inspection.damages)" 
         />
       </template>
     </inspection-form-task>
@@ -53,7 +53,8 @@
         <inspection-form-deferred-maintenance
           :inspectionId="inspection.id"
           :index="index"
-          @delete-form="deleteForm(inspection.deferredMaintenance, index)"
+          @submit-form="updateData(inspection.id, 'deferredMaintenance', inspection.deferredMaintenance)"
+          @delete-form="deleteForm(index, inspection.id, 'deferredMaintenance', inspection.deferredMaintenance)"
         />
       </template>
     </inspection-form-task>
@@ -69,7 +70,8 @@
         <inspection-form-technical-installations
           :inspectionId="inspection.id"
           :index="index"
-          @delete-form="deleteForm(inspection.technicalInstallations, index)"
+          @submit-form="updateData(inspection.id, 'technicalInstallations', inspection.technicalInstallations)"
+          @delete-form="deleteForm(index, inspection.id, 'technicalInstallations', inspection.technicalInstallations)"
         />
       </template>
     </inspection-form-task>
@@ -85,7 +87,8 @@
         <inspection-form-modifications
           :inspectionId="inspection.id"
           :index="index"
-          @delete-form="deleteForm(inspection.modifications, index)" 
+          @submit-form="updateData(inspection.id, 'modifications', inspection.modifications)"
+          @delete-form="deleteForm(index, inspection.id, 'modifications', inspection.modifications)" 
         />
       </template>
     </inspection-form-task>
@@ -150,8 +153,10 @@ import inspectionService from "@/services/InspectionsService.js";
 export default {
   data() {
     return {
-      currentItemToDelete: null,
       currentIndexToDelete: null,
+      currentIdToUpdate: '',
+      currentTaskToUpdate: '',
+      currentDataToUpdate: null,
       viewDialogDelete: false,
       viewDialogComplete: false,
     }
@@ -180,27 +185,35 @@ export default {
     addForm(item) {
       item.push({});
     },
-    submitForm() {
-      const id = this.inspection.id;
-      const updatedData = this.inspection;
-      this.$store.dispatch('updateInspectionData', { id, updatedData });
+    async updateData(id, task, formData) {
+      this.$store.dispatch('setLoading', true); // Start loading
+      const newFormData = JSON.parse(JSON.stringify(formData));
+      try {
+        await inspectionService.updateInspection(id, task, newFormData); // Update the data
+        this.$store.dispatch('setLoading', false); // Loading done
+        this.$store.dispatch('showSnackbar', 'Data opgeslagen'); // Show snackbar with confirmation 
+      } catch (error) {
+        console.error("Update data: ", error);
+        this.$store.dispatch('setLoading', false); // Loading done
+      }
     },
-    deleteForm(item, index) {
-      if(Object.keys(item[index]).length === 0) {
-        item.splice(index, 1);
+    deleteForm(index, id, task, formData) {
+      if(Object.keys(formData[index]).length === 0) {
+        formData.splice(index, 1);
+        this.$store.dispatch('showSnackbar', 'Formulier verwijderd'); // Show snackbar with confirmation 
       } else {
-        // Store the current item and index to be deleted after confirmation
-        this.currentItemToDelete = item;
         this.currentIndexToDelete = index;
+        this.currentIdToUpdate = id;
+        this.currentTaskToUpdate = task;
+        this.currentDataToUpdate = formData;
         this.viewDialogDelete = true; // Show the confirmation dialog
-      } 
+      }
     },
-    handleConfirmDelete() {
-      // Perform the delete operation
-      // if (this.currentItemToDelete && this.currentIndexToDelete != null) {
-      //   this.currentItemToDelete.splice(this.currentIndexToDelete, 1);
-      // }
+    async handleConfirmDelete() {
+      this.currentDataToUpdate.splice(this.currentIndexToDelete, 1) // Perform the delete operation
+      await this.updateData(this.currentIdToUpdate, this.currentTaskToUpdate, this.currentDataToUpdate); // Update the data with the deleted form
       this.viewDialogDelete = false; // Close the confirmation dialog
+      this.$store.dispatch('showSnackbar', 'Data verwijderd'); // Show snackbar with confirmation 
     },
     async handleConfirmComplete() {
       this.$store.dispatch('setLoading', true); // Start loading
