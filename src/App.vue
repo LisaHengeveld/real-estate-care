@@ -52,6 +52,9 @@
       </v-btn>
     </v-app-bar>
 
+    <!-- Error message -->
+    <error-message />
+
     <!-- Router view -->
     <v-main>
       <router-view />
@@ -110,17 +113,22 @@
         store.dispatch('unsubscribeInspections'); // Dispatch the action to unsubscribe
         router.push("/inloggen");
     }).catch((error) => {
-        console.error("Sign out error:", error);
+        store.commit('SET_ERROR', "Er ging iets mis bij het uitloggen. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
+        console.error("Sign out error: ", error);
     });
   };
 </script>
 
 <script>
 import Snackbar from "@/components/Snackbar.vue";
+import ErrorMessage from "@/components/ErrorMessage.vue";
 
   export default {
     name: "App",
-    components: { Snackbar },
+    components: {
+      Snackbar,
+      ErrorMessage
+    },
     data() {
       return {
         // Buttons in the bottom navigation

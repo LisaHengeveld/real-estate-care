@@ -193,6 +193,7 @@ export default {
     async updateData(id, task, formData) {
       this.$store.dispatch('setLoading', true); // Start loading
       const newFormData = JSON.parse(JSON.stringify(formData));
+      
       try {
         await inspectionService.updateInspection(id, task, newFormData); // Update the data
         // Close panels
@@ -204,7 +205,8 @@ export default {
         this.$store.dispatch('setLoading', false); // Loading done
         this.$store.dispatch('showSnackbar', 'Data opgeslagen.'); // Show snackbar with confirmation 
       } catch (error) {
-        console.error("Update data: ", error);
+        this.$store.commit('SET_ERROR', "Er ging iets mis bij het updaten van de data. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
+        console.error("Update data error: ", error);
         this.$store.dispatch('setLoading', false); // Loading done
       }
     },
@@ -240,6 +242,7 @@ export default {
         this.$store.dispatch('showSnackbar', 'Inspectie voltooid.'); // Show snackbar with confirmation
       } catch (error) {
         this.viewDialogComplete = false;
+        this.$store.commit('SET_ERROR', "Er ging iets mis bij het voltooien van de inspectie. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
         console.error("Complete inspection error: ", error);
         this.$store.dispatch('setLoading', false); // Loading done
       }

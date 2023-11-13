@@ -6,7 +6,10 @@ export default createStore({
     inspections: [], // Data of all completed and assigned inspections
     unsubscribeInspections: null,
     isLoading: false,
-    error: null,
+    errorMessage: {
+      show: false,
+      text: ""
+    },
     snackbar: {
       show: false,
       text: ""
@@ -18,7 +21,11 @@ export default createStore({
       state.isLoading = loading;
     },
     SET_ERROR(state, errorMessage) {
-      state.error = errorMessage;
+      state.errorMessage.text = errorMessage;
+      state.errorMessage.show = true;
+    },
+    HIDE_ERROR(state) {
+      state.errorMessage.show = false;
     },
     SET_INSPECTIONS(state, inspections) {
       state.inspections = inspections;
@@ -50,7 +57,7 @@ export default createStore({
     // Get data of inspections
     fetchInspections({ commit }) {
       commit('SET_LOADING', true); // Start loading
-      commit('SET_ERROR', null); // Reset errors
+      commit('HIDE_ERROR'); // Reset errors
 
       const unsubscribe = InspectionsService.fetchData(
         (inspectionsData) => {
@@ -58,7 +65,8 @@ export default createStore({
             commit('SET_LOADING', false); // Loading done
         },
         (error) => {
-            commit('SET_ERROR', error); // Handle the error
+            commit('SET_ERROR', "Er ging iets mis bij het ophalen van de data. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
+            console.error("Fetching data error: ", error);
             commit('SET_LOADING', false);
         }
       );

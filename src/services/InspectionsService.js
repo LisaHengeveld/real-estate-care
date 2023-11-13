@@ -72,7 +72,10 @@ export default {
                 ));
             });
             callback(inspectionsData);
-        }, onError);
+        }, 
+        (error) => {
+            onError(error);
+        });
         return unsubscribe;
     },
 
