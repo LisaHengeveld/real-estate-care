@@ -1,5 +1,5 @@
 <template>
-    <v-form class="pt-2" @submit.prevent="submitForm">
+    <v-form class="pt-2" ref="formTechnicalInstallationsRef" @submit.prevent="submitForm">
   
       <!-- Textfield for location installation -->
       <v-text-field
@@ -12,6 +12,7 @@
   
       <!-- Select field for kind of installation -->
       <v-select
+        class="mt-2"
         v-model="installation.kind"
         color="primary"
         label="Soort installatie"
@@ -28,6 +29,7 @@
   
       <!-- Textfield for reported malfunctions -->
       <v-text-field
+        class="mt-2"
         v-model="installation.reportedMalfunctions"
         color="primary"
         label="Gemelde storingen"
@@ -36,6 +38,7 @@
 
       <!-- Textfield for link to pdf-file of test procedure -->
       <v-text-field
+        class="mt-2"
         v-model="installation.testProcedure"
         color="primary"
         label="Testprocedure"
@@ -68,7 +71,7 @@
   
       <!-- Submit button -->
       <v-btn
-          class="me-4"
+          class="mt-3 me-4"
           type="submit"
           color="primary"
       > 
@@ -77,7 +80,7 @@
 
       <!-- Delete form button -->
       <v-btn
-          class="me-4"
+          class="mt-3 me-4"
           color="red-darken-3"
           width="110px"
           @click="deleteForm()"
@@ -92,13 +95,19 @@
     data: () => ({
       rules: {
         required: value => !!value || 'Veld is verplicht',
+        formValid: null
       },
     }),
     props: ["inspectionId", "index"],
     methods: {
-      submitForm() {
-        // Emit an event to notify the parent component to save this form.
-        this.$emit('submit-form');
+      async submitForm() {
+        // Validate the form
+        this.formValid = await this.$refs.formTechnicalInstallationsRef.validate();
+        // If the form is valid, proceed with submission
+        if (this.formValid.valid) {
+          // Emit an event to notify the parent component to save this form.
+          this.$emit('submit-form');
+        }
       },
       deleteForm() {
         // Emit an event to notify the parent component to delete this form.

@@ -1,5 +1,5 @@
 <template>
-    <v-form class="pt-2" @submit.prevent="submitForm">
+    <v-form class="pt-2" ref="formDeferredMaintenanceRef" @submit.prevent="submitForm">
   
       <!-- Textfield for location maintenance -->
       <v-text-field
@@ -12,6 +12,7 @@
   
       <!-- Select field for kind of maintenance -->
       <v-select
+        class="mt-2"
         v-model="maintenance.kind"
         color="primary"
         label="Soort onderhoud"
@@ -56,7 +57,7 @@
   
       <!-- Submit button -->
       <v-btn
-          class="me-4"
+          class="mt-3 me-4"
           type="submit"
           color="primary"
       > 
@@ -65,7 +66,7 @@
 
       <!-- Delete form button -->
       <v-btn
-          class="me-4"
+          class="mt-3 me-4"
           color="red-darken-3"
           width="110px"
           @click="deleteForm()"
@@ -81,12 +82,18 @@
       rules: {
         required: value => !!value || 'Veld is verplicht',
       },
+      formValid: null
     }),
     props: ["inspectionId", "index"],
     methods: {
-      submitForm() {
-        // Emit an event to notify the parent component to save this form.
-        this.$emit('submit-form');
+      async submitForm() {
+        // Validate the form
+        this.formValid = await this.$refs.formDeferredMaintenanceRef.validate();
+        // If the form is valid, proceed with submission
+        if (this.formValid.valid) {
+          // Emit an event to notify the parent component to save this form.
+          this.$emit('submit-form');
+        }
       },
       deleteForm() {
         // Emit an event to notify the parent component to delete this form.

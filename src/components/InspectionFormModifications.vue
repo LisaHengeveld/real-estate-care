@@ -1,8 +1,5 @@
 <template>
-    <v-form
-      class="pt-2"
-      @submit.prevent="submitForm"
-    >
+    <v-form class="pt-2" ref="formModificationsRef" @submit.prevent="submitForm">
     
       <!-- Textfield for link to docs on current state and modifications -->
       <v-text-field
@@ -15,6 +12,7 @@
   
       <!-- Textfield for location modification -->
       <v-text-field
+        class="mt-2"
         v-model="modification.location"
         color="primary"
         label="Locatie aangetroffen modificatie"
@@ -24,6 +22,7 @@
   
       <!-- Select field for kind of modification -->
       <v-select
+        class="mt-2"
         v-model="modification.executedBy"
         color="primary"
         label="Uitgevoerd door"
@@ -38,6 +37,7 @@
   
       <!-- Text area for description of modification -->
       <v-textarea
+        class="mt-2"
         v-model="modification.description"
         color="primary"
         label="Omschrijving"
@@ -47,6 +47,7 @@
 
       <!-- Select field for action to be taken -->
       <v-select
+        class="mt-2"
         v-model="modification.action"
         color="primary"
         label="Te ondernemen actie"
@@ -62,6 +63,7 @@
 
       <!-- Text area for comments -->
       <v-textarea
+        class="mt-2"
         v-model="modification.comments"
         color="primary"
         label="Opmerkingen"
@@ -70,7 +72,7 @@
   
       <!-- Submit button -->
       <v-btn
-          class="me-4"
+          class="mt-3 me-4"
           type="submit"
           color="primary"
       > 
@@ -79,7 +81,7 @@
 
       <!-- Delete form button -->
       <v-btn
-          class="me-4"
+          class="mt-3 me-4"
           color="red-darken-3"
           width="110px"
           @click="deleteForm()"
@@ -94,13 +96,19 @@
     data: () => ({
       rules: {
         required: value => !!value || 'Veld is verplicht',
+        formValid: null
       },
     }),
     props: ["inspectionId", "index"],
     methods: {
-      submitForm() {
-        // Emit an event to notify the parent component to save this form.
-        this.$emit('submit-form');
+      async submitForm() {
+        // Validate the form
+        this.formValid = await this.$refs.formModificationsRef.validate();
+        // If the form is valid, proceed with submission
+        if (this.formValid.valid) {
+          // Emit an event to notify the parent component to save this form.
+          this.$emit('submit-form');
+        }
       },
       deleteForm() {
         // Emit an event to notify the parent component to delete this form.

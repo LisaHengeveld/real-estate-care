@@ -202,7 +202,7 @@ export default {
         }
 
         this.$store.dispatch('setLoading', false); // Loading done
-        this.$store.dispatch('showSnackbar', 'Data opgeslagen'); // Show snackbar with confirmation 
+        this.$store.dispatch('showSnackbar', 'Data opgeslagen.'); // Show snackbar with confirmation 
       } catch (error) {
         console.error("Update data: ", error);
         this.$store.dispatch('setLoading', false); // Loading done
@@ -212,7 +212,7 @@ export default {
     deleteForm(index, id, task, formData) {
       if(Object.keys(formData[index]).length === 0) {
         formData.splice(index, 1);
-        this.$store.dispatch('showSnackbar', 'Formulier verwijderd'); // Show snackbar with confirmation 
+        this.$store.dispatch('showSnackbar', 'Formulier verwijderd.'); // Show snackbar with confirmation 
       } else {
         this.currentIndexToDelete = index;
         this.currentIdToUpdate = id;
@@ -226,7 +226,7 @@ export default {
       this.currentDataToUpdate.splice(this.currentIndexToDelete, 1) // Perform the delete operation
       await this.updateData(this.currentIdToUpdate, this.currentTaskToUpdate, this.currentDataToUpdate); // Update the data with the deleted form
       this.viewDialogDelete = false; // Close the confirmation dialog
-      this.$store.dispatch('showSnackbar', 'Data verwijderd'); // Show snackbar with confirmation 
+      this.$store.dispatch('showSnackbar', 'Data verwijderd.'); // Show snackbar with confirmation 
     },
 
     async handleConfirmComplete() {
@@ -237,7 +237,7 @@ export default {
         this.$router.push({ name: 'dashboard' }); // Send the user back to the dashboard
         await inspectionService.completeInspection(this.id); // Set the "completed" field of the inspection to true
         this.$store.dispatch('setLoading', false); // Loading done
-        this.$store.dispatch('showSnackbar', 'Inspectie voltooid'); // Show snackbar with confirmation
+        this.$store.dispatch('showSnackbar', 'Inspectie voltooid.'); // Show snackbar with confirmation
       } catch (error) {
         this.viewDialogComplete = false;
         console.error("Complete inspection error: ", error);

@@ -1,5 +1,5 @@
 <template>
-  <v-form class="pt-2" @submit.prevent="submitForm">
+  <v-form class="pt-2" ref="formDamagesRef" @submit.prevent="submitForm">
 
     <!-- Textfield for location damage -->
     <v-text-field
@@ -43,6 +43,7 @@
 
     <!-- Text field for date of registering damage -->
     <v-text-field
+      class="mt-2"
       v-model="damage.date"
       color="primary"
       label="Datum"
@@ -76,7 +77,7 @@
 
     <!-- Submit button -->
     <v-btn
-        class="me-4"
+        class="mt-3 me-4"
         type="submit"
         color="primary"
         width="110px"
@@ -86,7 +87,7 @@
 
     <!-- Delete form button -->
     <v-btn
-        class="me-4"
+        class="mt-3 me-4"
         color="red-darken-3"
         width="110px"
         @click="deleteForm()"
@@ -102,12 +103,18 @@ export default {
     rules: {
       required: value => !!value || 'Veld is verplicht',
     },
+    formValid: null
   }),
   props: ["inspectionId", "index"],
   methods: {
-    submitForm() {
-      // Emit an event to notify the parent component to save this form.
-      this.$emit('submit-form');
+    async submitForm() {
+      // Validate the form
+      this.formValid = await this.$refs.formDamagesRef.validate();
+      // If the form is valid, proceed with submission
+      if (this.formValid.valid) {
+        // Emit an event to notify the parent component to save this form.
+        this.$emit('submit-form');
+      }
     },
     deleteForm() {
       // Emit an event to notify the parent component to delete this form.
@@ -122,5 +129,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
