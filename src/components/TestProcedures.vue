@@ -1,15 +1,56 @@
 <template>
-  <div class="mx-4 mt-9 pt-4 text-h5 text-primary">
-    Inhoud volgt nog...
-  </div>
+  <v-list
+        class="mt-10"
+        lines="two"
+    >
+        <v-list-subheader class="mb-5 text-h5 text-primary">
+            Testprocedures
+        </v-list-subheader>
+        <v-divider></v-divider>
+
+        <!-- List the pdf's for the test procedures -->
+        <div
+          v-for="(pdf, index) in pdfList"
+          :key="index"
+        >
+          <v-list-item
+            class="pl-5"
+            :value="pdf.name"
+            :title="pdf.name"
+            append-icon="mdi-open-in-new"
+            @click="openNewTab(pdf.url)"
+        >
+        </v-list-item>
+        <v-divider></v-divider>
+        </div>
+    </v-list>  
 </template>
 
 <script>
-export default {
+import FilesService from "@/services/FilesService.js";
 
+export default {
+  data() {
+    return {
+      pdfList: []
+    };
+  },
+  async mounted() {
+    this.$store.dispatch('setLoading', true); // Start loading
+    try {
+      this.pdfList = await FilesService.fetchTestProcedures(); // Fetch the name and donwnload links of the test procedure pdf files
+      this.$store.dispatch('setLoading', false); // Loading done
+    } catch (error) {
+      this.$store.commit('SET_ERROR', "Er ging iets mis bij het ophalen van de bestanden. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
+      console.error("Failed to fetch test procedures: ", err);
+      this.$store.dispatch('setLoading', false); // Loading done
+    }
+  },
+  methods: {
+    openNewTab(url) {
+      // Open pdf in new tab
+      window.open(url, '_blank');
+    }
+  }
 }
 </script>
-
-<style>
-
-</style>
