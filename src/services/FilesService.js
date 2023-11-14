@@ -2,12 +2,12 @@ import { ref, listAll, getDownloadURL  } from "firebase/storage";
 import { storage } from "@/firebase";
 
 export default {
-    // Fetch pdf-files test procedures from Firebase Storage
-    async fetchTestProcedures() {
+    // Fetch the pdf files from the Firebase Storage (in the given directory)
+    async fetchPDFs(directory) {
         const pdfList = [];
-        const listRef = ref(storage, 'Testprocedures');
+        const listRef = ref(storage, directory);
 
-        // Retrieve all items (files) in the 'Testprocedures' directory
+        // Retrieve all items (files) in the directory
         const res = await listAll(listRef);
 
         for (const itemRef of res.items) {

@@ -6,8 +6,7 @@ import InformationView from '../views/InformationView.vue'
 import InspectionsList from '../components/InspectionsList.vue'
 import InspectionForm from '../components/InspectionForm.vue'
 import KnowledgeBase from '../components/KnowledgeBase.vue'
-import TestProcedures from '../components/TestProcedures.vue'
-import DocumentationModifications from '../components/DocumentationModifications.vue'
+import FilesList from '../components/FilesList.vue'
 import { nextTick } from 'vue'
 
 const routes = [
@@ -37,27 +36,14 @@ const routes = [
     component: KnowledgeBase
   },
   {
-    path: '/testprocedures',
-    name: 'testprocedures',
-    component: TestProcedures
-  },
-  {
-    path: '/documentatie-modificaties',
-    name: 'documentatie-modificaties',
-    component: DocumentationModifications
+    path: '/kennisbase/:subject',
+    name: 'files',
+    component: FilesList
   },
   {
     path: '/inloggen',
     name: 'inloggen',
     component: () => import('../views/LoginView.vue'),
-    meta: {
-      requiresAuth: false,
-    }
-  },
-  {
-    path: '/registreren',
-    name: 'registreren',
-    component: () => import('../views/RegisterView.vue'),
     meta: {
       requiresAuth: false,
     }
