@@ -1,14 +1,23 @@
 <template>
     <v-form class="pt-2" ref="formModificationsRef" @submit.prevent="submitForm">
-    
-      <!-- Textfield for link to docs on current state and modifications -->
-      <v-text-field
-        v-model="modification.documentedSituation"
-        color="primary"
-        label="Documenten huidige staat / modificaties"
-        hint="www.example.com/page"
-        variant="outlined"
-      ></v-text-field>
+
+      <!-- Link to pdf-file on current state and modifications -->
+      <div 
+        v-if="documentation"
+        class="mt-2 mb-7 ml-1"
+      >
+        <p>
+          Huidige staat / modificaties:
+          <a href="#" class="text-primary" @click.prevent="openPdf(documentation)">
+            {{ documentation }}
+            <v-icon 
+              class="ml-1" 
+              icon="mdi-open-in-new" 
+              size="x-small"
+            ></v-icon>
+          </a>
+        </p>  
+      </div>
   
       <!-- Textfield for location modification -->
       <v-text-field
@@ -92,6 +101,8 @@
   </template>
   
   <script>
+  import FilesService from "@/services/FilesService.js";
+
   export default {
     data: () => ({
       rules: {
@@ -99,8 +110,20 @@
         formValid: null
       },
     }),
-    props: ["inspectionId", "index"],
+    props: ["inspectionId", "index", "documentation"],
     methods: {
+      // Get file name and download URL of documentation of current building
+      async openPdf(fileName) {
+        if (!fileName) return;
+        try {
+          const directory = "Documentenarchief";
+          const fileData = await FilesService.fetchPDFFile(directory, fileName);
+          window.open(fileData.url, '_blank');
+        } catch (error) {
+          this.$store.commit('SET_ERROR', "Er ging iets mis bij het ophalen van de documentatie. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
+          console.error("Error opening PDF:", error);
+        }
+      },
       async submitForm() {
         // Validate the form
         this.formValid = await this.$refs.formModificationsRef.validate();

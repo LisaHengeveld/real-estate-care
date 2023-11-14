@@ -54,6 +54,7 @@
       </p>  
     </div>
 
+    <!-- Select field if test procedure is not available (for example, when user adds new form) -->
     <div v-else class="no-word-break">
       <v-select
         class="mt-2 mb-3"
@@ -146,7 +147,7 @@
         }
       },
 
-      // Get file names and download URL of test procedure
+      // Get file name and download URL of test procedure
       async openPdf(fileName) {
         try {
           const directory = "Testprocedures";

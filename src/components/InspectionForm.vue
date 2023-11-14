@@ -91,6 +91,7 @@
         <inspection-form-modifications
           :inspectionId="inspection.id"
           :index="index"
+          :documentation="inspection.documentation"
           @submit-form="updateData(inspection.id, 'modifications', inspection.modifications)"
           @delete-form="deleteForm(index, inspection.id, 'modifications', inspection.modifications)" 
         />
