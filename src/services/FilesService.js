@@ -1,4 +1,4 @@
-import { ref, listAll, getDownloadURL  } from "firebase/storage";
+import { ref, listAll, getDownloadURL, uploadBytes  } from "firebase/storage";
 import { storage } from "@/firebase";
 
 export default {
@@ -32,5 +32,12 @@ export default {
             name: fileName,
             url: url
         };
-    }
+    },
+
+    // Upload photos
+    async uploadPhoto(file) {
+        const storageRef = ref(storage, `Photos/${file.name}`);
+        await uploadBytes(storageRef, file);
+        return getDownloadURL(storageRef);
+    },
 }

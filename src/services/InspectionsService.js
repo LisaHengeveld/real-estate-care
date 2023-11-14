@@ -23,7 +23,8 @@ export default {
                         damage.kind,
                         damage.date,
                         damage.urgent,
-                        damage.description
+                        damage.description,
+                        damage.photos
                     )
                 );
                 const deferredMaintenance = insp.data().deferredMaintenance.map(

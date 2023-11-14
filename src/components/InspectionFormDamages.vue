@@ -75,6 +75,21 @@
       :rules="[rules.required]"
     ></v-textarea>
 
+    <!-- Option to add photos -->
+    <v-file-input
+      label="Upload Photos"
+      v-model="photos"
+      multiple
+      @change="handlePhotos"
+    ></v-file-input>
+
+    <div class="container-photos">
+      <!-- Display thumbnails of selected photos -->
+      <div v-for="(photo, index) in photoURLs" :key="index">
+        <img :src="photo" :alt="'Photo ' + index">
+      </div>
+    </div>
+
     <!-- Submit button -->
     <v-btn
         class="mt-3 me-4"
@@ -98,20 +113,49 @@
 </template>
 
 <script>
+import FilesService from "@/services/FilesService.js";
+
 export default {
   data: () => ({
+    photos: [],
+    photoURLs: [],
     rules: {
       required: value => !!value || 'Veld is verplicht',
     },
     formValid: null
   }),
   props: ["inspectionId", "index"],
+  async mounted() {
+    if (this.damage.photos) {
+      this.photoURLs = [...this.damage.photos];
+    }
+  },
   methods: {
+    // This function will be triggered when the user selects files
+    handlePhotos() {
+      for (let file of this.photos) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.photoURLs.push(e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    },
     async submitForm() {
       // Validate the form
       this.formValid = await this.$refs.formDamagesRef.validate();
       // If the form is valid, proceed with submission
       if (this.formValid.valid) {
+        try {
+          // Upload photos and get their URLs
+          let uploadedPhotoURLs = await Promise.all(this.photos.map(photo => FilesService.uploadPhoto(photo)));
+
+          // Append uploaded photo URLs to form data
+          this.damage.photos = uploadedPhotoURLs
+        } catch (error) {
+          this.$store.commit('SET_ERROR', "Er ging iets mis bij het opslaan van de foto's. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
+          console.error("Error uploading photos:", error);
+        }
         // Emit an event to notify the parent component to save this form.
         this.$emit('submit-form');
       }
@@ -129,3 +173,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .container-photos {
+    display: flex;
+  }
+
+  .container-photos img {
+    max-width: 150px;
+  }
+</style>

@@ -16,13 +16,14 @@ class Inspections {
 }
 
 class Damages {
-    constructor(location, newDamage, kind, date, urgent, description) {
+    constructor(location, newDamage, kind, date, urgent, description, photos) {
         this.location = location;
         this.newDamage = newDamage;
         this.kind = kind;
         this.date = date;
         this.urgent = urgent;
         this.description = description;
+        this.photos = photos;
     }
 }
 
