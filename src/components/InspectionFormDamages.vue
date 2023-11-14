@@ -77,16 +77,28 @@
 
     <!-- Option to add photos -->
     <v-file-input
-      label="Upload Photos"
+      label="Upload foto's"
       v-model="photos"
       multiple
       @change="handlePhotos"
     ></v-file-input>
 
-    <div class="container-photos">
+    <div class="photo-container">
       <!-- Display thumbnails of selected photos -->
       <div v-for="(photo, index) in photoURLs" :key="index">
-        <img :src="photo" :alt="'Photo ' + index">
+        <div class="photo-wrapper">
+          <img :src="photo" :alt="'Photo ' + index">
+        <v-btn 
+            class="delete-photo-btn"
+            density="comfortable"
+            size="small"
+            variant="flat"
+            icon
+            @click="deletePhoto(index)"
+          >
+            <v-icon>mdi-delete</v-icon>
+        </v-btn>
+        </div>
       </div>
     </div>
 
@@ -141,6 +153,29 @@ export default {
         reader.readAsDataURL(file);
       }
     },
+    async deletePhoto(index) {
+      const photoToDelete = this.photoURLs[index];
+
+      // Check if the photo is already uploaded to Firebase
+      if (photoToDelete.startsWith('http')) {
+        try {
+          await FilesService.deletePhoto(photoToDelete);
+          // Update local state after successful deletion
+          this.photoURLs.splice(index, 1);
+          // Update the list of photo URLs in 'damage.photos'
+          if (this.damage.photos) {
+            this.damage.photos.splice(index, 1);
+          }
+        } catch (error) {
+          this.$store.commit('SET_ERROR', "Er ging iets mis bij het verwijderen van de foto. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
+          console.error("Error deleting photo:", error);
+        }
+      } else {
+        // If the photo hasn't been uploaded yet, just remove it from local state
+        this.photoURLs.splice(index, 1);
+        this.photos.splice(index, 1); // Remove from the file input model if necessary
+      }
+    },
     async submitForm() {
       // Validate the form
       this.formValid = await this.$refs.formDamagesRef.validate();
@@ -151,7 +186,10 @@ export default {
           let uploadedPhotoURLs = await Promise.all(this.photos.map(photo => FilesService.uploadPhoto(photo)));
 
           // Append uploaded photo URLs to form data
-          this.damage.photos = uploadedPhotoURLs
+          this.damage.photos = [
+            ...(this.damage.photos || []),
+            ...uploadedPhotoURLs
+          ];
         } catch (error) {
           this.$store.commit('SET_ERROR', "Er ging iets mis bij het opslaan van de foto's. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
           console.error("Error uploading photos:", error);
@@ -175,11 +213,27 @@ export default {
 </script>
 
 <style scoped>
-  .container-photos {
+  .photo-container {
     display: flex;
   }
 
-  .container-photos img {
-    max-width: 150px;
+  .photo-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-inline-end: 10px;
+  }
+
+  .photo-wrapper img {
+    display: block;
+    width: 100px;
+    height: auto;
+  }
+
+  .delete-photo-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 3px;
+    color: rgb(var(--v-theme-error));
   }
 </style>

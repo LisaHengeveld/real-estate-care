@@ -1,4 +1,4 @@
-import { ref, listAll, getDownloadURL, uploadBytes  } from "firebase/storage";
+import { ref, listAll, getDownloadURL, uploadBytes, deleteObject  } from "firebase/storage";
 import { storage } from "@/firebase";
 
 export default {
@@ -39,5 +39,11 @@ export default {
         const storageRef = ref(storage, `Photos/${file.name}`);
         await uploadBytes(storageRef, file);
         return getDownloadURL(storageRef);
+    },
+
+    // Delete specific photo
+    async deletePhoto(photoUrl) {
+        const photoRef = ref(storage, photoUrl);
+        await deleteObject(photoRef);
     },
 }
