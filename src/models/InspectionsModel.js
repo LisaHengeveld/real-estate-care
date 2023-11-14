@@ -1,9 +1,10 @@
 // Classes for the data structure in the JSON database
 class Inspections {
-    constructor(id, address, city, dateOfInspection, completed, requiredTasks, damages, deferredMaintenance, technicalInstallations, modifications) {
+    constructor(id, address, city, documentation, dateOfInspection, completed, requiredTasks, damages, deferredMaintenance, technicalInstallations, modifications) {
         this.id = id;
         this.address = address;
         this.city = city;
+        this.documentation = documentation;
         this.dateOfInspection = dateOfInspection;
         this.completed = completed;
         this.requiredTasks = requiredTasks;
@@ -46,8 +47,7 @@ class TechnicalInstallations {
 }
 
 class Modifications {
-    constructor(documentedSituation, location, executedBy, description, action, comments) {
-        this.documentedSituation = documentedSituation;
+    constructor(location, executedBy, description, action, comments) {
         this.location = location;
         this.executedBy = executedBy;
         this.description = description;

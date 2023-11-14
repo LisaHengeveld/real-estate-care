@@ -49,7 +49,6 @@ export default {
                 const modifications = insp.data().modifications.map(
                     (mod) =>
                     new Modifications(
-                        mod.documentedSituation,
                         mod.location,
                         mod.executedBy,
                         mod.description,
@@ -62,6 +61,7 @@ export default {
                     insp.id,
                     insp.data().address,
                     insp.data().city,
+                    insp.data().documentation,
                     insp.data().dateOfInspection,
                     insp.data().completed,
                     insp.data().requiredTasks,
