@@ -78,7 +78,6 @@
     <!-- Option to add photos -->
     <v-file-input
       label="Upload foto's"
-      v-model="photos"
       multiple
       @change="handlePhotos"
     ></v-file-input>
@@ -131,6 +130,7 @@ export default {
   data: () => ({
     photos: [],
     photoURLs: [],
+    photosToDelete: [],
     rules: {
       required: value => !!value || 'Veld is verplicht',
     },
@@ -144,36 +144,38 @@ export default {
   },
   methods: {
     // This function will be triggered when the user selects files
-    handlePhotos() {
-      for (let file of this.photos) {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-          this.photoURLs.push(e.target.result);
-        };
-        reader.readAsDataURL(file);
+    handlePhotos(e) {
+      // Get a list of selected files
+      const selectedFiles = Array.from(e.target.files);
+
+      // Append new files to the existing list
+      for (let file of selectedFiles) {
+        // Check if the file is already in the list to prevent duplicates
+        if (!this.photos.some(existingFile => existingFile.name === file.name)) {
+          this.photos.push(file);
+
+          // Read and add the file data URL for preview
+          let reader = new FileReader();
+          reader.onload = (e) => {
+            this.photoURLs.push(e.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
       }
     },
-    async deletePhoto(index) {
+    deletePhoto(index) {
       const photoToDelete = this.photoURLs[index];
-
-      // Check if the photo is already uploaded to Firebase
-      if (photoToDelete.startsWith('http')) {
-        try {
-          await FilesService.deletePhoto(photoToDelete);
-          // Update local state after successful deletion
-          this.photoURLs.splice(index, 1);
-          // Update the list of photo URLs in 'damage.photos'
-          if (this.damage.photos) {
-            this.damage.photos.splice(index, 1);
-          }
-        } catch (error) {
-          this.$store.commit('SET_ERROR', "Er ging iets mis bij het verwijderen van de foto. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-          console.error("Error deleting photo:", error);
-        }
-      } else {
-        // If the photo hasn't been uploaded yet, just remove it from local state
-        this.photoURLs.splice(index, 1);
-        this.photos.splice(index, 1); // Remove from the file input model if necessary
+      
+      // Add the photo to the list of photos to delete upon form submission
+      this.photosToDelete.push(photoToDelete);
+      
+      // Remove the photo from the local state immediately for UI update
+      this.photoURLs.splice(index, 1);
+      
+      // If it's a newly added photo that hasn't been uploaded yet, remove from `photos`
+      const newPhotoIndex = this.photos.findIndex(p => p === photoToDelete);
+      if (newPhotoIndex !== -1) {
+        this.photos.splice(newPhotoIndex, 1);
       }
     },
     async submitForm() {
@@ -182,20 +184,33 @@ export default {
       // If the form is valid, proceed with submission
       if (this.formValid.valid) {
         try {
-          // Upload photos and get their URLs
-          let uploadedPhotoURLs = await Promise.all(this.photos.map(photo => FilesService.uploadPhoto(photo)));
+          // Delete photos marked for deletion
+          for (const photoUrl of this.photosToDelete) {
+            await FilesService.deletePhoto(photoUrl);
+          }
 
-          // Append uploaded photo URLs to form data
-          this.damage.photos = [
-            ...(this.damage.photos || []),
-            ...uploadedPhotoURLs
-          ];
+          // Upload photos and get their URLs
+          let uploadedPhotoURLs = await Promise.all(this.photos.map(photo => FilesService.uploadPhoto(this.inspectionId, photo)));
+
+          // Filter out any deleted photos from the damage.photos array
+          const remainingPhotos = this.damage.photos.filter(
+            (p) => !this.photosToDelete.includes(p)
+          );
+
+          // Combine the remaining photos with the newly uploaded ones
+          this.damage.photos = [...remainingPhotos, ...uploadedPhotoURLs];
+
+          // Clear the photos array, photos to delete, and file input
+          this.photos = [];
+          this.photoURLs = [];
+          this.photosToDelete = [];
+
+          // Emit an event to notify the parent component to save this form.
+          this.$emit('submit-form');
         } catch (error) {
           this.$store.commit('SET_ERROR', "Er ging iets mis bij het opslaan van de foto's. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
           console.error("Error uploading photos:", error);
         }
-        // Emit an event to notify the parent component to save this form.
-        this.$emit('submit-form');
       }
     },
     deleteForm() {

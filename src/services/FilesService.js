@@ -35,8 +35,8 @@ export default {
     },
 
     // Upload photos
-    async uploadPhoto(file) {
-        const storageRef = ref(storage, `Photos/${file.name}`);
+    async uploadPhoto(id, file) {
+        const storageRef = ref(storage, `Photos/${id}/${file.name}`);
         await uploadBytes(storageRef, file);
         return getDownloadURL(storageRef);
     },
