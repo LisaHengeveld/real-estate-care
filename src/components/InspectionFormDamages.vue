@@ -75,7 +75,7 @@
       :rules="[rules.required]"
     ></v-textarea>
 
-    <!-- Option to add photos -->
+    <!-- Field for uploading photos -->
     <v-file-input
       label="Upload foto's"
       multiple
@@ -84,22 +84,29 @@
 
     <div class="photo-container">
       <!-- Display thumbnails of selected photos -->
-      <div v-for="(photo, index) in photoURLs" :key="index">
+      <div v-for="(photo, index) in photoURLs" :key="index" @click="openPreview(photo)">
         <div class="photo-wrapper">
           <img :src="photo" :alt="'Photo ' + index">
-        <v-btn 
-            class="delete-photo-btn"
-            density="comfortable"
-            size="small"
-            variant="flat"
-            icon
-            @click="deletePhoto(index)"
-          >
-            <v-icon>mdi-delete</v-icon>
-        </v-btn>
+          <v-btn 
+              class="delete-photo-btn"
+              density="comfortable"
+              size="small"
+              variant="flat"
+              icon
+              @click.stop="deletePhoto(index)"
+            >
+              <v-icon>mdi-delete</v-icon>
+          </v-btn>
         </div>
       </div>
     </div>
+
+    <!-- Dialog for photo preview -->
+    <v-dialog v-model="previewDialog" max-width="600px">
+      <v-card>
+        <v-img :src="selectedPhoto"></v-img>
+      </v-card>
+    </v-dialog>
 
     <!-- Submit button -->
     <v-btn
@@ -131,6 +138,8 @@ export default {
     photos: [],
     photoURLs: [],
     photosToDelete: [],
+    selectedPhoto: '',
+    previewDialog: false,
     rules: {
       required: value => !!value || 'Veld is verplicht',
     },
@@ -177,6 +186,10 @@ export default {
       if (newPhotoIndex !== -1) {
         this.photos.splice(newPhotoIndex, 1);
       }
+    },
+    openPreview(photo) {
+      this.selectedPhoto = photo;
+      this.previewDialog = true;
     },
     async submitForm() {
       // Validate the form
