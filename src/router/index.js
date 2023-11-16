@@ -7,6 +7,7 @@ import InspectionsList from '../components/InspectionsList.vue'
 import InspectionForm from '../components/InspectionForm.vue'
 import KnowledgeBase from '../components/KnowledgeBase.vue'
 import FilesList from '../components/FilesList.vue'
+import Settings from '../components/Settings.vue'
 import { nextTick } from 'vue'
 
 const routes = [
@@ -39,6 +40,11 @@ const routes = [
     path: '/kennisbase/:subject',
     name: 'files',
     component: FilesList
+  },
+  {
+    path: '/instellingen',
+    name: 'instellingen',
+    component: Settings
   },
   {
     path: '/inloggen',

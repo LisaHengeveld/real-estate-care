@@ -78,6 +78,7 @@ export default {
                     this.$router.push('/kennisbase');
                     break;
                 case 3:
+                    this.$router.push('/instellingen');
                     break;
             }
         }
