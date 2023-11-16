@@ -76,7 +76,7 @@
     ></v-textarea>
 
     <!-- Field for uploading photos -->
-    <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :uploadedPhotos="typeof damage.photos !== 'undefined' ? damage.photos : []" />
+    <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :task="'Damages'" :uploadedPhotos="typeof damage.photos !== 'undefined' ? damage.photos : []" />
 
     <!-- Submit button -->
     <v-btn

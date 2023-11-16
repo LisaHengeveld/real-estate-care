@@ -56,7 +56,8 @@ export default {
     },
 
     props: [
-        'inspectionId',    
+        'inspectionId',
+        'task',    
         'uploadedPhotos'
     ],
 
@@ -129,7 +130,7 @@ export default {
 
                 // Upload photos and get their URLs
                 // Excludes photos that were already uploaded before
-                let uploadedPhotoURLs = await Promise.all(this.photos.map(photo => FilesService.uploadPhoto(this.inspectionId, photo)));
+                let uploadedPhotoURLs = await Promise.all(this.photos.map(photo => FilesService.uploadPhoto(`${this.inspectionId}/${this.task}`, photo)));
                 uploadedPhotoURLs = uploadedPhotoURLs.filter(url => url !== null);
 
                 // Combine the remaining photos with the newly uploaded ones
