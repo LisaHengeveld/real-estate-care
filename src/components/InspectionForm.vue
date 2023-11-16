@@ -229,10 +229,12 @@ export default {
     async handleConfirmDelete() {
       const photos = this.currentDataToUpdate[0].photos; // Get urls of uploaded photos
       // Delete photos from Firebase storage
-      for (const photo of photos) {
-        await FilesService.deletePhoto(photo);
+      if (photos) {
+        for (const photo of photos) {
+          await FilesService.deletePhoto(photo);
+        }
       }
-      
+
       this.currentDataToUpdate.splice(this.currentIndexToDelete, 1) // Perform the delete operation
       await this.updateData(this.currentIdToUpdate, this.currentTaskToUpdate, this.currentDataToUpdate); // Update the data with the deleted form
       this.viewDialogDelete = false; // Close the confirmation dialog
