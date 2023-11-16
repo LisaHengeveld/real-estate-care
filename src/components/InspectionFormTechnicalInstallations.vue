@@ -25,7 +25,10 @@
       ]"
       variant="outlined"
       :rules="[rules.required]"
-    ></v-select>
+    >
+      <!-- Hide counter by passing an empty counter slot -->
+      <template v-slot:counter></template>
+    </v-select>
 
     <!-- Textfield for reported malfunctions -->
     <v-text-field
@@ -66,7 +69,10 @@
         :rules="[rules.required]"
         hint="Let op: De testprocedure kan niet worden gewijzigd, nadat dit formulier is opgeslagen."
         persistent-hint
-      ></v-select>
+      >
+        <!-- Hide counter by passing an empty counter slot -->
+        <template v-slot:counter></template>
+      </v-select>
     </div>
 
     <!-- Radio group yes/no if installation is approved -->

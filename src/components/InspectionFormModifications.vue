@@ -42,7 +42,10 @@
         ]"
         variant="outlined"
         :rules="[rules.required]"
-      ></v-select>
+      >
+        <!-- Hide counter by passing an empty counter slot -->
+        <template v-slot:counter></template>
+      </v-select>
   
       <!-- Text area for description of modification -->
       <v-textarea
@@ -68,7 +71,10 @@
         ]"
         variant="outlined"
         :rules="[rules.required]"
-      ></v-select>
+      >
+        <!-- Hide counter by passing an empty counter slot -->
+        <template v-slot:counter></template>
+      </v-select>
 
       <!-- Text area for comments -->
       <v-textarea

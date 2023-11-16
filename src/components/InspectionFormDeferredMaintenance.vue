@@ -25,7 +25,10 @@
         ]"
         variant="outlined"
         :rules="[rules.required]"
-      ></v-select>
+      >
+        <!-- Hide counter by passing an empty counter slot -->
+        <template v-slot:counter></template>
+      </v-select>
   
       <!-- Radio group yes/no if acute action is required -->
       <v-radio-group
@@ -53,7 +56,10 @@
         ]"
         variant="outlined"
         :rules="[rules.required]"
-      ></v-select>
+      >
+        <!-- Hide counter by passing an empty counter slot -->
+        <template v-slot:counter></template>
+      </v-select>
   
       <!-- Submit button -->
       <v-btn
@@ -108,6 +114,3 @@
     },
   };
   </script>
-  
-  <style></style>
-  

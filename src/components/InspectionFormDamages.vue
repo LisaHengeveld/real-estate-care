@@ -39,7 +39,10 @@
       ]"
       variant="outlined"
       :rules="[rules.required]"
-    ></v-select>
+    >
+      <!-- Hide counter by passing an empty counter slot -->
+      <template v-slot:counter></template>
+    </v-select>
 
     <!-- Text field for date of registering damage -->
     <v-text-field
