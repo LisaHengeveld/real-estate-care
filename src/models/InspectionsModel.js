@@ -28,32 +28,35 @@ class Damages {
 }
 
 class DeferredMaintenance {
-    constructor(location, kind, urgent, costIndication) {
+    constructor(location, kind, urgent, costIndication, photos) {
         this.location = location;
         this.kind = kind;
         this.urgent = urgent;
         this.costIndication = costIndication;
+        this.photos = photos;
     }
 }
 
 class TechnicalInstallations {
-    constructor(location, kind, reportedMalfunctions, testProcedure, approved, comments) {
+    constructor(location, kind, reportedMalfunctions, testProcedure, approved, comments, photos) {
         this.location = location;
         this.kind = kind;
         this.reportedMalfunctions = reportedMalfunctions;
         this.testProcedure = testProcedure;
         this.approved = approved;
         this.comments = comments;
+        this.photos = photos;
     }
 }
 
 class Modifications {
-    constructor(location, executedBy, description, action, comments) {
+    constructor(location, executedBy, description, action, comments, photos) {
         this.location = location;
         this.executedBy = executedBy;
         this.description = description;
         this.action = action;
         this.comments = comments;
+        this.photos = photos;
     }
 }
 

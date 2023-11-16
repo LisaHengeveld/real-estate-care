@@ -33,7 +33,8 @@ export default {
                         dm.location,
                         dm.kind,
                         dm.urgent,
-                        dm.costIndication
+                        dm.costIndication,
+                        dm.photos
                     )
                 );
                 const technicalInstallations = insp.data().technicalInstallations.map(
@@ -44,7 +45,8 @@ export default {
                         ti.reportedMalfunctions,
                         ti.testProcedure,
                         ti.approved,
-                        ti.comments
+                        ti.comments,
+                        ti.photos
                     )
                 );
                 const modifications = insp.data().modifications.map(
@@ -54,7 +56,8 @@ export default {
                         mod.executedBy,
                         mod.description,
                         mod.action,
-                        mod.comments
+                        mod.comments,
+                        mod.photos
                     )
                 );
 

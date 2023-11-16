@@ -76,37 +76,7 @@
     ></v-textarea>
 
     <!-- Field for uploading photos -->
-    <v-file-input
-      label="Upload foto's"
-      multiple
-      @change="handlePhotos"
-    ></v-file-input>
-
-    <div class="photo-container">
-      <!-- Display thumbnails of selected photos -->
-      <div v-for="(photo, index) in photoURLs" :key="index" @click="openPreview(photo)">
-        <div class="photo-wrapper">
-          <img :src="photo" :alt="'Photo ' + index">
-          <v-btn 
-              class="delete-photo-btn"
-              density="comfortable"
-              size="small"
-              variant="flat"
-              icon
-              @click.stop="deletePhoto(index)"
-            >
-              <v-icon>mdi-delete</v-icon>
-          </v-btn>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dialog for photo preview -->
-    <v-dialog v-model="previewDialog" max-width="600px">
-      <v-card>
-        <v-img :src="selectedPhoto"></v-img>
-      </v-card>
-    </v-dialog>
+    <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :uploadedPhotos="typeof damage.photos !== 'undefined' ? damage.photos : []" />
 
     <!-- Submit button -->
     <v-btn
@@ -131,101 +101,33 @@
 </template>
 
 <script>
-import FilesService from "@/services/FilesService.js";
+import InspectionFormPhotoUpload from "@/components/InspectionFormPhotoUpload.vue";
 
 export default {
   data: () => ({
-    photos: [],
-    photoURLs: [],
-    photosToDelete: [],
-    selectedPhoto: '',
-    previewDialog: false,
     rules: {
       required: value => !!value || 'Veld is verplicht',
     },
     formValid: null
   }),
-  props: ["inspectionId", "index"],
-  async mounted() {
-    if (this.damage.photos) {
-      this.photoURLs = [...this.damage.photos];
-    }
+  components: {
+    InspectionFormPhotoUpload
   },
+  props: ["inspectionId", "index"],
   methods: {
-    // This function will be triggered when the user selects files
-    handlePhotos(e) {
-      // Get a list of selected files
-      const selectedFiles = Array.from(e.target.files);
-
-      // Append new files to the existing list
-      for (let file of selectedFiles) {
-        // Check if the file is already in the list to prevent duplicates
-        if (!this.photos.some(existingFile => existingFile.name === file.name)) {
-          this.photos.push(file);
-
-          // Read and add the file data URL for preview
-          let reader = new FileReader();
-          reader.onload = (e) => {
-            this.photoURLs.push(e.target.result);
-          };
-          reader.readAsDataURL(file);
-        }
-      }
-    },
-    deletePhoto(index) {
-      const photoToDelete = this.photoURLs[index];
-      
-      // Add the photo to the list of photos to delete upon form submission
-      this.photosToDelete.push(photoToDelete);
-      
-      // Remove the photo from the local state immediately for UI update
-      this.photoURLs.splice(index, 1);
-      
-      // If it's a newly added photo that hasn't been uploaded yet, remove from `photos`
-      const newPhotoIndex = this.photos.findIndex(p => p === photoToDelete);
-      if (newPhotoIndex !== -1) {
-        this.photos.splice(newPhotoIndex, 1);
-      }
-    },
-    openPreview(photo) {
-      this.selectedPhoto = photo;
-      this.previewDialog = true;
-    },
     async submitForm() {
       // Validate the form
       this.formValid = await this.$refs.formDamagesRef.validate();
       // If the form is valid, proceed with submission
       if (this.formValid.valid) {
-        try {
-          // Delete photos marked for deletion
-          for (const photoUrl of this.photosToDelete) {
-            await FilesService.deletePhoto(photoUrl);
-          }
+        // Upload photos
+        this.damage.photos = await this.$refs.photoUpload.uploadPhotos();
 
-          // Upload photos and get their URLs
-          let uploadedPhotoURLs = await Promise.all(this.photos.map(photo => FilesService.uploadPhoto(this.inspectionId, photo)));
-
-          // Filter out any deleted photos from the damage.photos array
-          const remainingPhotos = this.damage.photos.filter(
-            (p) => !this.photosToDelete.includes(p)
-          );
-
-          // Combine the remaining photos with the newly uploaded ones
-          this.damage.photos = [...remainingPhotos, ...uploadedPhotoURLs];
-
-          // Clear the photos array, photos to delete, and file input
-          this.photos = [];
-          this.photoURLs = [];
-          this.photosToDelete = [];
-
-          // Emit an event to notify the parent component to save this form.
-          this.$emit('submit-form');
-        } catch (error) {
-          this.$store.commit('SET_ERROR', "Er ging iets mis bij het opslaan van de foto's. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-          console.error("Error uploading photos:", error);
-        }
+        // Emit an event to notify the parent component to save this form.
+        this.$emit('submit-form');
       }
     },
+    
     deleteForm() {
       // Emit an event to notify the parent component to delete this form.
       this.$emit('delete-form');
@@ -239,29 +141,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .photo-container {
-    display: flex;
-  }
-
-  .photo-wrapper {
-    position: relative;
-    display: inline-block;
-    margin-inline-end: 10px;
-  }
-
-  .photo-wrapper img {
-    display: block;
-    width: 100px;
-    height: auto;
-  }
-
-  .delete-photo-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 3px;
-    color: rgb(var(--v-theme-error));
-  }
-</style>

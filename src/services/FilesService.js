@@ -36,6 +36,16 @@ export default {
 
     // Upload photos
     async uploadPhoto(id, file) {
+        // Get the list of already uploaded file names for the given id
+        const existingFileNames = await this.getUploadedFileNames(id);
+
+        // Check if the file name already exists in the uploaded files
+        if (existingFileNames.includes(file.name)) {
+            console.log('File ${file.name} already uploaded. Skipping...');
+            return null;
+        }
+
+        // Continue with upload if not already uploaded
         const storageRef = ref(storage, `Photos/${id}/${file.name}`);
         await uploadBytes(storageRef, file);
         return getDownloadURL(storageRef);
@@ -45,5 +55,12 @@ export default {
     async deletePhoto(photoUrl) {
         const photoRef = ref(storage, photoUrl);
         await deleteObject(photoRef);
+    },
+
+    // Get a list of file names of uploaded photos
+    async getUploadedFileNames(id) {
+        const listRef = ref(storage, `Photos/${id}`);
+        const { items } = await listAll(listRef);
+        return items.map(itemRef => itemRef.name);
     },
 }
