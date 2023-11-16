@@ -13,7 +13,7 @@
           variant="text"
           @click="$store.commit('HIDE_SNACKBAR')"
         >
-          Close
+          Sluiten
         </v-btn>
       </template>
     </v-snackbar>

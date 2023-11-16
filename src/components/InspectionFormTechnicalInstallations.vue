@@ -97,6 +97,9 @@
       variant="outlined"
     ></v-textarea>
 
+    <!-- Field for uploading photos -->
+    <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :task="'Technical Installations'" :uploadedPhotos="typeof installation.photos !== 'undefined' ? installation.photos : []" />
+
     <!-- Submit button -->
     <v-btn
         class="mt-3 me-4"
@@ -120,6 +123,7 @@
   
 <script>
   import FilesService from "@/services/FilesService.js";
+  import InspectionFormPhotoUpload from "@/components/InspectionFormPhotoUpload.vue";
 
   export default {
     data: () => ({
@@ -130,6 +134,9 @@
         formValid: null
       },
     }),
+    components: {
+      InspectionFormPhotoUpload
+    },
     mounted() {
       this.fetchPdfList(); // Get file names of all testprocedures
     },
@@ -174,6 +181,10 @@
           if (this.selectedTestProcedure) {
             this.installation.testProcedure = this.selectedTestProcedure;
           }
+
+          // Upload photos
+          this.installation.photos = await this.$refs.photoUpload.uploadPhotos();
+
           // Emit an event to notify the parent component to save this form.
           this.$emit('submit-form');
         }

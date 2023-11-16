@@ -84,6 +84,9 @@
         label="Opmerkingen"
         variant="outlined"
       ></v-textarea>
+
+      <!-- Field for uploading photos -->
+      <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :task="'Modifications'" :uploadedPhotos="typeof modification.photos !== 'undefined' ? modification.photos : []" />
   
       <!-- Submit button -->
       <v-btn
@@ -108,6 +111,7 @@
   
   <script>
   import FilesService from "@/services/FilesService.js";
+  import InspectionFormPhotoUpload from "@/components/InspectionFormPhotoUpload.vue";
 
   export default {
     data: () => ({
@@ -116,6 +120,9 @@
         formValid: null
       },
     }),
+    components: {
+      InspectionFormPhotoUpload
+    },
     props: ["inspectionId", "index", "documentation"],
     methods: {
       // Get file name and download URL of documentation of current building
@@ -135,6 +142,9 @@
         this.formValid = await this.$refs.formModificationsRef.validate();
         // If the form is valid, proceed with submission
         if (this.formValid.valid) {
+          // Upload photos
+          this.modification.photos = await this.$refs.photoUpload.uploadPhotos();
+
           // Emit an event to notify the parent component to save this form.
           this.$emit('submit-form');
         }

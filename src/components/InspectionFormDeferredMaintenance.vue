@@ -60,6 +60,9 @@
         <!-- Hide counter by passing an empty counter slot -->
         <template v-slot:counter></template>
       </v-select>
+
+      <!-- Field for uploading photos -->
+      <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :task="'Deferred Maintenance'" :uploadedPhotos="typeof maintenance.photos !== 'undefined' ? maintenance.photos : []" />
   
       <!-- Submit button -->
       <v-btn
@@ -83,6 +86,8 @@
   </template>
   
   <script>
+  import InspectionFormPhotoUpload from "@/components/InspectionFormPhotoUpload.vue";
+
   export default {
     data: () => ({
       rules: {
@@ -90,6 +95,9 @@
       },
       formValid: null
     }),
+    components: {
+      InspectionFormPhotoUpload
+    },
     props: ["inspectionId", "index"],
     methods: {
       async submitForm() {
@@ -97,6 +105,9 @@
         this.formValid = await this.$refs.formDeferredMaintenanceRef.validate();
         // If the form is valid, proceed with submission
         if (this.formValid.valid) {
+          // Upload photos
+          this.maintenance.photos = await this.$refs.photoUpload.uploadPhotos();
+
           // Emit an event to notify the parent component to save this form.
           this.$emit('submit-form');
         }
