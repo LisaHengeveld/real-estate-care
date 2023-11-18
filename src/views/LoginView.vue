@@ -59,8 +59,8 @@
 
 <script setup>
     import { ref } from "vue";
-    import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
     import { useRouter } from 'vue-router';
+    import AuthenticationService from "@/services/AuthenticationService.js";
 
     const email = ref("");
     const password = ref("");
@@ -68,14 +68,14 @@
     const router = useRouter();
 
     const login = () => {
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, email.value, password.value)
-            .then((data) => {
-                router.push('/');
-            })
-            .catch((error) => {
-                errorMessage.value = "Ongeldig e-mailadres en/of wachtwoord.";
-            });
+        AuthenticationService.login(email.value, password.value)
+        .then(() => {
+            router.push('/');
+        })
+        .catch((error) => {
+            errorMessage.value = "Ongeldig e-mailadres en/of wachtwoord.";
+            console.error("Login error:", error);
+        });
     };
 </script>
 

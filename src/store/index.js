@@ -79,6 +79,12 @@ export default createStore({
     showSnackbar({ commit }, text) {
       commit('SHOW_SNACKBAR', text);
     },
+    unsubscribeInspections({ state, commit }) {
+      if (state.unsubscribeInspections) {
+        state.unsubscribeInspections();
+        commit('CLEAR_UNSUBSCRIBE_INSPECTIONS');
+      }
+    }
   },
 
   getters: {
