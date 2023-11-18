@@ -9,7 +9,6 @@
           color="primary"
           title="Start inspectie"
         ></v-toolbar>
-        <!-- <v-card-title>Start inspectie</v-card-title> -->
         <v-card-text>
           <p>
             U gaat nu beginnen aan de inspectie bij:<br />

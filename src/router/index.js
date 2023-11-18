@@ -8,6 +8,7 @@ import InspectionForm from '../components/InspectionForm.vue'
 import KnowledgeBase from '../components/KnowledgeBase.vue'
 import FilesList from '../components/FilesList.vue'
 import Settings from '../components/Settings.vue'
+import PasswordChange from '../components/PasswordChange.vue'
 import { nextTick } from 'vue'
 
 const routes = [
@@ -45,6 +46,11 @@ const routes = [
     path: '/instellingen',
     name: 'instellingen',
     component: Settings
+  },
+  {
+    path: '/instellingen/wijzig-wachtwoord',
+    name: 'wijzig-wachtwoord',
+    component: PasswordChange
   },
   {
     path: '/inloggen',
