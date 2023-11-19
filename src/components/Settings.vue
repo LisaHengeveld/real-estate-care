@@ -35,9 +35,9 @@ export default {
             items: [
                 {
                     title: "Account",
-                    subtitle: "Wijzig gegevens",
+                    subtitle: "Wijzig e-mailadres",
                     icon: "mdi-account-edit",
-                    navigateTo: "wijzig-gegevens"
+                    navigateTo: "wijzig-email"
                 },
                 {
                     title: "Avatar",

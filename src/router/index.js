@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
+import { nextTick } from 'vue'
 import DashboardView from '../views/DashboardView.vue'
 import InformationView from '../views/InformationView.vue'
 import InspectionsList from '../components/InspectionsList.vue'
@@ -8,8 +9,10 @@ import InspectionForm from '../components/InspectionForm.vue'
 import KnowledgeBase from '../components/KnowledgeBase.vue'
 import FilesList from '../components/FilesList.vue'
 import Settings from '../components/Settings.vue'
-import PasswordChange from '../components/PasswordChange.vue'
-import { nextTick } from 'vue'
+import UpdateEmail from '../components/UpdateEmail.vue'
+import UpdateAvatar from '../components/UpdateAvatar.vue'
+import ChangePassword from '../components/ChangePassword.vue'
+
 
 const routes = [
   {
@@ -48,9 +51,19 @@ const routes = [
     component: Settings
   },
   {
+    path: '/instellingen/wijzig-email',
+    name: 'wijzig-email',
+    component: UpdateEmail
+  },
+  {
+    path: '/instellingen/wijzig-profielfoto',
+    name: 'wijzig-profielfoto',
+    component: UpdateAvatar
+  },
+  {
     path: '/instellingen/wijzig-wachtwoord',
     name: 'wijzig-wachtwoord',
-    component: PasswordChange
+    component: ChangePassword
   },
   {
     path: '/inloggen',
