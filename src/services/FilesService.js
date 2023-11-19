@@ -63,4 +63,17 @@ export default {
         const { items } = await listAll(listRef);
         return items.map(itemRef => itemRef.name);
     },
+
+    // Upload profile picture
+    async uploadProfilePicture(file, userID) {
+        const storageRef = ref(storage, `Profile pictures/${userID}`); // Unique file path to the user and will be overwritten if a new picture is uploaded.
+        await uploadBytes(storageRef, file);
+        return getDownloadURL(storageRef);
+    },
+
+    // Delete profile picture
+    async deleteProfilePicture(userID) {
+        const photoRef = ref(storage, `Profile pictures/${userID}`);
+        await deleteObject(photoRef);
+    }
 }

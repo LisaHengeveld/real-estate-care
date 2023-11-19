@@ -61,9 +61,9 @@ export default {
     },
     methods: {
         async loadCurrentUserEmail() {
-            const user = await AuthenticationService.getEmail();
-            if (user) {
-                this.userEmail = user.email; // Load the email into the text field
+            const email = await AuthenticationService.getEmail();
+            if (email) {
+                this.userEmail = email; // Load the email into the text field
             } else {
                 this.$store.commit('SET_ERROR', `Het huidige e-mailadres kon niet worden geladen. Log opnieuw in of neem contact op met de beheerder.`); // Show error message
             }

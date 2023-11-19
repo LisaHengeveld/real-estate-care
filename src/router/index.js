@@ -11,7 +11,7 @@ import FilesList from '../components/FilesList.vue'
 import Settings from '../components/Settings.vue'
 import UpdateEmail from '../components/UpdateEmail.vue'
 import UpdateAvatar from '../components/UpdateAvatar.vue'
-import ChangePassword from '../components/ChangePassword.vue'
+import UpdatePassword from '../components/UpdatePassword.vue'
 
 
 const routes = [
@@ -63,7 +63,7 @@ const routes = [
   {
     path: '/instellingen/wijzig-wachtwoord',
     name: 'wijzig-wachtwoord',
-    component: ChangePassword
+    component: UpdatePassword
   },
   {
     path: '/inloggen',
