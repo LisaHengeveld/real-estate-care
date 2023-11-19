@@ -12,6 +12,7 @@ import Settings from '../components/Settings.vue'
 import UpdateEmail from '../components/UpdateEmail.vue'
 import UpdateAvatar from '../components/UpdateAvatar.vue'
 import UpdatePassword from '../components/UpdatePassword.vue'
+import DisplayTheme from '@/components/DisplayTheme.vue'
 
 
 const routes = [
@@ -64,6 +65,11 @@ const routes = [
     path: '/instellingen/wijzig-wachtwoord',
     name: 'wijzig-wachtwoord',
     component: UpdatePassword
+  },
+  {
+    path: '/instellingen/thema',
+    name: 'thema',
+    component: DisplayTheme
   },
   {
     path: '/inloggen',
