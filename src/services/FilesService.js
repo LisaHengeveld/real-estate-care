@@ -75,5 +75,25 @@ export default {
     async deleteProfilePicture(userID) {
         const photoRef = ref(storage, `Profile pictures/${userID}`);
         await deleteObject(photoRef);
+    },
+
+    // Clear Photos directory
+    async deleteAllPhotos() {
+        const deleteFolderContents = async (path) => {
+            const folderRef = ref(storage, path);
+            const { items, prefixes } = await listAll(folderRef);
+      
+            // Delete all files in the current folder
+            for (const itemRef of items) {
+              await deleteObject(itemRef);
+            }
+      
+            // Recursively delete files in sub-folders
+            for (const prefixRef of prefixes) {
+              await deleteFolderContents(prefixRef.fullPath);
+            }
+          };
+      
+        await deleteFolderContents('Photos');
     }
 }

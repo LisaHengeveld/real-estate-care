@@ -2,17 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 import { nextTick } from 'vue'
-import DashboardView from '../views/DashboardView.vue'
-import InformationView from '../views/InformationView.vue'
-import InspectionsList from '../components/InspectionsList.vue'
-import InspectionForm from '../components/InspectionForm.vue'
-import KnowledgeBase from '../components/KnowledgeBase.vue'
-import FilesList from '../components/FilesList.vue'
-import Settings from '../components/Settings.vue'
-import UpdateEmail from '../components/UpdateEmail.vue'
-import UpdateAvatar from '../components/UpdateAvatar.vue'
-import UpdatePassword from '../components/UpdatePassword.vue'
+import DashboardView from '@/views/DashboardView.vue'
+import InformationView from '@/views/InformationView.vue'
+import InspectionsList from '@/components/InspectionsList.vue'
+import InspectionForm from '@/components/InspectionForm.vue'
+import KnowledgeBase from '@/components/KnowledgeBase.vue'
+import FilesList from '@/components/FilesList.vue'
+import Settings from '@/components/Settings.vue'
+import UpdateEmail from '@/components/UpdateEmail.vue'
+import UpdateAvatar from '@/components/UpdateAvatar.vue'
+import UpdatePassword from '@/components/UpdatePassword.vue'
 import DisplayTheme from '@/components/DisplayTheme.vue'
+import ResetDatabase from '@/components/ResetDatabase.vue'
 
 
 const routes = [
@@ -70,6 +71,11 @@ const routes = [
     path: '/instellingen/thema',
     name: 'thema',
     component: DisplayTheme
+  },
+  {
+    path: '/instellingen/herstel-database',
+    name: 'herstel-database',
+    component: ResetDatabase
   },
   {
     path: '/inloggen',

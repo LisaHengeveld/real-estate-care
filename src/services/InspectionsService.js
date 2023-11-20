@@ -1,4 +1,4 @@
-import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
+import { collection, onSnapshot, doc, updateDoc, getDocs, writeBatch } from "firebase/firestore";
 import { db } from "@/firebase";
 import {
   Inspections,
@@ -104,5 +104,27 @@ export default {
             dateOfInspection: dateToday,
             completed: true
         });	
+    },
+
+    // Reset database to original state
+    async resetDatabase(jsonData) {
+        // Delete existing documents
+        const querySnapshot = await getDocs(collection(db, "inspections"));
+        const batch = writeBatch(db);
+        
+        querySnapshot.forEach((documentSnapshot) => {
+            batch.delete(documentSnapshot.ref);
+        });
+
+        await batch.commit(); // Commit the deletion
+
+        // Upload new data
+        const newBatch = writeBatch(db);
+        jsonData.inspections.forEach((inspectionData) => {
+            const newDocRef = doc(collection(db, "inspections"));
+            newBatch.set(newDocRef, inspectionData);
+        });
+
+        await newBatch.commit(); // Commit the new data
     }
 };

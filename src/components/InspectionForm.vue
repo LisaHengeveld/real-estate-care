@@ -99,7 +99,7 @@
     </inspection-form-task>
 
     <!-- Confirmation dialog when deleting a form from the database -->
-    <inspection-form-confirmation-dialog
+    <confirmation-dialog
       v-if="viewDialogDelete === true"
       @confirmed="handleConfirmDelete"
       @canceled="handleCancel"
@@ -110,7 +110,7 @@
         <template #text>
           <p>Weet u zeker dat u dit formulier wilt verwijderen?</p>
         </template>  
-    </inspection-form-confirmation-dialog>
+    </confirmation-dialog>
 
     <!-- Button for finishing the inspection -->
     <v-container
@@ -128,7 +128,7 @@
     </v-container>
 
     <!-- Confirmation dialog when completing inspection -->
-    <inspection-form-confirmation-dialog
+    <confirmation-dialog
       v-if="viewDialogComplete === true"
       @confirmed="handleConfirmComplete"
       @canceled="handleCancel"
@@ -140,7 +140,7 @@
           <p>Weet u zeker dat u de inspectie wilt voltooien?</p>
           <p>Let op: onopgeslagen wijzigingen gaan verloren.</p>
         </template>  
-    </inspection-form-confirmation-dialog>
+    </confirmation-dialog>
   </div>
 </template>
 
@@ -151,7 +151,7 @@ import InspectionFormDamages from "@/components/InspectionFormDamages.vue";
 import InspectionFormDeferredMaintenance from "@/components/InspectionFormDeferredMaintenance.vue";
 import InspectionFormTechnicalInstallations from "@/components/InspectionFormTechnicalInstallations.vue";
 import InspectionFormModifications from "@/components/InspectionFormModifications.vue";
-import InspectionFormConfirmationDialog from "./InspectionFormConfirmationDialog.vue";
+import ConfirmationDialog from "./ConfirmationDialog.vue";
 
 import inspectionService from "@/services/InspectionsService.js";
 import FilesService from "@/services/FilesService.js";
@@ -179,7 +179,7 @@ export default {
     InspectionFormDeferredMaintenance,
     InspectionFormTechnicalInstallations,
     InspectionFormModifications,
-    InspectionFormConfirmationDialog
+    ConfirmationDialog
   },
   computed: {
     // Get requested inspection data

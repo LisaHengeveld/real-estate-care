@@ -16,6 +16,7 @@
           <slot name="text"></slot>
         </v-card-text>
         <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn color="primary" @click="confirm">Ja</v-btn>
             <v-btn color="error" @click="cancel">Nee</v-btn>
         </v-card-actions>

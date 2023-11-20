@@ -1,10 +1,9 @@
 {
     "inspections": [
         {
-            "id": 0,
             "address": "Bredeweg 14",
             "city": "Amsterdam",
-            "documentation": "Current state and modifications - Amsterdam Bredeweg 14.pdf",
+            "documentation": "Documenten - Amsterdam Bredeweg 14.pdf",
             "dateOfInspection": "2023-10-10",
             "completed": true,
             "requiredTasks": ["damages", "technicalInstallations"],
@@ -15,7 +14,8 @@
                     "kind": "Slijtage",
                     "date": "2023-10-10",
                     "urgent": "Ja",
-                    "description": "De kraan in de keuken lekt en moet onmiddellijk worden gerepareerd."
+                    "description": "De kraan in de keuken lekt en moet onmiddellijk worden gerepareerd.",
+                    "photos": []
                 },
                 {
                     "location": "Badkamer",
@@ -23,7 +23,8 @@
                     "kind": "Slijtage",
                     "date": "2023-09-05",
                     "urgent": "Nee",
-                    "description": "Tegels in de badkamer vertonen tekenen van slijtage en moeten worden vervangen."
+                    "description": "Tegels in de badkamer vertonen tekenen van slijtage en moeten worden vervangen.",
+                    "photos": []
                 }
             ],
             "deferredMaintenance": [
@@ -31,7 +32,8 @@
                     "location": "Keuken",
                     "kind": "Elektra",
                     "urgent": "Ja",
-                    "costIndication": "500-1000"
+                    "costIndication": "500-1000",
+                    "photos": []
                 }
             ],
             "technicalInstallations": [
@@ -39,26 +41,27 @@
                     "location": "Bovenverdieping",
                     "kind": "Verwarming",
                     "reportedMalfunctions": "Verwarming slaat niet meer aan",
-                    "testProcedure": "",
+                    "testProcedure": "Testprocedure1.pdf",
                     "approved": "Nee",
-                    "comments": ""
+                    "comments": "",
+                    "photos": []
                 },
                 {
                     "location": "Begane grond",
                     "kind": "Verwarming",
                     "reportedMalfunctions": "",
-                    "testProcedure": "",
+                    "testProcedure": "Testprocedure1.pdf",
                     "approved": "Ja",
-                    "comments": ""
+                    "comments": "",
+                    "photos": []
                 }
             ],
             "modifications": []
         },
         {
-            "id": 1,
             "address": "Wilhelminastraat 25",
             "city": "Den Haag",
-            "documentation": "Current state and modifications - Den Haag Wilhelminastraat 25.pdf",
+            "documentation": "Documenten - Den Haag Wilhelminastraat 25.pdf",
             "dateOfInspection": "2023-10-16",
             "completed": true,
             "requiredTasks": ["deferredMaintenance", "technicalInstallations"],
@@ -68,7 +71,8 @@
                     "location": "Woonkamer",
                     "kind": "Schilderwerk",
                     "urgent": "Nee",
-                    "costIndication": "0-500"
+                    "costIndication": "0-500",
+                    "photos": []
                 }
             ],
             "technicalInstallations": [
@@ -76,42 +80,45 @@
                     "location": "Woonkamer",
                     "kind": "Koeling",
                     "reportedMalfunctions": "",
-                    "testProcedure": "",
+                    "testProcedure": "Testprocedure1.pdf",
                     "approved": "Ja",
-                    "comments": ""
+                    "comments": "",
+                    "photos": []
                 },
                 {
                     "location": "Gehele woning",
                     "kind": "Verwarming",
                     "reportedMalfunctions": "",
-                    "testProcedure": "",
+                    "testProcedure": "Testprocedure1.pdf",
                     "approved": "Ja",
-                    "comments": ""
+                    "comments": "",
+                    "photos": []
                 },
                 {
                     "location": "Gehele woning",
                     "kind": "Elektra",
                     "reportedMalfunctions": "",
-                    "testProcedure": "",
+                    "testProcedure": "Testprocedure2.pdf",
                     "approved": "Ja",
-                    "comments": ""
+                    "comments": "",
+                    "photos": []
                 },
                 {
                     "location": "Voordeur",
                     "kind": "Beveiliging",
                     "reportedMalfunctions": "",
-                    "testProcedure": "",
+                    "testProcedure": "Testprocedure3.pdf",
                     "approved": "Ja",
-                    "comments": ""
+                    "comments": "",
+                    "photos": []
                 }
             ],
             "modifications": []
         },
         {
-            "id": 2,
             "address": "Singel 28",
             "city": "Amsterdam",
-            "documentation": "Current state and modifications - Amsterdam Singel 28.pdf",
+            "documentation": "Documenten - Amsterdam Singel 28.pdf",
             "dateOfInspection": "2023-10-13",
             "completed": true,
             "requiredTasks": ["damages", "modifications"],
@@ -122,7 +129,8 @@
                     "kind": "Slijtage",
                     "date": "2023-10-13",
                     "urgent": "Ja",
-                    "description": "De douchekop in de badkamer lekt en moet worden vervangen."
+                    "description": "De douchekop in de badkamer lekt en moet worden vervangen.",
+                    "photos": []
                 }
             ],
             "deferredMaintenance": [],
@@ -133,22 +141,23 @@
                     "executedBy": "Aannemer",
                     "description": "Nieuwe keukenapparatuur geïnstalleerd",
                     "action": "Accepteren",
-                    "comments": ""
+                    "comments": "",
+                    "photos": []
                 },
                 {
                     "location": "Benedenverdieping",
                     "executedBy": "Huurder",
                     "description": "Laminaat geïnstalleerd.",
                     "action": "Laten aanpassen en keuren",
-                    "comments": ""
+                    "comments": "",
+                    "photos": []
                 }
             ]
         },
         {
-            "id": 3,
             "address": "Ringbaan Zuid 25",
             "city": "Tilburg",
-            "documentation": "Current state and modification - Tilburg Ringbaan Zuid 25.pdf",
+            "documentation": "Documenten - Tilburg Ringbaan Zuid 25.pdf",
             "dateOfInspection": "2024-01-24",
             "completed": false,
             "requiredTasks": ["damages", "deferredMaintenance", "technicalInstallations"],
@@ -159,18 +168,18 @@
                     "location": "Gehele woning",
                     "kind": "Elektra",
                     "reportedMalfunctions": "",
-                    "testProcedure": "",
+                    "testProcedure": "Testprocedure2.pdf",
                     "approved": "",
-                    "comments": ""
+                    "comments": "",
+                    "photos": []
                 }
             ],
             "modifications": []
         },
         {
-            "id": 4,
             "address": "Heuvelring 18",
             "city": "Tilburg",
-            "documentation": "Current state and modifications - Tilburg Heuvelring 18.pdf",
+            "documentation": "Documenten - Tilburg Heuvelring 18.pdf",
             "dateOfInspection": "2024-01-17",
             "completed": false,
             "requiredTasks": ["damages", "modifications"],
