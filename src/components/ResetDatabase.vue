@@ -30,7 +30,7 @@
         </template>   
             <template #text>
             <p>Weet u zeker dat u alle data wilt herstellen?</p>
-            <p>Deze actie kan niet ongedaan gemaakt worden.</p>
+            <p>Deze actie kan niet ongedaan worden gemaakt.</p>
             </template>  
         </confirmation-dialog>
     </div>
@@ -65,7 +65,7 @@ export default {
                 // Delete all uploaded photos
                 await FilesService.deleteAllPhotos();
 
-                // // Reset database
+                // Reset database
                 await InspectionsService.resetDatabase(jsonData);
 
                 this.$store.dispatch('setLoading', false); // Loading done

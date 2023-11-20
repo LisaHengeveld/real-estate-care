@@ -134,8 +134,8 @@ import ErrorMessage from "@/components/ErrorMessage.vue";
         // Buttons in the bottom navigation
         items: [
           { title: 'Dashboard', icon: 'mdi-view-grid', path: '/', name: 'dashboard' },
-          { title: 'Recent', icon: 'mdi-history', name: 'recent' },
-          { title: 'Zoeken', icon: 'mdi-magnify', name: 'zoeken' },
+          { title: 'Recent', icon: 'mdi-history', path: '/recent', name: 'recent' },
+          { title: 'Zoeken', icon: 'mdi-magnify', path: '/zoeken', name: 'zoeken' },
           { title: 'Informatie', icon: 'mdi-information', path: '/informatie', name: 'informatie' }
         ]
       };

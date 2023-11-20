@@ -14,6 +14,8 @@ import UpdateAvatar from '@/components/UpdateAvatar.vue'
 import UpdatePassword from '@/components/UpdatePassword.vue'
 import DisplayTheme from '@/components/DisplayTheme.vue'
 import ResetDatabase from '@/components/ResetDatabase.vue'
+import RecentView from '@/views/RecentView.vue'
+import SearchView from '@/views/SearchView.vue'
 
 
 const routes = [
@@ -21,6 +23,16 @@ const routes = [
     path: '/',
     name: 'dashboard',
     component: DashboardView
+  },
+  {
+    path: '/recent',
+    name: 'recent',
+    component: RecentView
+  },
+  {
+    path: '/zoeken',
+    name: 'zoeken',
+    component: SearchView
   },
   {
     path: '/informatie',
