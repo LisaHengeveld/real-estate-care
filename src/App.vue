@@ -17,12 +17,12 @@
       v-if="isLoggedIn"
       class="text-white pl-3 py-3"
       color="primary"
-      image="banner.png"
+      :image="bannerImage"
       height="60"
     >
 
       <v-img
-        src="logo.png"
+        :src="bannerLogo"
         width="100"
       ></v-img>
 
@@ -146,7 +146,23 @@ import ErrorMessage from "@/components/ErrorMessage.vue";
       },
       currentRouteName() {
         return this.$route.name;
-      }
+      },
+      bannerImage() {
+        return this.$vuetify.theme.global.current.dark
+          ? require('@/assets/banner-dark.png')
+          : require('@/assets/banner-light.png');
+      },
+      bannerLogo() {
+        return this.$vuetify.theme.global.current.dark
+          ? require('@/assets/logo-white.png')
+          : require('@/assets/logo-dark.png');
+      },
     }
   }
 </script>
+
+<style>
+  .v-list.no-surface-color {
+    background-color: rgb(var(--v-theme-background));
+  }
+</style>

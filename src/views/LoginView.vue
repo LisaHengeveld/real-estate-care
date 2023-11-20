@@ -5,7 +5,7 @@
             class="banner-top"
             max-width="1000px"
             width="100%"
-            src="@/assets/img/banner-top.png"
+            src="@/assets/banner-top.png"
         ></v-img>
 
         <!-- Banner on bottom of screen -->
@@ -13,7 +13,7 @@
             class="banner-bottom"
             max-width="1000px"
             width="100%"
-            src="@/assets/img/banner-bottom.png"
+            src="@/assets/banner-bottom.png"
         ></v-img>
 
         <!-- Login form -->
@@ -24,7 +24,7 @@
                         <v-card-title class="py-5">
                             <v-img
                                 width="80%"
-                                src="@/assets/img/logo-white.png"
+                                src="@/assets/logo-white.png"
                             ></v-img>
                         </v-card-title>
                         <v-card-text>

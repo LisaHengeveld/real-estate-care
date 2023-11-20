@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-list
-            class="mt-10"
+            class="mt-10 no-surface-color"
             lines="two"
         >
             <v-list-subheader class="mb-5 text-h5 text-primary">

@@ -3,7 +3,7 @@
         <!-- List of all inspections -->
         <v-list 
             v-if="inspections.length"
-            class="mt-10"
+            class="mt-10 no-surface-color"
             lines="two"
         >
             <v-list-subheader
