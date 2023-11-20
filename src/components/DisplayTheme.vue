@@ -5,23 +5,23 @@
         </div>
         <div class="ma-4">
             <v-switch
-    v-model="isDarkTheme"
-    hide-details
-    @change="toggleTheme"
-  >
-    <template v-slot:label>
-      <div>
-        <v-icon>{{ isDarkTheme ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}</v-icon>
-        {{ isDarkTheme ? 'Omschakelen naar licht thema' : 'Omschakelen naar donker thema' }}
-      </div>
-    </template>
-  </v-switch>
+              v-model="isDarkTheme"
+              hide-details
+              @change="toggleTheme"
+            >
+              <template v-slot:label>
+                <div>
+                  <v-icon>{{ isDarkTheme ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}</v-icon>
+                  {{ isDarkTheme ? 'Omschakelen naar licht thema' : 'Omschakelen naar donker thema' }}
+                </div>
+              </template>
+            </v-switch>
         </div>
     </div>
 </template>
 
 <script setup>
-import { computed, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useTheme } from 'vuetify'
 
 const theme = useTheme()
@@ -30,7 +30,7 @@ const theme = useTheme()
 const THEME_KEY = 'user-theme-preference';
 
 // Computed property to determine if the current theme is dark
-const isDarkTheme = computed(() => theme.global.current.value.dark);
+const isDarkTheme = ref(theme.global.current.value.dark);
 
 // Watcher to save theme preference to localStorage whenever it changes
 watchEffect(() => {
