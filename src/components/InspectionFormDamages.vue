@@ -5,7 +5,7 @@
     <v-text-field
       v-model="damage.location"
       color="primary"
-      label="Locatie"
+      label="Locatie*"
       variant="outlined"
       :rules="[rules.required]"
     ></v-text-field>
@@ -18,7 +18,7 @@
       :rules="[rules.required]"
     >
       <template v-slot:label>
-        <div>Nieuwe schade</div>
+        <div>Nieuwe schade*</div>
       </template>
       <v-radio label="Ja" value="Ja"></v-radio>
       <v-radio label="Nee" value="Nee"></v-radio>
@@ -28,7 +28,7 @@
     <v-select
       v-model="damage.kind"
       color="primary"
-      label="Soort schade"
+      label="Soort schade*"
       :items="[
         'Moedwillig',
         'Slijtage',
@@ -49,7 +49,7 @@
       class="mt-2"
       v-model="damage.date"
       color="primary"
-      label="Datum"
+      label="Datum*"
       type="date"
       variant="outlined"
       :rules="[rules.required]"
@@ -63,7 +63,7 @@
       :rules="[rules.required]"
     >
       <template v-slot:label>
-        <div>Accute actie vereist</div>
+        <div>Accute actie vereist*</div>
       </template>
       <v-radio label="Ja" value="Ja"></v-radio>
       <v-radio label="Nee" value="Nee"></v-radio>
@@ -73,7 +73,7 @@
     <v-textarea
       v-model="damage.description"
       color="primary"
-      label="Omschrijving"
+      label="Omschrijving*"
       variant="outlined"
       :rules="[rules.required]"
     ></v-textarea>

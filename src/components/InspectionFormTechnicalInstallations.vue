@@ -5,7 +5,7 @@
     <v-text-field
       v-model="installation.location"
       color="primary"
-      label="Locatie"
+      label="Locatie*"
       variant="outlined"
       :rules="[rules.required]"
     ></v-text-field>
@@ -15,7 +15,7 @@
       class="mt-2"
       v-model="installation.kind"
       color="primary"
-      label="Soort installatie"
+      label="Soort installatie*"
       :items="[
         'Koeling',
         'Verwarming',
@@ -63,7 +63,7 @@
         class="mt-2 mb-3"
         v-model="selectedTestProcedure"
         color="primary"
-        label="Testprocedure"
+        label="Testprocedure*"
         :items="testProceduresList"
         variant="outlined"
         :rules="[rules.required]"
@@ -83,7 +83,7 @@
       :rules="[rules.required]"
     >
       <template v-slot:label>
-        <div>Goedgekeurd</div>
+        <div>Goedgekeurd*</div>
       </template>
       <v-radio label="Ja" value="Ja"></v-radio>
       <v-radio label="Nee" value="Nee"></v-radio>

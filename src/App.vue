@@ -23,6 +23,7 @@
 
       <v-img
         :src="bannerLogo"
+        alt="Real Estate Care"
         width="100"
       ></v-img>
 
@@ -157,7 +158,13 @@ import ErrorMessage from "@/components/ErrorMessage.vue";
           ? require('@/assets/logo-white.png')
           : require('@/assets/logo-dark.png');
       },
-    }
+    },
+    watch: {
+      $route(to) {
+        // Set the page title based on the route metadata or route name
+        document.title = to.meta.title || 'Real Estate Care';
+      }
+    },
   }
 </script>
 

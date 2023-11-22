@@ -5,7 +5,7 @@
       <v-text-field
         v-model="maintenance.location"
         color="primary"
-        label="Locatie"
+        label="Locatie*"
         variant="outlined"
         :rules="[rules.required]"
       ></v-text-field>
@@ -15,7 +15,7 @@
         class="mt-2"
         v-model="maintenance.kind"
         color="primary"
-        label="Soort onderhoud"
+        label="Soort onderhoud*"
         :items="[
           'Schilderwerk',
           'Houtrot',
@@ -38,7 +38,7 @@
         :rules="[rules.required]"
       >
         <template v-slot:label>
-          <div>Accute actie vereist</div>
+          <div>Accute actie vereist*</div>
         </template>
         <v-radio label="Ja" value="Ja"></v-radio>
         <v-radio label="Nee" value="Nee"></v-radio>
@@ -48,7 +48,7 @@
       <v-select
         v-model="maintenance.costIndication"
         color="primary"
-        label="Kostenindicatie"
+        label="Kostenindicatie*"
         :items="[
           '0-500',
           '500-1.500',

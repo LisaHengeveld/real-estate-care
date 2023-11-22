@@ -24,7 +24,7 @@
         class="mt-2"
         v-model="modification.location"
         color="primary"
-        label="Locatie aangetroffen modificatie"
+        label="Locatie aangetroffen modificatie*"
         variant="outlined"
         :rules="[rules.required]"
       ></v-text-field>
@@ -34,7 +34,7 @@
         class="mt-2"
         v-model="modification.executedBy"
         color="primary"
-        label="Uitgevoerd door"
+        label="Uitgevoerd door*"
         :items="[
           'Huurder',
           'Aannemer',
@@ -52,7 +52,7 @@
         class="mt-2"
         v-model="modification.description"
         color="primary"
-        label="Omschrijving"
+        label="Omschrijving*"
         variant="outlined"
         :rules="[rules.required]"
       ></v-textarea>
@@ -62,7 +62,7 @@
         class="mt-2"
         v-model="modification.action"
         color="primary"
-        label="Te ondernemen actie"
+        label="Te ondernemen actie*"
         :items="[
           'Accepteren',
           'Laten keuren',

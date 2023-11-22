@@ -22,72 +22,86 @@ const routes = [
   {
     path: '/',
     name: 'dashboard',
-    component: DashboardView
+    component: DashboardView,
+    meta: { title: 'Dashboard' }
   },
   {
     path: '/recent',
     name: 'recent',
-    component: RecentView
+    component: RecentView,
+    meta: { title: 'Recent geopend' }
   },
   {
     path: '/zoeken',
     name: 'zoeken',
-    component: SearchView
+    component: SearchView,
+    meta: { title: 'Zoeken' }
   },
   {
     path: '/informatie',
     name: 'informatie',
-    component: InformationView
+    component: InformationView,
+    meta: { title: 'Informatie over de app' }
   },
   {
     path: '/inspectierapporten/:type',
     name: 'inspectierapporten',
-    component: InspectionsList
+    component: InspectionsList,
+    meta: { title: 'Inspectierapporten' }
   },
   {
     path: '/inspectieformulier/:id/:city/:address',
     name: 'inspectieformulier',
-    component: InspectionForm
+    component: InspectionForm,
+    meta: { title: 'Inspectierapport' }
   },
   {
     path: '/kennisbase',
     name: 'kennisbase',
-    component: KnowledgeBase
+    component: KnowledgeBase,
+    meta: { title: 'Kennisbase' }
   },
   {
     path: '/kennisbase/:subject',
     name: 'files',
-    component: FilesList
+    component: FilesList,
+    meta: { title: 'Bestanden' }
   },
   {
     path: '/instellingen',
     name: 'instellingen',
-    component: Settings
+    component: Settings,
+    meta: { title: 'Instellingen' }
   },
   {
     path: '/instellingen/wijzig-email',
     name: 'wijzig-email',
-    component: UpdateEmail
+    component: UpdateEmail,
+    meta: { title: 'Wijzig e-mailadres' }
   },
   {
     path: '/instellingen/wijzig-profielfoto',
     name: 'wijzig-profielfoto',
-    component: UpdateAvatar
+    component: UpdateAvatar,
+    meta: { title: 'Wijzig profielfoto' }
   },
   {
     path: '/instellingen/wijzig-wachtwoord',
     name: 'wijzig-wachtwoord',
-    component: UpdatePassword
+    component: UpdatePassword,
+    meta: { title: 'Wijzig wachtwoord' }
   },
   {
     path: '/instellingen/thema',
     name: 'thema',
-    component: DisplayTheme
+    component: DisplayTheme,
+    meta: { title: 'Applicatie thema' }
   },
   {
     path: '/instellingen/herstel-database',
     name: 'herstel-database',
-    component: ResetDatabase
+    component: ResetDatabase,
+    meta: { title: 'Herstel database' }
   },
   {
     path: '/inloggen',

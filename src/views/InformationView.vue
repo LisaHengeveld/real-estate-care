@@ -10,7 +10,7 @@
         <p>Via het dashboard kunnen de hoofdfuncties van deze applicatie worden bereikt:</p>
         <p>
           <span class="text-primary">Toegewezen inspecties: </span><br>Vul inspectierapporten in direct op locatie, inclusief de mogelijkheid om gemaakte foto's gelijk te uploaden. 
-          Indien nieuwe toegewezen rapporten beschikbaar zijn zal bovenin de applicatie bij meldingen hierop geattendeerd worden. Laatstgenoemde is een toekomstige funtie die in dit prototype nog niet is uitgewerkt.
+          Indien nieuwe toegewezen rapporten beschikbaar zijn zal rechtsbovenin de applicatie bij meldingen (het belletje) hierop geattendeerd worden. Laatstgenoemde is een toekomstige funtie die in dit prototype nog niet is uitgewerkt.
         </p>
         <p>
           <span class="text-primary">Uitgevoerde inspecties: </span><br>Bekijk en bewerk voltooide inspectierapporten om de meest actuele informatie bij de hand te hebben.
@@ -24,7 +24,7 @@
         <p>
           Alle bewerkingen en toevoegingen in de applicatie zijn direct zichtbaar voor alle gebruikers. Gegevens zijn beveiligd en de toegang tot de app is beperkt tot geautoriseerde gebruikers.
         </p>
-        <p>Voor ondersteuning of bij vragen over het gebruik van de app kunt u terecht bij de beheerder.</p>
+        <p>Voor ondersteuning of bij vragen over het gebruik van de app kunt u terecht bij de beheerder. Neem hiervoor contact op met: (hier komen contactgegevens van de beheerder)</p>
     </div>
 </template>
 

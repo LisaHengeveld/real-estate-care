@@ -6,6 +6,7 @@
             max-width="1000px"
             width="100%"
             src="@/assets/banner-top.png"
+            alt=""
         ></v-img>
 
         <!-- Banner on bottom of screen -->
@@ -14,6 +15,7 @@
             max-width="1000px"
             width="100%"
             src="@/assets/banner-bottom.png"
+            alt=""
         ></v-img>
 
         <!-- Login form -->
@@ -25,6 +27,7 @@
                             <v-img
                                 width="80%"
                                 src="@/assets/logo-white.png"
+                                alt="Real Estate Care"
                             ></v-img>
                         </v-card-title>
                         <v-card-text>
