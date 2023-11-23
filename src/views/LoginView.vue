@@ -94,7 +94,7 @@
         .then(() => {
             // Simulate sending a two factor authentication code
             const fake2FACode = Math.floor(100000 + Math.random() * 900000).toString(); // A 6-digit code
-            localStorage.setItem('fake2FACode', fake2FACode);
+            localStorage.setItem('fake2FACode', fake2FACode); // Save to local storage
 
             // Prompt the user to enter the 2FA code
             const userEnteredCode = prompt("Voer de 2FA-code in:");
@@ -110,7 +110,7 @@
                 // Proceed with the navigation
                 router.push('/');
             } else {
-                errorMessage.value = "Ongeldige 2FA-code.";
+                errorMessage.value = "Ongeldige code. Log nogmaals in en voer de nieuwe code in.";
                 // Optionally clear the fake code or ask for retry
             }
         })
