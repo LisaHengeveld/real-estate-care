@@ -133,7 +133,8 @@ const getCurrentUser = () => {
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth !== false)) {
-    if (await getCurrentUser()) {
+    const is2FAAuthenticated = localStorage.getItem("is2FAAuthenticated") === "true";
+    if (await getCurrentUser() && is2FAAuthenticated) {
       next();
     } else {
       console.log("You don't have access!");

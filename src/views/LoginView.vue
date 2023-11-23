@@ -92,11 +92,30 @@
     const login = () => {
         AuthenticationService.login(email.value, password.value)
         .then(() => {
-            router.push('/');
+            // Simulate sending a two factor authentication code
+            const fake2FACode = Math.floor(100000 + Math.random() * 900000).toString(); // A 6-digit code
+            localStorage.setItem('fake2FACode', fake2FACode);
+
+            // Prompt the user to enter the 2FA code
+            const userEnteredCode = prompt("Voer de 2FA-code in:");
+
+            // Verify the 2FA code
+            if (userEnteredCode === localStorage.getItem('fake2FACode')) {
+                // The user is fully authenticated
+                localStorage.setItem('is2FAAuthenticated', 'true');
+
+                // Clear the fake 2FA code from localStorage
+                localStorage.removeItem('fake2FACode');
+
+                // Proceed with the navigation
+                router.push('/');
+            } else {
+                errorMessage.value = "Ongeldige 2FA-code.";
+                // Optionally clear the fake code or ask for retry
+            }
         })
         .catch((error) => {
             errorMessage.value = "Ongeldig e-mailadres en/of wachtwoord.";
-            console.error("Login error:", error);
         });
     };
 </script>

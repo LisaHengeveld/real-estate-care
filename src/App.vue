@@ -98,10 +98,11 @@
   onMounted(() => {
     auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      const is2FAAuthenticated = localStorage.getItem("is2FAAuthenticated") === "true";
+      // Check if user is correctly logged in with email, password and 2FA-code
+      if (user && is2FAAuthenticated) {
         isLoggedIn.value = true;
-        // Fill the store with the data
-        store.dispatch('fetchInspections');
+        store.dispatch('fetchInspections'); // Fill the store with the data
       } else {
         store.dispatch('unsubscribeInspections');  // Dispatch the action to unsubscribe
         isLoggedIn.value = false;
@@ -112,7 +113,8 @@
   const handleSignOut = () => {
     signOut(auth).then(() => {
         store.dispatch('unsubscribeInspections'); // Dispatch the action to unsubscribe
-        router.push("/inloggen");
+        localStorage.removeItem('is2FAAuthenticated'); // Clear the 2FA verification
+        router.push("/inloggen"); // Send user back to login page
     }).catch((error) => {
         store.commit('SET_ERROR', "Er ging iets mis bij het uitloggen. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
     });
