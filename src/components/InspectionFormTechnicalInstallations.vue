@@ -140,7 +140,19 @@
     mounted() {
       this.fetchPdfList(); // Get file names of all testprocedures
     },
-    props: ["inspectionId", "index"],
+    props: {
+      inspectionId: {
+        type: String,
+        required: true
+      },
+      index: {
+        type: Number,
+        required: true,
+        validator: function (value) {
+          return Number.isInteger(value) && value >= 0;
+        }
+      }
+    },
     computed: {
       // Get data
       installation() {

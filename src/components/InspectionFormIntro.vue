@@ -33,11 +33,24 @@
 
 <script>
 export default {
-    props: [
-        'address',
-        'city',
-        'requiredTasks'
-    ],
+    props: {
+      address: {
+        type: String,
+        required: true
+      },
+      city: {
+        type: String,
+        required: true
+      },
+      requiredTasks: {
+        type: Array,
+        required: true,
+        validator: function (value) {
+          const allowedCategories = ['damages', 'deferredMaintenance', 'technicalInstallations', 'modifications'];
+          return value.every(item => allowedCategories.includes(item));
+        }
+      }
+    },
     data() {
         return {
             dialog: true,

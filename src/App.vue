@@ -62,7 +62,7 @@
     </v-main>
 
     <!-- Snackbar -->
-    <snackbar />
+    <snackbar-message />
 
     <!-- Tab bar bottom -->
     <v-bottom-navigation
@@ -121,13 +121,13 @@
 </script>
 
 <script>
-import Snackbar from "@/components/Snackbar.vue";
+import SnackbarMessage from "@/components/SnackbarMessage.vue";
 import ErrorMessage from "@/components/ErrorMessage.vue";
 
   export default {
     name: "App",
     components: {
-      Snackbar,
+      SnackbarMessage,
       ErrorMessage
     },
     data() {

@@ -8,7 +8,7 @@ import InspectionsList from '@/components/InspectionsList.vue'
 import InspectionForm from '@/components/InspectionForm.vue'
 import KnowledgeBase from '@/components/KnowledgeBase.vue'
 import FilesList from '@/components/FilesList.vue'
-import Settings from '@/components/Settings.vue'
+import SettingsList from '@/components/SettingsList.vue'
 import UpdateEmail from '@/components/UpdateEmail.vue'
 import UpdateAvatar from '@/components/UpdateAvatar.vue'
 import UpdatePassword from '@/components/UpdatePassword.vue'
@@ -70,7 +70,7 @@ const routes = [
   {
     path: '/instellingen',
     name: 'instellingen',
-    component: Settings,
+    component: SettingsList,
     meta: { title: 'Instellingen' }
   },
   {

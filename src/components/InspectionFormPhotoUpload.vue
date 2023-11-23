@@ -55,11 +55,24 @@ export default {
         }
     },
 
-    props: [
-        'inspectionId',
-        'task',    
-        'uploadedPhotos'
-    ],
+    props: {
+        inspectionId: {
+            type: String,
+            required: true
+        },
+        task: {
+            type: String,
+            required: true,
+            validator: function (value) {
+                const allowedTypes = ['Damages', 'Deferred Maintenance', 'Technical Installations', 'Modifications'];
+                return allowedTypes.includes(value);
+            }
+        },
+        uploadedPhotos: {
+            type: Array,
+            required: true
+        }
+    },
 
     methods: {
         // This function will be triggered when the user selects files

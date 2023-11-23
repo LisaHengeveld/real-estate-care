@@ -98,7 +98,19 @@
     components: {
       InspectionFormPhotoUpload
     },
-    props: ["inspectionId", "index"],
+    props: {
+      inspectionId: {
+        type: String,
+        required: true
+      },
+      index: {
+        type: Number,
+        required: true,
+        validator: function (value) {
+          return Number.isInteger(value) && value >= 0;
+        }
+      }
+    },
     methods: {
       async submitForm() {
         // Validate the form

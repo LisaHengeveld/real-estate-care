@@ -70,11 +70,24 @@ export default {
         panel: null,
       }
     },
-    props: [
-        'title',
-        'requiredTask',
-        'taskItems'
-    ],
+    props: {
+        title: {
+            type: String,
+            required: true,
+            validator: function (value) {
+                const allowedTypes = ['Schade', 'Achterstallig onderhoud', 'Technische installaties', 'Modificaties'];
+                return allowedTypes.includes(value);
+            }
+        },
+        requiredTask: {
+            type: Boolean,
+            required: true
+        },
+        taskItems: {
+            type: Array,
+            required: true
+        }
+    },
     methods: {
         addForm() {
             // Notify parent component to add new form

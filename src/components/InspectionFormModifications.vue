@@ -123,7 +123,23 @@
     components: {
       InspectionFormPhotoUpload
     },
-    props: ["inspectionId", "index", "documentation"],
+    props: {
+      inspectionId: {
+        type: String,
+        required: true
+      },
+      index: {
+        type: Number,
+        required: true,
+        validator: function (value) {
+          return Number.isInteger(value) && value >= 0;
+        }
+      },
+      documentation: {
+        type: String,
+        required: true
+      }
+    },
     methods: {
       // Get file name and download URL of documentation of current building
       async openPdf(fileName) {
