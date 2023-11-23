@@ -1,20 +1,22 @@
 <template>
-  <v-form class="pt-2" ref="formTechnicalInstallationsRef" @submit.prevent="submitForm">
+  <v-form
+    ref="formTechnicalInstallationsRef"
+    class="pt-2"
+    @submit.prevent="submitForm"
+  >
   
     <!-- Textfield for location installation -->
     <v-text-field
       v-model="installation.location"
+      :rules="[rules.required]"
       color="primary"
       label="Locatie*"
       variant="outlined"
-      :rules="[rules.required]"
     ></v-text-field>
 
     <!-- Select field for kind of installation -->
     <v-select
-      class="mt-2"
       v-model="installation.kind"
-      color="primary"
       label="Soort installatie*"
       :items="[
         'Koeling',
@@ -23,8 +25,10 @@
         'Elektra',
         'Beveiliging',
       ]"
-      variant="outlined"
       :rules="[rules.required]"
+      class="mt-2"
+      color="primary"
+      variant="outlined"
     >
       <!-- Hide counter by passing an empty counter slot -->
       <template v-slot:counter></template>
@@ -32,8 +36,8 @@
 
     <!-- Textfield for reported malfunctions -->
     <v-text-field
-      class="mt-2"
       v-model="installation.reportedMalfunctions"
+      class="mt-2"
       color="primary"
       label="Gemelde storingen"
       variant="outlined"
@@ -60,14 +64,14 @@
     <!-- Select field if test procedure is not available (for example, when user adds new form) -->
     <div v-else class="no-word-break">
       <v-select
-        class="mt-2 mb-3"
         v-model="selectedTestProcedure"
-        color="primary"
         label="Testprocedure*"
         :items="testProceduresList"
-        variant="outlined"
         :rules="[rules.required]"
         hint="Let op: De testprocedure kan niet worden gewijzigd, nadat dit formulier is opgeslagen."
+        class="mt-2 mb-3"
+        color="primary"
+        variant="outlined"
         persistent-hint
       >
         <!-- Hide counter by passing an empty counter slot -->
@@ -78,9 +82,9 @@
     <!-- Radio group yes/no if installation is approved -->
     <v-radio-group
       v-model="installation.approved"
+      :rules="[rules.required]"
       color="primary"
       inline
-      :rules="[rules.required]"
     >
       <template v-slot:label>
         <div>Goedgekeurd*</div>
@@ -98,7 +102,12 @@
     ></v-textarea>
 
     <!-- Field for uploading photos -->
-    <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :task="'Technical Installations'" :uploadedPhotos="typeof installation.photos !== 'undefined' ? installation.photos : []" />
+    <inspection-form-photo-upload
+      ref="photoUpload"
+      :inspection-id="this.inspectionId"
+      :task="'Technical Installations'"
+      :uploaded-photos="typeof installation.photos !== 'undefined' ? installation.photos : []" 
+    />
 
     <!-- Submit button -->
     <v-btn
@@ -126,19 +135,9 @@
   import InspectionFormPhotoUpload from "@/components/InspectionFormPhotoUpload.vue";
 
   export default {
-    data: () => ({
-      selectedTestProcedure: null,
-      testProceduresList: [],
-      rules: {
-        required: value => !!value || 'Veld is verplicht',
-        formValid: null
-      },
-    }),
+    name: "InspectionFormTechnicalInstallations",
     components: {
       InspectionFormPhotoUpload
-    },
-    mounted() {
-      this.fetchPdfList(); // Get file names of all testprocedures
     },
     props: {
       inspectionId: {
@@ -153,11 +152,22 @@
         }
       }
     },
+    data: () => ({
+      selectedTestProcedure: null,
+      testProceduresList: [],
+      rules: {
+        required: value => !!value || 'Veld is verplicht',
+        formValid: null
+      },
+    }),
     computed: {
       // Get data
       installation() {
         return this.$store.getters.getTechnicalInstallation(this.inspectionId, this.index);
       },
+    },
+    mounted() {
+      this.fetchPdfList(); // Get file names of all testprocedures
     },
     methods: {
       // Get file names of all testprocedures
@@ -168,7 +178,6 @@
           this.testProceduresList = pdfList.map(function (item) { return item.name; }); // Save file names to testProceduresList
         } catch (error) {
           this.$store.commit('SET_ERROR', "Er ging iets mis bij het ophalen van de testprocedures. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-          console.error("Error fetching test procedures list:", error);
         }
       },
 
@@ -180,7 +189,6 @@
           window.open(fileData.url, '_blank');
         } catch (error) {
           this.$store.commit('SET_ERROR', "Er ging iets mis bij het ophalen van de testprocedure. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-          console.error("Error opening PDF:", error);
         }
       },
 

@@ -6,13 +6,13 @@
                 v-for="item in items"
                 :key="item.value"
                 :text="item.text"
-                @click="navigateTo(item.value)"
                 class="ma-3"
                 color="primary"
                 height="150"
                 width="150"
                 rounded="xl"
                 stacked
+                @click="navigateTo(item.value)"
             >
                 <template v-slot:prepend>
                     <v-icon size="60">

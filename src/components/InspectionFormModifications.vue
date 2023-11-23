@@ -1,5 +1,9 @@
 <template>
-    <v-form class="pt-2" ref="formModificationsRef" @submit.prevent="submitForm">
+    <v-form
+      ref="formModificationsRef"
+      class="pt-2"
+      @submit.prevent="submitForm"
+    >
 
       <!-- Link to pdf-file on current state and modifications -->
       <div 
@@ -21,27 +25,27 @@
   
       <!-- Textfield for location modification -->
       <v-text-field
-        class="mt-2"
         v-model="modification.location"
+        :rules="[rules.required]"
+        class="mt-2"
         color="primary"
         label="Locatie aangetroffen modificatie*"
         variant="outlined"
-        :rules="[rules.required]"
       ></v-text-field>
   
       <!-- Select field for kind of modification -->
       <v-select
-        class="mt-2"
         v-model="modification.executedBy"
-        color="primary"
         label="Uitgevoerd door*"
         :items="[
           'Huurder',
           'Aannemer',
           'Onbekend'
         ]"
-        variant="outlined"
         :rules="[rules.required]"
+        class="mt-2"
+        color="primary"
+        variant="outlined"
       >
         <!-- Hide counter by passing an empty counter slot -->
         <template v-slot:counter></template>
@@ -49,19 +53,17 @@
   
       <!-- Text area for description of modification -->
       <v-textarea
-        class="mt-2"
         v-model="modification.description"
+        :rules="[rules.required]"
+        class="mt-2"
         color="primary"
         label="Omschrijving*"
         variant="outlined"
-        :rules="[rules.required]"
       ></v-textarea>
 
       <!-- Select field for action to be taken -->
       <v-select
-        class="mt-2"
         v-model="modification.action"
-        color="primary"
         label="Te ondernemen actie*"
         :items="[
           'Accepteren',
@@ -69,8 +71,10 @@
           'Laten verwijderen',
           'Laten aanpassen en keuren'
         ]"
-        variant="outlined"
         :rules="[rules.required]"
+        class="mt-2"
+        color="primary"
+        variant="outlined"
       >
         <!-- Hide counter by passing an empty counter slot -->
         <template v-slot:counter></template>
@@ -78,15 +82,20 @@
 
       <!-- Text area for comments -->
       <v-textarea
-        class="mt-2"
         v-model="modification.comments"
+        class="mt-2"
         color="primary"
         label="Opmerkingen"
         variant="outlined"
       ></v-textarea>
 
       <!-- Field for uploading photos -->
-      <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :task="'Modifications'" :uploadedPhotos="typeof modification.photos !== 'undefined' ? modification.photos : []" />
+      <inspection-form-photo-upload
+        ref="photoUpload"
+        :inspection-id="this.inspectionId"
+        :task="'Modifications'"
+        :uploaded-photos="typeof modification.photos !== 'undefined' ? modification.photos : []" 
+      />
   
       <!-- Submit button -->
       <v-btn
@@ -114,12 +123,7 @@
   import InspectionFormPhotoUpload from "@/components/InspectionFormPhotoUpload.vue";
 
   export default {
-    data: () => ({
-      rules: {
-        required: value => !!value || 'Veld is verplicht',
-        formValid: null
-      },
-    }),
+    name: "InspectionFormModifications",
     components: {
       InspectionFormPhotoUpload
     },
@@ -140,6 +144,17 @@
         required: true
       }
     },
+    data: () => ({
+      rules: {
+        required: value => !!value || 'Veld is verplicht',
+        formValid: null
+      },
+    }),
+    computed: {
+      // Get data
+      modification() {
+        return this.$store.getters.getModification(this.inspectionId, this.index);
+    },
     methods: {
       // Get file name and download URL of documentation of current building
       async openPdf(fileName) {
@@ -150,7 +165,6 @@
           window.open(fileData.url, '_blank');
         } catch (error) {
           this.$store.commit('SET_ERROR', "Er ging iets mis bij het ophalen van de documentatie. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-          console.error("Error opening PDF:", error);
         }
       },
       async submitForm() {
@@ -170,14 +184,7 @@
         this.$emit('delete-form');
       }
     },
-    computed: {
-    // Get data
-    modification() {
-      return this.$store.getters.getModification(this.inspectionId, this.index);
-    },
   },
   };
   </script>
-  
-  <style></style>
   

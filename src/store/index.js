@@ -3,20 +3,29 @@ import InspectionsService from "../services/InspectionsService.js";
 
 export default createStore({
   state: {
-    inspections: [], // Data of all completed and assigned inspections
+    inspections: [],               // Data of all completed and assigned inspections
     unsubscribeInspections: null,
-    isLoading: false,
-    errorMessage: {
+    isLoading: false,              // Loading spinner
+    errorMessage: {                // Show/hide snackbar with error message
       show: false,
       text: ""
     },
-    snackbar: {
+    snackbar: {                    // Show/hide snackbar with message
       show: false,
       text: ""
     }
   },
 
   mutations: {
+    SET_INSPECTIONS(state, inspections) {
+      state.inspections = inspections;
+    },
+    SET_UNSUBSCRIBE_INSPECTIONS(state, unsubscribe) {
+      state.unsubscribeInspections = unsubscribe;
+    },
+    CLEAR_UNSUBSCRIBE_INSPECTIONS(state) {
+      state.unsubscribeInspections = null;
+    },
     SET_LOADING(state, loading) {
       state.isLoading = loading;
     },
@@ -26,15 +35,6 @@ export default createStore({
     },
     HIDE_ERROR(state) {
       state.errorMessage.show = false;
-    },
-    SET_INSPECTIONS(state, inspections) {
-      state.inspections = inspections;
-    },
-    SET_UNSUBSCRIBE_INSPECTIONS(state, unsubscribe) {
-      state.unsubscribeInspections = unsubscribe;
-    },
-    CLEAR_UNSUBSCRIBE_INSPECTIONS(state) {
-      state.unsubscribeInspections = null;
     },
     SHOW_SNACKBAR(state, text) {
       let timeout = 0;
@@ -66,12 +66,17 @@ export default createStore({
         },
         (error) => {
             commit('SET_ERROR', "Er ging iets mis bij het ophalen van de data. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-            console.error("Fetching data error: ", error);
             commit('SET_LOADING', false);
         }
       );
 
       commit('SET_UNSUBSCRIBE_INSPECTIONS', unsubscribe);
+    },
+    unsubscribeInspections({ state, commit }) {
+      if (state.unsubscribeInspections) {
+        state.unsubscribeInspections();
+        commit('CLEAR_UNSUBSCRIBE_INSPECTIONS');
+      }
     },
     setLoading({ commit }, payload) {
       commit('SET_LOADING', payload);
@@ -79,12 +84,6 @@ export default createStore({
     showSnackbar({ commit }, text) {
       commit('SHOW_SNACKBAR', text);
     },
-    unsubscribeInspections({ state, commit }) {
-      if (state.unsubscribeInspections) {
-        state.unsubscribeInspections();
-        commit('CLEAR_UNSUBSCRIBE_INSPECTIONS');
-      }
-    }
   },
 
   getters: {
@@ -117,7 +116,4 @@ export default createStore({
       return state.inspections.find(insp => insp.id === id).modifications[+index];
     },
   },
-
-  modules: {
-  }
 })

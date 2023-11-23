@@ -7,17 +7,17 @@
     >
       <v-progress-circular
         color="primary"
-        indeterminate
         size="64"
+        indeterminate
       ></v-progress-circular>
     </v-overlay>
 
     <!-- Tool bar top -->
     <v-app-bar
       v-if="isLoggedIn"
+      :image="bannerImage"
       class="text-white pl-3 py-3"
       color="primary"
-      :image="bannerImage"
       height="60"
     >
 
@@ -73,9 +73,9 @@
       grow
     >
       <v-btn 
-        :value="item.name"
         v-for="item in items"
         :key="item.name"
+        :value="item.name"
         :to="item.path"
       >
         <span>{{ item.title }}</span>
@@ -115,7 +115,6 @@
         router.push("/inloggen");
     }).catch((error) => {
         store.commit('SET_ERROR', "Er ging iets mis bij het uitloggen. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-        console.error("Sign out error: ", error);
     });
   };
 </script>

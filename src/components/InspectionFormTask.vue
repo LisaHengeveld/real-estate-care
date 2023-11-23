@@ -15,20 +15,23 @@
 
             <!-- Button for adding new form -->
             <v-btn
-                @click="addForm(taskItems)"
                 icon="mdi-plus"
                 size="compact"
                 variant="text"
+                @click="addForm(taskItems)"
             ></v-btn>
         </div>
 
         <!-- Container for expansion panels -->
-        <v-expansion-panels v-model="panel" variant="accordion">
+        <v-expansion-panels
+            v-model="panel"
+            variant="accordion"
+        >
             <v-expansion-panel
                 v-for="(item, index) in taskItems"
-                justify="space-between"
                 :key="index"
                 :value="index"
+                justify="space-between"
             >
                 <!-- Item -->
                 <v-expansion-panel-title>
@@ -65,11 +68,7 @@
 
 <script>
 export default {
-    data() {
-      return {
-        panel: null,
-      }
-    },
+    name: "InspectionFormTask",
     props: {
         title: {
             type: String,
@@ -88,6 +87,11 @@ export default {
             required: true
         }
     },
+    data() {
+      return {
+        panel: null,
+      }
+    },
     methods: {
         addForm() {
             // Notify parent component to add new form
@@ -102,15 +106,15 @@ export default {
 
 <style scoped>
 .inspection-header {
-  display: flex;
-  color: white;
-  background-color: rgb(var(--v-theme-primary));
-  padding: 14px 20px;
-  font-size: large;
-  font-weight: bold;
+    display: flex;
+    color: white;
+    background-color: rgb(var(--v-theme-primary));
+    padding: 14px 20px;
+    font-size: large;
+    font-weight: bold;
 }
 
 .v-expansion-panels {
-  z-index: auto;
+    z-index: auto;
 }
 </style>

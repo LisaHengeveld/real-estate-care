@@ -2,10 +2,11 @@
     <v-snackbar
       v-model="$store.state.errorMessage.show"
       :timeout="timeout"
-      color="error"
       class="snackbar"
+      color="error"
       vertical
     >
+      <!-- Get error message from store -->
       {{ $store.state.errorMessage.text }}
 
       <template v-slot:actions>
@@ -22,8 +23,9 @@
 
 <script>
   export default {
+    name: "ErrorMessage",
     data: () => ({
-      timeout: 10000,
+      timeout: 10000, // Show message 10 sec
     }),
   }
 </script>

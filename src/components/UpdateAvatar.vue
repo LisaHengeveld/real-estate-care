@@ -4,11 +4,15 @@
             Wijzig uw profielfoto
         </div>
         <div class="text-center">
+            <!-- Show profile picture if available -->
             <img 
                 v-if="profilePictureUrl"
                 :src="profilePictureUrl"
                 alt="Profielfoto"
-                class="profile-picture">
+                class="profile-picture"
+            >
+            
+            <!-- Show emoticon when profile picture is not available -->
             <v-icon
                 v-else
                 class="ma-5"
@@ -18,13 +22,13 @@
             ></v-icon>
         </div>
         <div class="text-center">
-            <!-- Input field (hidden) -->
+            <!-- File input field (hidden) -->
             <input
                 type="file"
                 ref="fileInput"
-                @change="onFileSelected"
                 accept="image/*"
                 style="display: none;"
+                @change="onFileSelected"
             />
 
             <!-- Button to trigger the file input and save new profile picture -->
@@ -35,6 +39,8 @@
             >
                 Wijzig profielfoto
             </v-btn>
+
+            <!-- Button to delete profile picture -->
             <v-btn
                 class="ml-1 btn-delete"
                 color="error"
@@ -50,26 +56,31 @@ import FilesService from "@/services/FilesService.js";
 import AuthenticationService from "@/services/AuthenticationService.js";
 
 export default {
-    data() {
-        return {
-            userID: '',
-            profilePictureUrl: '', // This will hold the profile picture URL
-        };
-    },
+    name: "UpdateAvatar",
     created() {
         this.fetchUserID();
         this.fetchProfilePicture();
     },
+    data() {
+        return {
+            userID: '',
+            profilePictureUrl: '',
+        };
+    },
     methods: {
+        // Get user id
         fetchUserID() {
             this.userID = AuthenticationService.fetchUserID();
         },
+        // Fetch profile picture url
         fetchProfilePicture() {
             this.profilePictureUrl = AuthenticationService.getProfilePictureUrl() || '';
         },
+        // Trigger the hidden file input
         triggerFileInput() {
             this.$refs.fileInput.click();
         },
+        // Upload profile picture when selected
         async onFileSelected(event) {
             // Handle the file selected by the user
             const file = event.target.files[0];
@@ -81,9 +92,9 @@ export default {
                 this.updateUserAuthProfile(profilePictureURL);
             } catch (error) {
                 this.$store.commit('SET_ERROR', "Er ging iets mis bij het uploaden van de profielfoto. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-                console.error("Error uploading file:", error);
             }
         },
+        // Save the profile picture url to user authentication profile
         async updateUserAuthProfile(photoURL) {
             try {
                 await AuthenticationService.updateProfilePicture(photoURL);
@@ -91,22 +102,21 @@ export default {
                 this.$store.dispatch('showSnackbar', 'Profielfoto gewijzigd.'); // Show snackbar with confirmation 
             } catch (error) {
                 this.$store.commit('SET_ERROR', "Er ging iets mis bij het updaten van uw profielfoto. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-                console.error("Error updating profile picture: ", error);
             }
         },
+        // Delete the profile picture from the database
         async deleteProfilePicture() {
             if (!this.profilePictureUrl) {
-                this.$store.dispatch('showSnackbar', 'Geen profielfoto beschikbaar om te verwijderen.'); // Show snackbar with confirmation
+                this.$store.dispatch('showSnackbar', 'Geen profielfoto beschikbaar om te verwijderen.'); // Show snackbar with message that there is no profile picture available to delete
                 return;
             }
             try {
-                FilesService.deleteProfilePicture(this.userID);
-                AuthenticationService.updateProfilePicture('');
-                this.profilePictureUrl = '';
+                FilesService.deleteProfilePicture(this.userID); // Delete profile picture
+                AuthenticationService.updateProfilePicture(''); // Delete profile picture url from user authentication profile
+                this.profilePictureUrl = ''; // Delete url so that emoticon will be shown
                 this.$store.dispatch('showSnackbar', 'Profielfoto verwijderd.'); // Show snackbar with confirmation
             } catch (error) {
                 this.$store.commit('SET_ERROR', "Er ging iets mis bij het verwijderen van uw profielfoto. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-                console.error("Error deleting profile picture: ", error);
             }
         }
     },    

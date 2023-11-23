@@ -15,10 +15,10 @@
                 :key="index"
             >
                 <v-list-item
-                    class="pl-5"
                     :title="item.title"
                     :subtitle="item.subtitle"
                     :prepend-icon="item.icon"
+                    class="pl-5"
                     @click="navigateTo(item.navigateTo)"
                 >
                 </v-list-item>
@@ -30,6 +30,12 @@
 
 <script>
 export default {
+    name: "SettingsList",
+    methods: {
+        navigateTo(subject) {
+            this.$router.push(`instellingen/${subject}`);
+        }
+    },
     data() {
         return {
             items: [
@@ -66,13 +72,5 @@ export default {
             ],
         }
     },
-    components: [
-        "PasswordChange"
-    ],
-    methods: {
-        navigateTo(subject) {
-            this.$router.push(`instellingen/${subject}`);
-        }
-    }
 }
 </script>

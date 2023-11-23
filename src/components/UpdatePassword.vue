@@ -3,44 +3,47 @@
         <div class="mx-4 mt-9 pt-4 text-h5 text-primary">
             Wijzig uw wachtwoord
         </div>
-        <v-form class="ma-5 password-form" ref="passwordForm" @submit.prevent="changePassword">
+        <v-form
+            ref="passwordForm"
+            class="ma-5 password-form"
+            @submit.prevent="changePassword">
 
             <!-- Current Password -->
             <v-text-field
-                class="mb-3"
-                label="Huidige wachtwoord"
                 v-model="currentPassword"
-                variant="outlined"
                 :append-inner-icon="visibleCurrentPassword ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="visibleCurrentPassword ? 'text' : 'password'"
-                @click:append-inner="visibleCurrentPassword = !visibleCurrentPassword"
-                color="primary"
                 :rules="[rules.required, rules.min]"
+                class="mb-3"
+                label="Huidige wachtwoord"
+                variant="outlined"
+                color="primary"
+                @click:append-inner="visibleCurrentPassword = !visibleCurrentPassword"
             ></v-text-field>
 
             <!-- New Password -->
             <v-text-field
-                class="mb-3"
-                label="Nieuw wachtwoord"
                 v-model="newPassword"
-                variant="outlined"
                 :append-inner-icon="visibleNewPassword ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="visibleNewPassword ? 'text' : 'password'"
-                @click:append-inner="visibleNewPassword = !visibleNewPassword"
-                color="primary"
                 :rules="[rules.required, rules.min]"
+                class="mb-3"
+                label="Nieuw wachtwoord"
+                variant="outlined"
+                color="primary"
+                @click:append-inner="visibleNewPassword = !visibleNewPassword"
             ></v-text-field>
 
             <!-- Confirm New Password -->
             <v-text-field
-                label="Bevestig nieuw wachtwoord"
                 v-model="confirmPassword"
-                variant="outlined"
                 :append-inner-icon="visibleConfirmPassword ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="visibleConfirmPassword ? 'text' : 'password'"
-                @click:append-inner="visibleConfirmPassword = !visibleConfirmPassword"
-                color="primary"
                 :rules="[rules.required, rules.min]"
+                label="Bevestig nieuw wachtwoord"
+                variant="outlined"
+                color="primary"
+                @click:append-inner="visibleConfirmPassword = !visibleConfirmPassword"
             ></v-text-field>
 
             <!-- Submit button -->
@@ -70,6 +73,7 @@
 import AuthenticationService from "@/services/AuthenticationService.js";
 
 export default {
+    name: "UpdatePassword",
     data() {
         return {
             currentPassword: "",
@@ -88,6 +92,18 @@ export default {
             formValid: null
         }
     },
+    beforeRouteLeave(to, from, next) {
+        // Clear the data properties
+        this.currentPassword = "",
+        this.newPassword = "",
+        this.confirmPassword = "",
+        this.visibleCurrentPassword = false,
+        this.visibleNewPassword = false,
+        this.visibleConfirmPassword = false
+
+        // Proceed with navigation
+        next();
+    },
     methods: {
         // Change password
         async changePassword() {
@@ -103,7 +119,6 @@ export default {
                     this.$router.push({ name: 'instellingen' });
                 } catch (error) {
                     this.$store.commit('SET_ERROR', `Er ging iets mis met het bijwerken van het wachtwoord: ${error.message} Neem eventueel contact op met de beheerder.`); // Show error message
-                    console.error("Password change error:", error);
                 }
             }
         },
@@ -113,18 +128,6 @@ export default {
             this.$router.push({ name: 'instellingen' });
         }
     },
-    beforeRouteLeave(to, from, next) {
-        // Clear the data properties
-        this.currentPassword = "",
-        this.newPassword = "",
-        this.confirmPassword = "",
-        this.visibleCurrentPassword = false,
-        this.visibleNewPassword = false,
-        this.visibleConfirmPassword = false
-
-        // Proceed with navigation
-        next();
-    }
 }
 </script>
 

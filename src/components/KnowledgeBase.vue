@@ -14,11 +14,11 @@
             :key="index"
         >
             <v-list-item
-                class="pl-5"
                 :value="subject"
                 :title="subject"
-                append-icon="mdi-chevron-right"
                 :subject="subject"
+                append-icon="mdi-chevron-right"
+                class="pl-5"
                 @click="navigateTo(subject)"
             >
             </v-list-item>
@@ -29,6 +29,7 @@
 
 <script>
 export default {
+    name: "KnowledgeBase",
     data() {
         return {
             subjects: [

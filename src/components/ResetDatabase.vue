@@ -9,8 +9,8 @@
         </div>
         <div class="text-center mt-10">
             <v-btn
-                color="error"
                 prepend-icon="mdi-database-refresh"
+                color="error"
                 size="large"
                 rounded="lg"
                 @click="this.confirmResetDialog = true;"
@@ -44,6 +44,8 @@ import AuthenticationService from "@/services/AuthenticationService.js";
 import jsonData from "@/data/db.json";
 
 export default {
+    name: "ResetDatabase",
+    components: { ConfirmationDialog },
     data() {
         return {
             confirmResetDialog: false
@@ -71,12 +73,10 @@ export default {
                 this.$store.dispatch('setLoading', false); // Loading done
                 this.$store.dispatch('showSnackbar', 'Data gereset.'); // Show snackbar with confirmation 
             } catch (error) {
-                this.$store.commit('SET_ERROR', "Er ging iets mis bij resetten van de database. Zie de console voor details."); // Show error message
-                console.error("Error resetting the database:", error);
+                this.$store.commit('SET_ERROR', "Er ging iets mis bij resetten van de database."); // Show error message
                 this.$store.dispatch('setLoading', false); // Loading done
             }
         }
-  },
-  components: { ConfirmationDialog }
+    },
 }
 </script>

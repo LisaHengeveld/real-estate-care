@@ -5,7 +5,7 @@
       v-if="inspection.completed === false"
       :address="address"
       :city="city"
-      :requiredTasks="inspection.requiredTasks"
+      :required-tasks="inspection.requiredTasks"
     />
 
     <!-- Title -->
@@ -29,13 +29,13 @@
     <inspection-form-task
       ref="inspectionFormTaskRef-damages"
       :title="'Schade'"
-      :requiredTask="inspection.requiredTasks.includes('damages')"
-      :taskItems="inspection.damages"
+      :required-task="inspection.requiredTasks.includes('damages')"
+      :task-items="inspection.damages"
       @add-form="addForm(inspection.damages)"
     >
       <template v-slot="{ index }">
         <inspection-form-damages
-          :inspectionId="inspection.id"
+          :inspection-id="inspection.id"
           :index="index"
           @submit-form="updateData(inspection.id, 'damages', inspection.damages)"
           @delete-form="deleteForm(index, inspection.id, 'damages', inspection.damages)" 
@@ -47,13 +47,13 @@
     <inspection-form-task
       ref="inspectionFormTaskRef-deferredMaintenance"
       :title="'Achterstallig onderhoud'"
-      :requiredTask="inspection.requiredTasks.includes('deferredMaintenance')"
-      :taskItems="inspection.deferredMaintenance"
+      :required-task="inspection.requiredTasks.includes('deferredMaintenance')"
+      :task-items="inspection.deferredMaintenance"
       @add-form="addForm(inspection.deferredMaintenance)"
     >
       <template v-slot="{ index }">
         <inspection-form-deferred-maintenance
-          :inspectionId="inspection.id"
+          :inspection-id="inspection.id"
           :index="index"
           @submit-form="updateData(inspection.id, 'deferredMaintenance', inspection.deferredMaintenance)"
           @delete-form="deleteForm(index, inspection.id, 'deferredMaintenance', inspection.deferredMaintenance)"
@@ -65,13 +65,13 @@
     <inspection-form-task
       ref="inspectionFormTaskRef-technicalInstallations"
       :title="'Technische installaties'"
-      :requiredTask="inspection.requiredTasks.includes('technicalInstallations')"
-      :taskItems="inspection.technicalInstallations"
+      :required-task="inspection.requiredTasks.includes('technicalInstallations')"
+      :task-items="inspection.technicalInstallations"
       @add-form="addForm(inspection.technicalInstallations)"
     >
       <template v-slot="{ index }">
         <inspection-form-technical-installations
-          :inspectionId="inspection.id"
+          :inspection-id="inspection.id"
           :index="index"
           @submit-form="updateData(inspection.id, 'technicalInstallations', inspection.technicalInstallations)"
           @delete-form="deleteForm(index, inspection.id, 'technicalInstallations', inspection.technicalInstallations)"
@@ -83,13 +83,13 @@
     <inspection-form-task
       ref="inspectionFormTaskRef-modifications"
       :title="'Modificaties'"
-      :requiredTask="inspection.requiredTasks.includes('modifications')"
-      :taskItems="inspection.modifications"
+      :required-task="inspection.requiredTasks.includes('modifications')"
+      :task-items="inspection.modifications"
       @add-form="addForm(inspection.modifications)"
     >
       <template v-slot="{ index }">
         <inspection-form-modifications
-          :inspectionId="inspection.id"
+          :inspection-id="inspection.id"
           :index="index"
           :documentation="inspection.documentation"
           @submit-form="updateData(inspection.id, 'modifications', inspection.modifications)"
@@ -114,8 +114,8 @@
 
     <!-- Button for finishing the inspection -->
     <v-container
-    v-if="inspection.completed === false"
-    class="text-center"
+      v-if="inspection.completed === false"
+      class="text-center"
     >
       <v-btn
         class="mx-auto"
@@ -157,6 +157,16 @@ import inspectionService from "@/services/InspectionsService.js";
 import FilesService from "@/services/FilesService.js";
 
 export default {
+  name: "InspectionForm",
+  components: {
+    InspectionFormIntro,
+    InspectionFormTask,
+    InspectionFormDamages,
+    InspectionFormDeferredMaintenance,
+    InspectionFormTechnicalInstallations,
+    InspectionFormModifications,
+    ConfirmationDialog
+  },
   data() {
     return {
       currentIndexToDelete: null,
@@ -167,31 +177,24 @@ export default {
       viewDialogComplete: false,
     }
   },
-  created() {
-    this.id = this.$route.params.id;
-    this.city = this.$route.params.city;
-    this.address = this.$route.params.address;
-  },
-  components: {
-    InspectionFormIntro,
-    InspectionFormTask,
-    InspectionFormDamages,
-    InspectionFormDeferredMaintenance,
-    InspectionFormTechnicalInstallations,
-    InspectionFormModifications,
-    ConfirmationDialog
-  },
   computed: {
     // Get requested inspection data
     inspection() {
       return this.$store.getters.getInspection(this.id);
     },
   },
+  created() {
+    this.id = this.$route.params.id;
+    this.city = this.$route.params.city;
+    this.address = this.$route.params.address;
+  },
   methods: {
+    // Add new form
     addForm(item) {
       item.push({});
     },
 
+    // Save new data to Firestore database
     async updateData(id, task, formData) {
       this.$store.dispatch('setLoading', true); // Start loading
       const newFormData = JSON.parse(JSON.stringify(formData));
@@ -208,16 +211,19 @@ export default {
         this.$store.dispatch('showSnackbar', 'Data opgeslagen.'); // Show snackbar with confirmation 
       } catch (error) {
         this.$store.commit('SET_ERROR', "Er ging iets mis bij het updaten van de data. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-        console.error("Update data error: ", error);
         this.$store.dispatch('setLoading', false); // Loading done
       }
     },
 
+    // Delete form
     deleteForm(index, id, task, formData) {
+      // If form is empty, delete it without asking for a confirmation
       if(Object.keys(formData[index]).length === 0) {
         formData.splice(index, 1);
         this.$store.dispatch('showSnackbar', 'Formulier verwijderd.'); // Show snackbar with confirmation 
+      // If form is not empty, ask user for confirmation
       } else {
+        // Save necessary data
         this.currentIndexToDelete = index;
         this.currentIdToUpdate = id;
         this.currentTaskToUpdate = task;
@@ -226,6 +232,7 @@ export default {
       }
     },
 
+    // Delete data after confirmation
     async handleConfirmDelete() {
       const photos = this.currentDataToUpdate[0].photos; // Get urls of uploaded photos
       // Delete photos from Firebase storage
@@ -241,9 +248,10 @@ export default {
       this.$store.dispatch('showSnackbar', 'Data verwijderd.'); // Show snackbar with confirmation 
     },
 
+    // Complete inspection
     async handleConfirmComplete() {
       this.$store.dispatch('setLoading', true); // Start loading
-      await new Promise(resolve => setTimeout(resolve, 1000)); // For a cleaner transition ;)
+      await new Promise(resolve => setTimeout(resolve, 1000)); // One second delay for a cleaner and more satisfying transition ;)
       try {
         this.viewDialogComplete = false;
         this.$router.push({ name: 'dashboard' }); // Send the user back to the dashboard
@@ -253,7 +261,6 @@ export default {
       } catch (error) {
         this.viewDialogComplete = false;
         this.$store.commit('SET_ERROR', "Er ging iets mis bij het voltooien van de inspectie. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-        console.error("Complete inspection error: ", error);
         this.$store.dispatch('setLoading', false); // Loading done
       }
     },

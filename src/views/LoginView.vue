@@ -3,54 +3,73 @@
         <!-- Banner on top of screen -->
         <v-img
             class="banner-top"
-            max-width="1000px"
-            width="100%"
             src="@/assets/banner-top.png"
             alt=""
+            max-width="1000px"
+            width="100%"
         ></v-img>
 
         <!-- Banner on bottom of screen -->
         <v-img
             class="banner-bottom"
-            max-width="1000px"
-            width="100%"
             src="@/assets/banner-bottom.png"
             alt=""
+            max-width="1000px"
+            width="100%"
         ></v-img>
 
         <!-- Login form -->
         <v-container>
-            <v-row align="center" justify="center" style="height:100vh">
+            <v-row 
+                align="center"
+                justify="center"
+                style="height:100vh"
+            >
                 <v-col align="center">
-                    <v-card color="primary" max-width="350px">
+                    <v-card
+                        color="primary"
+                        max-width="350px"
+                    >
                         <v-card-title class="py-5">
                             <v-img
-                                width="80%"
                                 src="@/assets/logo-white.png"
                                 alt="Real Estate Care"
+                                width="80%"
                             ></v-img>
                         </v-card-title>
                         <v-card-text>
                             <v-form class="login-form">
-                                <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
+                                <p 
+                                    v-if="errorMessage"
+                                    class="error-message"
+                                >
+                                    {{ errorMessage }}
+                                </p>
                                 <v-text-field
-                                    class="mb-10"
                                     v-model="email"
+                                    class="mb-10"
                                     label="E-mail"
-                                    variant="outlined"
                                     prepend-inner-icon="mdi-account"
+                                    variant="outlined"
                                     hide-details
                                     required
                                 ></v-text-field>
                                 <v-text-field
                                     v-model="password"
-                                    label="Wachtwoord"
                                     type="password"
-                                    variant="outlined"
+                                    label="Wachtwoord"
                                     prepend-inner-icon="mdi-lock"
+                                    variant="outlined"
                                     required
                                 ></v-text-field>
-                                <v-btn @click="login" class="mt-2" color="white" variant="flat">Inloggen</v-btn>
+                                <v-btn
+                                    class="mt-2"
+                                    color="white"
+                                    variant="flat"
+                                    @click="login"
+                                >
+                                    Inloggen
+                                </v-btn>
                             </v-form>
                         </v-card-text>
                     </v-card>

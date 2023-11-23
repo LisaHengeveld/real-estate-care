@@ -3,13 +3,16 @@
         <div class="mx-4 mt-9 pt-4 text-h5 text-primary">
             Wijzig uw gegevens
         </div>
-        <v-form class="ma-5 email-form" ref="emailForm" @submit.prevent="updateUserEmail">
+        <v-form
+            ref="emailForm"
+            class="ma-5 email-form"
+            @submit.prevent="updateUserEmail">
 
             <!-- Email address -->
             <v-text-field
+                v-model="userEmail"
                 class="mb-3"
                 label="E-mailadres"
-                v-model="userEmail"
                 variant="outlined"
                 type="text"
                 color="primary"
@@ -26,7 +29,7 @@
                 Bevestig
             </v-btn>
 
-            <!-- Delete form button -->
+            <!-- Cancel button -->
             <v-btn
                 class="mt-3 me-4"
                 color="red-darken-3"
@@ -43,6 +46,10 @@
 import AuthenticationService from "@/services/AuthenticationService.js";
 
 export default {
+    name: "UpdateEmail",
+    mounted() {
+        this.loadCurrentUserEmail();
+    },
     data() {
         return {
             userEmail: "",
@@ -55,9 +62,6 @@ export default {
             },
             formValid: null
         }
-    },
-    mounted() {
-        this.loadCurrentUserEmail();
     },
     methods: {
         async loadCurrentUserEmail() {
@@ -83,7 +87,6 @@ export default {
                     this.$router.push({ name: 'instellingen' });
                 } catch (error) {
                     this.$store.commit('SET_ERROR', `Er ging iets mis met het bijwerken van het e-mailadres: ${error.message} Neem eventueel contact op met de beheerder.`); // Show error message
-                    console.error("Email update error:", error);
                 }
             }
         },

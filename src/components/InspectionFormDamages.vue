@@ -1,21 +1,25 @@
 <template>
-  <v-form class="pt-2" ref="formDamagesRef" @submit.prevent="submitForm">
+  <v-form
+    ref="formDamagesRef"
+    class="pt-2"
+    @submit.prevent="submitForm"
+  >
 
     <!-- Textfield for location damage -->
     <v-text-field
       v-model="damage.location"
+      :rules="[rules.required]"
       color="primary"
       label="Locatie*"
       variant="outlined"
-      :rules="[rules.required]"
     ></v-text-field>
 
     <!-- Radio group yes/no for new damage -->
     <v-radio-group
       v-model="damage.newDamage"
+      :rules="[rules.required]"
       color="primary"
       inline
-      :rules="[rules.required]"
     >
       <template v-slot:label>
         <div>Nieuwe schade*</div>
@@ -27,7 +31,6 @@
     <!-- Select field for kind of damage -->
     <v-select
       v-model="damage.kind"
-      color="primary"
       label="Soort schade*"
       :items="[
         'Moedwillig',
@@ -37,8 +40,9 @@
         'Calamiteit',
         'Anders',
       ]"
-      variant="outlined"
       :rules="[rules.required]"
+      color="primary"
+      variant="outlined"
     >
       <!-- Hide counter by passing an empty counter slot -->
       <template v-slot:counter></template>
@@ -46,21 +50,21 @@
 
     <!-- Text field for date of registering damage -->
     <v-text-field
-      class="mt-2"
       v-model="damage.date"
+      :rules="[rules.required]"
+      class="mt-2"
       color="primary"
       label="Datum*"
       type="date"
       variant="outlined"
-      :rules="[rules.required]"
     ></v-text-field>
 
     <!-- Radio group yes/no if acute action is required -->
     <v-radio-group
       v-model="damage.urgent"
+      :rules="[rules.required]"
       color="primary"
       inline
-      :rules="[rules.required]"
     >
       <template v-slot:label>
         <div>Accute actie vereist*</div>
@@ -72,14 +76,19 @@
     <!-- Text area for description of damage -->
     <v-textarea
       v-model="damage.description"
+      :rules="[rules.required]"
       color="primary"
       label="Omschrijving*"
       variant="outlined"
-      :rules="[rules.required]"
     ></v-textarea>
 
     <!-- Field for uploading photos -->
-    <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :task="'Damages'" :uploadedPhotos="typeof damage.photos !== 'undefined' ? damage.photos : []" />
+    <inspection-form-photo-upload
+      ref="photoUpload"
+      :inspection-id="this.inspectionId"
+      :task="'Damages'"
+      :uploaded-photos="typeof damage.photos !== 'undefined' ? damage.photos : []" 
+    />
 
     <!-- Submit button -->
     <v-btn
@@ -107,12 +116,7 @@
 import InspectionFormPhotoUpload from "@/components/InspectionFormPhotoUpload.vue";
 
 export default {
-  data: () => ({
-    rules: {
-      required: value => !!value || 'Veld is verplicht',
-    },
-    formValid: null
-  }),
+  name: "InspectionFormDamages",
   components: {
     InspectionFormPhotoUpload
   },
@@ -127,7 +131,19 @@ export default {
       validator: function (value) {
         return Number.isInteger(value) && value >= 0;
       }
-  }
+    }
+  },
+  data: () => ({
+    rules: {
+      required: value => !!value || 'Veld is verplicht',
+    },
+    formValid: null
+  }),
+  computed: {
+    // Get data
+    damage() {
+      return this.$store.getters.getDamage(this.inspectionId, this.index);
+    },
   },
   methods: {
     async submitForm() {
@@ -147,12 +163,6 @@ export default {
       // Emit an event to notify the parent component to delete this form.
       this.$emit('delete-form');
     }
-  },
-  computed: {
-    // Get data
-    damage() {
-      return this.$store.getters.getDamage(this.inspectionId, this.index);
-    },
   },
 };
 </script>

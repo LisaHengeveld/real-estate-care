@@ -1,20 +1,22 @@
 <template>
-    <v-form class="pt-2" ref="formDeferredMaintenanceRef" @submit.prevent="submitForm">
+    <v-form
+      ref="formDeferredMaintenanceRef"
+      class="pt-2"
+      @submit.prevent="submitForm"
+    >
   
       <!-- Textfield for location maintenance -->
       <v-text-field
         v-model="maintenance.location"
+        :rules="[rules.required]"
         color="primary"
         label="Locatie*"
         variant="outlined"
-        :rules="[rules.required]"
       ></v-text-field>
   
       <!-- Select field for kind of maintenance -->
       <v-select
-        class="mt-2"
         v-model="maintenance.kind"
-        color="primary"
         label="Soort onderhoud*"
         :items="[
           'Schilderwerk',
@@ -23,8 +25,10 @@
           'Leidingwerk',
           'Beglazing',
         ]"
-        variant="outlined"
         :rules="[rules.required]"
+        class="mt-2"
+        color="primary"
+        variant="outlined"
       >
         <!-- Hide counter by passing an empty counter slot -->
         <template v-slot:counter></template>
@@ -33,9 +37,9 @@
       <!-- Radio group yes/no if acute action is required -->
       <v-radio-group
         v-model="maintenance.urgent"
+        :rules="[rules.required]"
         color="primary"
         inline
-        :rules="[rules.required]"
       >
         <template v-slot:label>
           <div>Accute actie vereist*</div>
@@ -47,22 +51,27 @@
       <!-- Select field for cost indication -->
       <v-select
         v-model="maintenance.costIndication"
-        color="primary"
         label="Kostenindicatie*"
         :items="[
           '0-500',
           '500-1.500',
           '1.500+',
         ]"
-        variant="outlined"
         :rules="[rules.required]"
+        color="primary"
+        variant="outlined"
       >
         <!-- Hide counter by passing an empty counter slot -->
         <template v-slot:counter></template>
       </v-select>
 
       <!-- Field for uploading photos -->
-      <inspection-form-photo-upload ref="photoUpload" :inspectionId="this.inspectionId" :task="'Deferred Maintenance'" :uploadedPhotos="typeof maintenance.photos !== 'undefined' ? maintenance.photos : []" />
+      <inspection-form-photo-upload
+        ref="photoUpload"
+        :inspection-id="this.inspectionId"
+        :task="'Deferred Maintenance'"
+        :uploaded-photos="typeof maintenance.photos !== 'undefined' ? maintenance.photos : []" 
+      />
   
       <!-- Submit button -->
       <v-btn
@@ -89,12 +98,7 @@
   import InspectionFormPhotoUpload from "@/components/InspectionFormPhotoUpload.vue";
 
   export default {
-    data: () => ({
-      rules: {
-        required: value => !!value || 'Veld is verplicht',
-      },
-      formValid: null
-    }),
+    name: "InspectionFormDeferredMaintenance",
     components: {
       InspectionFormPhotoUpload
     },
@@ -110,6 +114,18 @@
           return Number.isInteger(value) && value >= 0;
         }
       }
+    },
+    data: () => ({
+      rules: {
+        required: value => !!value || 'Veld is verplicht',
+      },
+      formValid: null
+    }),
+    computed: {
+      // Get data
+      maintenance() {
+        return this.$store.getters.getDeferredMaintenance(this.inspectionId, this.index);
+      },
     },
     methods: {
       async submitForm() {
@@ -128,12 +144,6 @@
         // Emit an event to notify the parent component to delete this form.
         this.$emit('delete-form');
       }
-    },
-    computed: {
-      // Get data
-      maintenance() {
-        return this.$store.getters.getDeferredMaintenance(this.inspectionId, this.index);
-      },
     },
   };
   </script>

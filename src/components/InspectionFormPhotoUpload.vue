@@ -3,35 +3,39 @@
         <!-- Field for uploading photos -->
         <v-file-input
             label="Upload foto's"
-            multiple
             accept="image/*"
+            multiple
             @change="handlePhotos"
         ></v-file-input>
 
         <div class="photo-container">
-        <!-- Display thumbnails of selected photos -->
-        <div v-for="(photo, index) in photoURLs" :key="index" @click="openPreview(photo)">
-            <div class="photo-wrapper">
-            <img :src="photo" :alt="'Photo ' + index">
-            <v-btn 
-                class="delete-photo-btn"
-                density="comfortable"
-                size="small"
-                variant="flat"
-                icon
-                @click.stop="deletePhoto(index)"
-                >
-                <v-icon>mdi-delete</v-icon>
-            </v-btn>
+            <!-- Display thumbnails of selected photos -->
+            <div
+                v-for="(photo, index) in photoURLs"
+                :key="index"
+                @click="openPreview(photo)"
+            >
+                <div class="photo-wrapper">
+                    <img :src="photo" :alt="'Photo ' + index">
+                    <v-btn 
+                        class="delete-photo-btn"
+                        density="comfortable"
+                        size="small"
+                        variant="flat"
+                        icon
+                        @click.stop="deletePhoto(index)"
+                        >
+                        <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                </div>
             </div>
-        </div>
         </div>
 
         <!-- Dialog for photo preview -->
         <v-dialog v-model="previewDialog" max-width="600px">
-        <v-card>
-            <v-img :src="selectedPhoto"></v-img>
-        </v-card>
+            <v-card>
+                <v-img :src="selectedPhoto"></v-img>
+            </v-card>
         </v-dialog>
     </div>
 </template>
@@ -40,20 +44,7 @@
 import FilesService from "@/services/FilesService.js";
 
 export default {
-    data: () => ({
-        photos: [],
-        photoURLs: [],
-        photosToDelete: [],
-        fileMap: {},
-        selectedPhoto: '',
-        previewDialog: false,
-    }),
-
-    async mounted() {
-        if (this.uploadedPhotos) {
-            this.photoURLs = [...this.uploadedPhotos];
-        }
-    },
+    name: "InspectionFormPhotoUpload",
 
     props: {
         inspectionId: {
@@ -71,6 +62,21 @@ export default {
         uploadedPhotos: {
             type: Array,
             required: true
+        }
+    },
+
+    data: () => ({
+        photos: [],
+        photoURLs: [],
+        photosToDelete: [],
+        fileMap: {},
+        selectedPhoto: '',
+        previewDialog: false,
+    }),
+
+    async mounted() {
+        if (this.uploadedPhotos) {
+            this.photoURLs = [...this.uploadedPhotos];
         }
     },
 
@@ -157,7 +163,6 @@ export default {
                 return photosToSubmit;
             } catch (error) {
                 this.$store.commit('SET_ERROR', "Er ging iets mis bij het opslaan van de foto's. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
-                console.error("Error uploading photos:", error);
             }   
         },
     }
