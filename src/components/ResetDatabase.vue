@@ -72,6 +72,7 @@ export default {
 
                 this.$store.dispatch('setLoading', false); // Loading done
                 this.$store.dispatch('showSnackbar', 'Data gereset.'); // Show snackbar with confirmation 
+                this.$router.push({ name: 'instellingen' }); // Redirect to settings
             } catch (error) {
                 this.$store.commit('SET_ERROR', "Er ging iets mis bij resetten van de database."); // Show error message
                 this.$store.dispatch('setLoading', false); // Loading done
