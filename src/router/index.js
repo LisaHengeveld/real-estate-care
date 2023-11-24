@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import store from '@/store'
 
 import { nextTick } from 'vue'
 import DashboardView from '@/views/DashboardView.vue'
@@ -133,8 +134,7 @@ const getCurrentUser = () => {
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth !== false)) {
-    const is2FAAuthenticated = localStorage.getItem("is2FAAuthenticated") === "true";
-    if (await getCurrentUser() && is2FAAuthenticated) {
+    if (await getCurrentUser() && store.state.isLoggedIn) {
       next();
     } else {
       console.log("You don't have access!");

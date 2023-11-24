@@ -3,6 +3,7 @@ import InspectionsService from "../services/InspectionsService.js";
 
 export default createStore({
   state: {
+    isLoggedIn: true,             // Logged in status
     inspections: [],               // Data of all completed and assigned inspections
     unsubscribeInspections: null,
     isLoading: false,              // Loading spinner
@@ -17,6 +18,9 @@ export default createStore({
   },
 
   mutations: {
+    SET_IS_LOGGED_IN(state, value) {
+      state.isLoggedIn = value;
+    },
     SET_INSPECTIONS(state, inspections) {
       state.inspections = inspections;
     },
@@ -54,6 +58,9 @@ export default createStore({
   },
 
   actions: {
+    setIsLoggedIn({ commit }, value) {
+      commit('SET_IS_LOGGED_IN', value);
+    },
     // Get data of inspections
     fetchInspections({ commit }) {
       commit('SET_LOADING', true); // Start loading

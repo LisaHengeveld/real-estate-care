@@ -80,14 +80,20 @@
 </template>
 
 <script setup>
-    import { ref } from "vue";
+    import { ref, onMounted } from "vue";
     import { useRouter } from 'vue-router';
+    import { useStore } from "vuex";
     import AuthenticationService from "@/services/AuthenticationService.js";
 
     const email = ref("");
     const password = ref("");
     const errorMessage = ref();
+    const store = useStore();
     const router = useRouter();
+
+    onMounted(() => {
+        store.dispatch('setIsLoggedIn', false);
+    });
 
     const login = () => {
         AuthenticationService.login(email.value, password.value)
@@ -96,23 +102,21 @@
             const fake2FACode = Math.floor(100000 + Math.random() * 900000).toString(); // A 6-digit code
             localStorage.setItem('fake2FACode', fake2FACode); // Save to local storage
 
-            // Prompt the user to enter the 2FA code
-            const userEnteredCode = prompt("Voer de 2FA-code in:");
+            // Slight delay to give Google Chrome time to set the item to local storage (not needed for Firefox)
+            setTimeout(() => {
+                // Prompt the user to enter the 2FA code
+                const userEnteredCode = prompt("Voer de 2FA-code in (zie local storage):");            
 
-            // Verify the 2FA code
-            if (userEnteredCode === localStorage.getItem('fake2FACode')) {
-                // The user is fully authenticated
-                localStorage.setItem('is2FAAuthenticated', 'true');
-
-                // Clear the fake 2FA code from localStorage
-                localStorage.removeItem('fake2FACode');
-
-                // Proceed with the navigation
-                router.push('/');
-            } else {
-                errorMessage.value = "Ongeldige code. Log nogmaals in en voer de nieuwe code in.";
-                // Optionally clear the fake code or ask for retry
-            }
+                // Verify the 2FA code
+                if (userEnteredCode === localStorage.getItem('fake2FACode')) {
+                    localStorage.removeItem('fake2FACode'); // Clear the fake 2FA code from localStorage
+                    store.dispatch('fetchInspections'); // Fill the store with the data
+                    router.push('/'); // Proceed with the navigation
+                    store.dispatch('setIsLoggedIn', true); // The user is fully authenticated
+                } else {
+                    errorMessage.value = "Ongeldige code. Log nogmaals in en voer de nieuwe code in.";
+                }
+            }, 500);
         })
         .catch((error) => {
             errorMessage.value = "Ongeldig e-mailadres en/of wachtwoord.";
@@ -123,13 +127,14 @@
 <style scoped>
     .banner-top {
         position: fixed;
+        top: 0;
         right: 0;
     }
 
     .banner-bottom {
         position: fixed;
-        left: 0;
         bottom: 0;
+        left: 0;
     }
 
     .error-message {
