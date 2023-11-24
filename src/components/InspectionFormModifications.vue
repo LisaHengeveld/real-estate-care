@@ -147,13 +147,14 @@
     data: () => ({
       rules: {
         required: value => !!value || 'Veld is verplicht',
-        formValid: null
       },
+      formValid: null
     }),
     computed: {
       // Get data
       modification() {
         return this.$store.getters.getModification(this.inspectionId, this.index);
+      }
     },
     methods: {
       // Get file name and download URL of documentation of current building
@@ -184,7 +185,6 @@
         this.$emit('delete-form');
       }
     },
-  },
   };
   </script>
   
