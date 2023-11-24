@@ -31,7 +31,7 @@
       :title="'Schade'"
       :required-task="inspection.requiredTasks.includes('damages')"
       :task-items="inspection.damages"
-      @add-form="addForm(inspection.damages)"
+      @add-form="addForm(inspection.damages, 'damages')"
     >
       <template v-slot="{ index }">
         <inspection-form-damages
@@ -49,7 +49,7 @@
       :title="'Achterstallig onderhoud'"
       :required-task="inspection.requiredTasks.includes('deferredMaintenance')"
       :task-items="inspection.deferredMaintenance"
-      @add-form="addForm(inspection.deferredMaintenance)"
+      @add-form="addForm(inspection.deferredMaintenance, 'deferredMaintenance')"
     >
       <template v-slot="{ index }">
         <inspection-form-deferred-maintenance
@@ -67,7 +67,7 @@
       :title="'Technische installaties'"
       :required-task="inspection.requiredTasks.includes('technicalInstallations')"
       :task-items="inspection.technicalInstallations"
-      @add-form="addForm(inspection.technicalInstallations)"
+      @add-form="addForm(inspection.technicalInstallations, 'technicalInstallations')"
     >
       <template v-slot="{ index }">
         <inspection-form-technical-installations
@@ -85,7 +85,7 @@
       :title="'Modificaties'"
       :required-task="inspection.requiredTasks.includes('modifications')"
       :task-items="inspection.modifications"
-      @add-form="addForm(inspection.modifications)"
+      @add-form="addForm(inspection.modifications, 'modifications')"
     >
       <template v-slot="{ index }">
         <inspection-form-modifications
@@ -190,8 +190,14 @@ export default {
   },
   methods: {
     // Add new form
-    addForm(item) {
-      item.push({});
+    addForm(item, task) {
+      item.push({}); // Add the new form
+      // Open the new form
+      const index = item.length - 1;
+      const refName = `inspectionFormTaskRef-${task}`;
+      if (this.$refs[refName]) {
+        this.$refs[refName].openPanel(index);
+      }
     },
 
     // Save new data to Firestore database

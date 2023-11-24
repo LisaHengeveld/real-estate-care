@@ -97,7 +97,12 @@ export default {
             // Notify parent component to add new form
             this.$emit('add-form');
         },
+        openPanel(index) {
+            // Open panel on index
+            this.panel = index;
+        },
         closeAllPanels() {
+            // Close all panels
             this.panel = null;
         }
     }
