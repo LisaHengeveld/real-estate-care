@@ -14,7 +14,7 @@
                 stacked
                 @click="navigateTo(item.value)"
             >
-                <template v-slot:prepend>
+                <template #prepend>
                     <v-icon size="60">
                         {{ item.icon }}
                     </v-icon>

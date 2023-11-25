@@ -16,7 +16,7 @@
           <span class="text-primary">Uitgevoerde inspecties: </span><br>Bekijk en bewerk voltooide inspectierapporten om de meest actuele informatie bij de hand te hebben.
         </p>
         <p>
-          <span class="text-primary">Kennisbase: </span><br>De kennisbase geeft toegang tot alle relevante bestanden, zoals testprocedures en documentatie van woningen. Hierin kunnen onder andere huidige situaties en modificaties kunnen worden teruggevonden.
+          <span class="text-primary">Kennisbase: </span><br>De kennisbase geeft toegang tot alle relevante bestanden, zoals testprocedures en documentatie van woningen. Hierin kunnen onder andere huidige situaties en modificaties worden teruggevonden.
         </p>  
         <p>
           <span class="text-primary">Instellingen: </span><br>Pas hierin accountgegevens aan of het display thema van de applicatie. Voor dit prototype kan hier tevens de database hersteld worden naar de oorspronkelijke staat om het testen te vergemakkelijken.

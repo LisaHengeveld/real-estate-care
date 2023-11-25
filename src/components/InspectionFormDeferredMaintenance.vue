@@ -31,7 +31,7 @@
         variant="outlined"
       >
         <!-- Hide counter by passing an empty counter slot -->
-        <template v-slot:counter></template>
+        <template #counter></template>
       </v-select>
   
       <!-- Radio group yes/no if acute action is required -->
@@ -41,7 +41,7 @@
         color="primary"
         inline
       >
-        <template v-slot:label>
+        <template #label>
           <div>Accute actie vereist*</div>
         </template>
         <v-radio label="Ja" value="Ja"></v-radio>
@@ -62,7 +62,7 @@
         variant="outlined"
       >
         <!-- Hide counter by passing an empty counter slot -->
-        <template v-slot:counter></template>
+        <template #counter></template>
       </v-select>
 
       <!-- Field for uploading photos -->

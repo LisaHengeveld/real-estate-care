@@ -9,7 +9,7 @@
       <!-- Get error message from store -->
       {{ $store.state.errorMessage.text }}
 
-      <template v-slot:actions>
+      <template #actions>
         <v-btn
           color="white"
           variant="text"

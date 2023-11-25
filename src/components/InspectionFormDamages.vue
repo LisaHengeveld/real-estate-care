@@ -45,7 +45,7 @@
       variant="outlined"
     >
       <!-- Hide counter by passing an empty counter slot -->
-      <template v-slot:counter></template>
+      <template #counter></template>
     </v-select>
 
     <!-- Text field for date of registering damage -->
@@ -66,7 +66,7 @@
       color="primary"
       inline
     >
-      <template v-slot:label>
+      <template #label>
         <div>Accute actie vereist*</div>
       </template>
       <v-radio label="Ja" value="Ja"></v-radio>

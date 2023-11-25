@@ -9,7 +9,7 @@
         hide-details
         @change="toggleTheme"
       >
-        <template v-slot:label>
+        <template #label>
           <div>
             <!-- Show available option to switch to -->
             <v-icon>{{ isDarkTheme ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}</v-icon>

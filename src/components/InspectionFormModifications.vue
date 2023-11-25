@@ -48,7 +48,7 @@
         variant="outlined"
       >
         <!-- Hide counter by passing an empty counter slot -->
-        <template v-slot:counter></template>
+        <template #counter></template>
       </v-select>
   
       <!-- Text area for description of modification -->
@@ -77,7 +77,7 @@
         variant="outlined"
       >
         <!-- Hide counter by passing an empty counter slot -->
-        <template v-slot:counter></template>
+        <template #counter></template>
       </v-select>
 
       <!-- Text area for comments -->

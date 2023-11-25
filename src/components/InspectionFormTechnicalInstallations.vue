@@ -31,7 +31,7 @@
       variant="outlined"
     >
       <!-- Hide counter by passing an empty counter slot -->
-      <template v-slot:counter></template>
+      <template #counter></template>
     </v-select>
 
     <!-- Textfield for reported malfunctions -->
@@ -75,7 +75,7 @@
         persistent-hint
       >
         <!-- Hide counter by passing an empty counter slot -->
-        <template v-slot:counter></template>
+        <template #counter></template>
       </v-select>
     </div>
 
@@ -86,7 +86,7 @@
       color="primary"
       inline
     >
-      <template v-slot:label>
+      <template #label>
         <div>Goedgekeurd*</div>
       </template>
       <v-radio label="Ja" value="Ja"></v-radio>
