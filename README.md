@@ -18,7 +18,7 @@ npm install
 npm run serve
 ```
 ## Live versie
-Via onderstaande link kan een live versie van de mobiele webapplicatie bekeken worden.
+Via onderstaande link kan een live versie van de mobiele webapplicatie bekeken worden.\
 https://link.com (volgt nog...)
 
 ## Werking van de app
@@ -41,48 +41,48 @@ Na het inloggen kom je direct terecht bij het dashboard. Hierin zijn de vier hoo
 In de navigatiebalk onderaan kan onder andere genavigeerd worden naar 'informatie', waarin ook een beschrijving staat van de applicatie.
 
 ### Resetten database
-Voor het testen van de applicatie is een optie ingebouwd om de data te herstellen. De originele JSON-data wordt weer opnieuw ingeladen (dit overschrijft de huidige data) en geüploade foto's worden verwijderd. De originele data bevat twee toegewezen inspecties en drie uitgevoerde inspecties. Het is dan ook aanbevolen om bij de start van het testen van de applicatie de database voor de zekerheid te resetten, zodat alle functionaliteiten getest kunnen worden.
+Voor het testen van de applicatie is een optie ingebouwd om de data te herstellen. De originele JSON-data wordt weer opnieuw ingeladen (dit overschrijft de huidige data) en geüploade foto's worden verwijderd. De originele data bevat twee toegewezen inspecties en drie uitgevoerde inspecties. Het is dan ook aanbevolen om bij de start van het testen van de applicatie de database voor de zekerheid te resetten, zodat alle functionaliteiten getest kunnen worden.\
 **Let op:** Het resetten van de database zet aangepaste wachtwoorden *niet* terug naar hun origineel. Mocht tijdens het testen van de applicatie het wachtwoord zijn aangepast, zet deze dan graag na afloop altijd weer terug, zodat de inloggegevens die hier beschreven zijn, blijven werken.
 
 ## Beschrijving ontwikkelproces
 Het ontwikkelproces van de mobiele webapplicatie voor Real Estate Care was gefaseerd, waarbij vrijwel elke fase begon met onderzoek doen naar de nieuwe technieken, vervolgens de opgedane kennis toepassen en uiteindelijk een hoop troubleshooten. 
 
-**Fase 1: Framework bepalen**
-In deze initiële fase is veel onderzoek gedaan op het internet naar verschillende frameworks. Voor het kiezen van een geschikt framework die wordt gebruikt voor deze case is voornamelijk gekeken naar de documentatie die ervoor beschikbaar is, de ondersteunende community, het ecosysteem, de veiligheid en of het geheel aansluit op de eisen van de case. De keuze is gevallen op Vue.js. Een volledige beschrijving en onderbouwing van deze keuze is te vinden in de debriefing die is ingeleverd met deze opdracht.
+**Fase 1: Framework bepalen**\
+In deze initiële fase is veel onderzoek gedaan op het internet naar verschillende frameworks. Voor het kiezen van een geschikt framework die wordt gebruikt voor deze case is voornamelijk gekeken naar de documentatie die ervoor beschikbaar is, de ondersteunende community, het ecosysteem, de veiligheid en of het geheel aansluit op de eisen van de case. De keuze is gevallen op Vue.js. Een volledige beschrijving en onderbouwing van deze keuze is te vinden in de debriefing die is ingeleverd met deze opdracht.\
 Voor het ontwikkelen van de Vue.js applicatie is Vue CLI (Command Line Interface) geïnstalleerd door middel van `npm install -g @vue/cli`. Dit commando vereist dat Node.js is geïnstalleerd, wat reeds het geval was. Voor de ontwikkelomgeving is Visual Studio Code gebruikt. Ook deze was voorafgaand aan deze module al geïnstalleerd.
 
-**Fase 2: Visuele opzet van het dashboard**
+**Fase 2: Visuele opzet van het dashboard**\
 De eerste ontwikkeling van de applicatie betrof het dashboard met de vier hoofdfuncties, zoals beschreven in de case, inclusief header en tab bar onderaan. Het uitwerken van de functionaliteiten van de knoppen was pas later van toepassing. Het ging nu alleen om de UI. Hiervoor werd gebruik gemaakt van Vuetify, een Material Design componentenbibliotheek voor Vue.js die helpt bij het bouwen van responsieve en stijlvolle webapplicaties. Om onder andere hiermee te leren werken is een cursus gevolgd op Udemy van Danny Connell. Deze cursus bood ook ondersteuning bij onderdelen die later van toepassing waren bij het ontwikkelen van de app.
 
-**Fase 3: Database opstellen en inladen**
+**Fase 3: Database opstellen en inladen**\
 Het volgende onderdeel was het opstellen van een JSON-database met dummydata, deze inladen in de app en weergeven bij de uitgevoerde inspecties. Voor de web API is MyJSON Server gebruikt. Dit is een fake online REST server die dient voor het testen en prototypen van frontendprojecten. MyJSON Server is zeer makkelijk te gebruiken en pastte op dit moment goed bij wat nodig was voor het inladen en weergeven van de data.
 
-**Fase 4: CRUD-operaties bewerkstelligen**
-Toen de CRUD-operaties moesten worden toegevoegd, kwamen al snel de beperkingen van MyJSON Server naar boven. Naast dat de dataset maximaal 10KB mag zijn, wat erg snel werd bereikt, werden wijzigingen die gemaakt worden via CRUD-operaties niet permanent opgeslagen; ze zijn tijdelijk en worden gewist na een reset, die elke minuut plaatsvindt. Om deze reden is verder gekeken naar andere web API's. Uiteindelijk is gekozen voor Firebase van Google. Firebase omvat onder andere de Firestore die cloud-gehoste databases biedt die realtime data synchronisatie mogelijk maakt tussen gebruikers en apparaten. Iets wat een vereiste was voor deze applicatie. Daarnaast biedt Firebase ook een storage voor file uploads/downloads en authenticatie, wat beide later nodig is voor de app. Tenslotte biedt Firebase een veilige en robuuste service. Dit wordt verder besproken bij 'security'.
+**Fase 4: CRUD-operaties bewerkstelligen**\
+Toen de CRUD-operaties moesten worden toegevoegd, kwamen al snel de beperkingen van MyJSON Server naar boven. Naast dat de dataset maximaal 10KB mag zijn, wat erg snel werd bereikt, werden wijzigingen die gemaakt worden via CRUD-operaties niet permanent opgeslagen; ze zijn tijdelijk en worden gewist na een reset, die elke minuut plaatsvindt. Om deze reden is verder gekeken naar andere web API's. Uiteindelijk is gekozen voor Firebase van Google. Firebase omvat onder andere de Firestore die cloud-gehoste databases biedt die realtime data synchronisatie mogelijk maakt tussen gebruikers en apparaten. Iets wat een vereiste was voor deze applicatie. Daarnaast biedt Firebase ook een storage voor file uploads/downloads en authenticatie, wat beide later nodig is voor de app. Tenslotte biedt Firebase een veilige en robuuste service. Dit wordt verder besproken bij 'security'.\
 De data wordt opgehaald via een service en vervolgens gecentraliseerd in de state. Voor het beheren van de state is gebruik gemaakt van Vuex; een state management bibliotheek voor Vue.js applicaties. Ook in de verdere ontwikkeling van de applicatie worden alle interacties met Firebase gedaan via een service. Hierdoor hebben wijzigingen in de backend-service minimaal invloed op de componenten zelf, wat de onderhoudbaarheid van de applicatie ten goede komt. Alle error-handling wordt opgevangen in de betreffende componenten, zodat er gerichte feedback gegeven kan worden aan de gebruiker.
 
-**Fase 5: Files uploaden en inladen**
+**Fase 5: Files uploaden en inladen**\
 Voor het ophalen van de pdf-bestanden in de kennisbase en het uploaden en weergeven van foto's bij de rapportages is gebruik gemaakt van de Firebase Storage. Hierin kan gebruikerscontent zoals bestanden en afbeeldingen veilig worden opgeslagen. Het biedt robuuste upload- en downloadfunctionaliteiten voor deze bestanden, met beveiligingsfuncties die ervoor zorgen dat alleen geautoriseerde gebruikers toegang hebben tot de opgeslagen bestanden. Hiervoor moest dus ook de Firebase Authentication worden ingesteld. Hierbij is gekozen voor de optie authenticatie via e-mailadres en wachtwoord.
 
-**Fase 6: Instellingen**
+**Fase 6: Instellingen**\
 Als laatste functionaliteit van de applicatie zijn de instellingen ontwikkeld. Het aanpassen van accountgegevens verloopt wederom via Firebase Authentication en Storage. Voor het herstellen van de data wordt de JSON-database opgeslagen in de Firestore wat alle huidige data overschrijft. Voorafgaand worden alle door de gebruiker geüploade foto's (inclusief profielfoto) verwijderd uit de Storage. De laatste functionaliteit was de optie om te kunnen switchen naar een dark mode, een UI-instelling die een donker kleurenschema gebruikt. Hiervoor is gebruik gemaakt van de ingebouwde ondersteuning voor dark mode van Vuetify.
 
-**Fase 7: Two-factor authentication**
+**Fase 7: Two-factor authentication**\
 Tot slot moest een two-factor identificatie gesimuleerd worden met behulp van de local storage van de browser. Firebase Authentication biedt zelf ook een two-factor identificatie aan via SMS Multi-factor Authentication. Deze kan gemakkelijk worden ingesteld en biedt een extra beveiligingslaag aan de gebruikersaccounts. Omdat voor deze opdracht gewerkt wordt met fictieve accounts zonder mobiele telefoonnummers, wordt deze uit twee stappen bestaande inlogmethode gesimuleerd. Nadat de gebruiker door Firebase is geïdentificeerd aan de hand van het e-mailadres en wachtwoord, wordt een willekeurige zes-cijferige code opgeslagen in de local storage van de browser. Deze moet worden ingevoerd in een prompt. Na een correcte identificatie wordt de gebruiker doorgestuurd naar het dashboard.
 
-**Fase 8: Testen**
+**Fase 8: Testen**\
 De applicatie is uitgebreid getest door twee personen. Alle functionaliteiten zijn uitvoerig doorlopen. Hieruit kwamen nog enkele problemen en toevoegingen voor een verbeterde gebruikerservaring naar voren. Deze zijn allen verwerkt.
 
-**Fase 9: Productiebuild en hosten**
+**Fase 9: Productiebuild en hosten**\
 Volgt nog...
 
 ## Onvoltooide onderdelen
-Er zijn een aantal onderdelen die nog aandacht vereisen bij een definitieve versie na dit prototype. De functionaliteiten van 'recent' en 'zoeken', die bereikt kunnen worden via de knoppen in de navigatiebalk onderaan, zijn nog niet verder uitgewerkt. De reden hiervoor is dat voor dit prototype de focus lag op de vier hoofdfuncties in het dashboard, zoals in de opdracht is omschreven. Hetzelfde geldt voor de knop 'meldingen' te vinden rechtsbovenin naast de knop 'uitloggen'. 
-Bij het wijzigen van het e-mailadres vereist Firebase Authentication het sturen van een verificatie e-mail. Omdat bij deze opdracht fictieve e-mailadressen worden gebruikt, wordt het updaten van het e-mailadres gesimuleerd via de console.
+Er zijn een aantal onderdelen die nog aandacht vereisen bij een definitieve versie na dit prototype. De functionaliteiten van 'recent' en 'zoeken', die bereikt kunnen worden via de knoppen in de navigatiebalk onderaan, zijn nog niet verder uitgewerkt. De reden hiervoor is dat voor dit prototype de focus lag op de vier hoofdfuncties in het dashboard, zoals in de opdracht is omschreven. Hetzelfde geldt voor de knop 'meldingen' te vinden rechtsbovenin naast de knop 'uitloggen'. \
+Bij het wijzigen van het e-mailadres vereist Firebase Authentication het sturen van een verificatie e-mail. Omdat bij deze opdracht fictieve e-mailadressen worden gebruikt, wordt het updaten van het e-mailadres gesimuleerd via de console.\
 Tot slot moet de two-factor authenticatie in zijn geheel worden geregeld via Firebase. De simulatie via de local storage is uiteraard niet veilig en zorgt er tevens voor dat na de eerste stap de gebruiker al door Firebase is geïdentificeerd. De gebruiker zou hierdoor in principe al in de applicatie kunnen door handmatig de link in de adresbalk van de browser te typen en hiermee de tweede stap van het inloggen ontwijken.
 
 ## Security
-Door middel van de two-factor authenticatie is de applicatie alleen beschikbaar voor geauthoriseerde gebruikers. Bij een foutieve inlogpoging wordt een algemene foutmelding gegeven die geen specifieke details onthult over welke inloggegevens - wachtwoord of e-mailadres - onjuist zijn, om zo informatielekken te voorkomen. De veiligheid van de applicatie wordt hierbij versterkt door het gebruik van Firebase voor zowel de authenticatie als opslag van data en bestanden. Alle gegevens worden opgeslagen in Firebase, waarbij strikte beveiligingsregels gelden die ongeautoriseerde toegang voorkomen. Bestanden worden veilig beheerd met Firebase Storage, dat sterke upload- en downloadbeveiligingen biedt. Gebruikersinput wordt door Vue.js voorzien van escape sequences om XSS-aanvallen te voorkomen. Packages worden up-to-date gehouden met behulp van `npm audit`. Er is geen gebruik gemaakt van onbetrouwbare templates of third-pary packages en het gebruik van iframes zijn vermeden.
+Door middel van de two-factor authenticatie is de applicatie alleen beschikbaar voor geauthoriseerde gebruikers. Bij een foutieve inlogpoging wordt een algemene foutmelding gegeven die geen specifieke details onthult over welke inloggegevens - wachtwoord of e-mailadres - onjuist zijn, om zo informatielekken te voorkomen. De veiligheid van de applicatie wordt hierbij versterkt door het gebruik van Firebase voor zowel de authenticatie als opslag van data en bestanden. Alle gegevens worden opgeslagen in Firebase, waarbij strikte beveiligingsregels gelden die ongeautoriseerde toegang voorkomen. Bestanden worden veilig beheerd met Firebase Storage, dat sterke upload- en downloadbeveiligingen biedt. Gebruikersinput wordt door Vue.js voorzien van escape sequences om XSS-aanvallen te voorkomen. Packages worden up-to-date gehouden met behulp van `npm audit`. Er is geen gebruik gemaakt van onbetrouwbare templates of third-pary packages en het gebruik van iframes zijn vermeden.\
 Voor toekomstige ontwikkelingen is het aanbevolen en overstap te maken naar Pinia (vervanging voor Vuex) en Vite (vervanging voor Vue CLI), die niet alleen modernere en efficiëntere bouwprocessen beloven, maar ook verbeterde beveiligingsmaatregelen.
 
 ## Usability
