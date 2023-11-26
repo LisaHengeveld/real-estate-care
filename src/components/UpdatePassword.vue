@@ -26,7 +26,7 @@
                 v-model="newPassword"
                 :append-inner-icon="visibleNewPassword ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="visibleNewPassword ? 'text' : 'password'"
-                :rules="[rules.required, rules.min]"
+                :rules="[rules.required, rules.min, rules.passwordsMatch]"
                 class="mb-3"
                 label="Nieuw wachtwoord"
                 variant="outlined"
@@ -85,8 +85,8 @@ export default {
             rules: {
                 required: value => !!value || 'Verplicht',
                 min: v => v.length >= 8 || 'Minimaal 8 karakters',
-                passwordsMatch: (newPassword) => {
-                    return confirmPassword.value === newPassword || 'Wachtwoorden komen niet overeen';
+                passwordsMatch: () => {
+                    return this.newPassword === this.confirmPassword || 'Wachtwoorden komen niet overeen';
                 }
             },
             formValid: null
@@ -118,7 +118,12 @@ export default {
                     // Redirect to settings
                     this.$router.push({ name: 'instellingen' });
                 } catch (error) {
-                    this.$store.commit('SET_ERROR', `Er ging iets mis met het bijwerken van het wachtwoord: ${error.message} Neem eventueel contact op met de beheerder.`); // Show error message
+                    if (error.code === 'auth/invalid-login-credentials') {
+                        this.$store.commit('SET_ERROR', 'Het huidige wachtwoord is niet juist.'); // Show specific error message for wrong password
+                    } else {
+                        // Handle other errors
+                        this.$store.commit('SET_ERROR', `Er ging iets mis met het bijwerken van het wachtwoord. Neem eventueel contact op met de beheerder.`); // Show general error message
+                    }
                 }
             }
         },
