@@ -91,7 +91,7 @@ export default {
                 const profilePictureURL = await FilesService.uploadProfilePicture(file, this.userID);
                 this.updateUserAuthProfile(profilePictureURL);
             } catch (error) {
-                this.$store.commit('SET_ERROR', "Er ging iets mis bij het uploaden van de profielfoto. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
+                this.$store.commit('SET_ERROR', "Er ging iets mis met het uploaden van de profielfoto. Zorg ervoor dat het bestand dat u uploadt een afbeelding is met een van de volgende extensies: .jpg, .jpeg, .png, of .gif. Andere bestandstypes zijn niet toegestaan."); // Show error message
             }
         },
         // Save the profile picture url to user authentication profile
@@ -101,7 +101,7 @@ export default {
                 this.fetchProfilePicture(); // Update the profile picture URL in the component
                 this.$store.dispatch('showSnackbar', 'Profielfoto gewijzigd.'); // Show snackbar with confirmation 
             } catch (error) {
-                this.$store.commit('SET_ERROR', "Er ging iets mis bij het updaten van uw profielfoto. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
+                this.$store.commit('SET_ERROR', "Er ging iets mis met het updaten van de profielfoto. Zorg ervoor dat het bestand dat u uploadt een afbeelding is met een van de volgende extensies: .jpg, .jpeg, .png, of .gif. Andere bestandstypes zijn niet toegestaan."); // Show error message
             }
         },
         // Delete the profile picture from the database

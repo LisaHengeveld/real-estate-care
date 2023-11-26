@@ -41,7 +41,6 @@ export default {
 
         // Check if the file name already exists in the uploaded files
         if (existingFileNames.includes(file.name)) {
-            console.log('File ${file.name} already uploaded. Skipping...');
             return null;
         }
 

@@ -136,7 +136,6 @@ export default {
             try {
                 // Delete photos marked for deletion
                 for (const photoUrl of this.photosToDelete) {
-                    // Only attempt deletion if the photo URL exists in the uploadedPhotos
                     if (this.uploadedPhotos.includes(photoUrl)) {
                         await FilesService.deletePhoto(photoUrl);
                     }
@@ -148,12 +147,26 @@ export default {
                 );
 
                 // Upload photos and get their URLs
-                // Excludes photos that were already uploaded before
-                let uploadedPhotoURLs = await Promise.all(this.photos.map(photo => FilesService.uploadPhoto(`${this.inspectionId}/${this.task}`, photo)));
+                let uploadPromises = this.photos.map(photo => {
+                    if (this.isValidPhoto(photo)) {
+                        return FilesService.uploadPhoto(`${this.inspectionId}/${this.task}`, photo);
+                    } else {
+                        // If photo is not valid, resolve to null immediately
+                        return Promise.resolve(null);
+                    }
+                });
+
+                // Await all the upload promises, valid or null
+                let uploadedPhotoURLs = await Promise.all(uploadPromises);
+
+                // Filter out any nulls from the upload results
                 uploadedPhotoURLs = uploadedPhotoURLs.filter(url => url !== null);
 
                 // Combine the remaining photos with the newly uploaded ones
                 const photosToSubmit = [...remainingPhotos, ...uploadedPhotoURLs];
+
+                // Handle invalid files feedback
+                this.handleInvalidFilesFeedback();
 
                 // Clear the photos array, photos to delete, and file input
                 this.photos = [];
@@ -165,6 +178,23 @@ export default {
                 this.$store.commit('SET_ERROR', "Er ging iets mis bij het opslaan van de foto's. Probeer het later nog eens of neem contact op met de beheerder."); // Show error message
             }   
         },
+
+        isValidPhoto(photo) {
+            // Check if file type is an image
+            return photo.type.startsWith('image/');
+        },
+
+        handleInvalidFilesFeedback() {
+            // Find the names of invalid files
+            const invalidFiles = this.photos.filter(photo => !this.isValidPhoto(photo)).map(file => file.name);
+            
+            // Provide feedback to the user about invalid files
+            if (invalidFiles.length > 0) {
+                // Set an error message about the invalid files
+                const fileList = invalidFiles.join(', '); // Creates a string of file names
+                this.$store.commit('SET_ERROR', `De volgende bestanden zijn niet geüpload: ${fileList}. Zorg ervoor dat het bestand dat u uploadt een afbeelding is met een van de volgende extensies: .jpg, .jpeg, .png, of .gif. Andere bestandstypes zijn niet toegestaan.`);
+            }
+        }
     }
 }
 </script>

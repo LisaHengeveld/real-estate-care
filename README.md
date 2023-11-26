@@ -46,7 +46,7 @@ Na het inloggen kom je direct terecht bij het dashboard. Hierin zijn de vier hoo
 Onder de knop 'informatie' in de navigatiebalk onderaan kan de gebruiker informatie vinden over de werking van de applicatie.
 
 ### Resetten database
-Voor het testen van de applicatie is een optie ingebouwd om de data te herstellen. De originele JSON-data wordt weer opnieuw ingeladen (dit overschrijft de huidige data) en geüploade foto's worden verwijderd. De originele data bevat twee toegewezen inspecties en drie uitgevoerde inspecties. Voor het testen van de applicatie is het aan te raden de database te resetten, zodat alle functionaliteiten getest kunnen worden.\
+Voor het testen van de applicatie is een optie ingebouwd om de data te herstellen. De originele JSON-data wordt weer opnieuw ingeladen (dit overschrijft de huidige data), geüploade foto's en de profielfoto worden verwijderd. De originele data bevat twee toegewezen inspecties en drie uitgevoerde inspecties. Voor het testen van de applicatie is het aan te raden de database te resetten, zodat alle functionaliteiten getest kunnen worden.\
 **Let op:** Het resetten van de database zet aangepaste wachtwoorden *niet* terug naar hun origineel. Mocht het wachtwoord tijdens het testen zijn gewijzigd, graag deze na afloop weer terugzetten zodat de vermelde inloggegevens functioneel blijven.
 
 ## Beschrijving ontwikkelproces
