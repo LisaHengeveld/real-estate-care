@@ -8,6 +8,11 @@ Deze mobiele webapplicatie is gemaakt in het kader van de eindopdracht voor de m
 git clone https://github.com/LisaHengeveld/real-estate-care
 ```
 
+### Navigeer naar de gekloonde repository:
+```
+cd real-estate-care
+```
+
 ### Installeer de vereiste packages:
 ```
 npm install
@@ -83,7 +88,7 @@ Tot slot moet de two-factor authenticatie in zijn geheel worden geregeld via Fir
 
 ## Security
 Door middel van de two-factor authenticatie is de applicatie alleen beschikbaar voor geauthoriseerde gebruikers. Bij een foutieve inlogpoging wordt een algemene foutmelding gegeven die geen specifieke details onthult over welke inloggegevens - wachtwoord of e-mailadres - onjuist zijn, om zo informatielekken te voorkomen. De veiligheid van de applicatie wordt hierbij versterkt door het gebruik van Firebase voor zowel de authenticatie als opslag van data en bestanden. Alle gegevens worden opgeslagen in Firebase, waarbij strikte beveiligingsregels gelden die ongeautoriseerde toegang voorkomen. Bestanden worden veilig beheerd met Firebase Storage, dat sterke upload- en downloadbeveiligingen biedt. Gebruikersinput wordt door Vue.js voorzien van escape sequences om XSS-aanvallen te voorkomen. Packages worden up-to-date gehouden met behulp van `npm audit`. Er is geen gebruik gemaakt van onbetrouwbare templates of third-pary packages en het gebruik van iframes zijn vermeden.\
-Voor toekomstige ontwikkelingen is het aanbevolen en overstap te maken naar Pinia (vervanging voor Vuex) en Vite (vervanging voor Vue CLI), die niet alleen modernere en efficiëntere bouwprocessen beloven, maar ook verbeterde beveiligingsmaatregelen.
+Voor toekomstige ontwikkelingen is het aanbevolen een overstap te maken naar Pinia (vervanging voor Vuex) en Vite (vervanging voor Vue CLI), die niet alleen modernere en efficiëntere bouwprocessen beloven, maar ook verbeterde beveiligingsmaatregelen. Daarnaast moet natuurlijk de nu gesimuleerde two-factor authenticatie met behulp van local storage omgezet worden naar een daadwerkelijke two-factor authenticatie met Firebase's SMS Multi-factor Authentication.
 
 ## Usability
 De applicatie is zo gebruiksvriendelijk mogelijk gemaakt en voldoet aan de 10 heuristieken van Jacob Nielsen. De applicatie geeft feedback na gebruikersacties (zoals data opslaan/verwijderen), waardoor gebruikers weten dat hun commando's zijn ontvangen en verwerkt. Er wordt een laadwiel getoond bij het ophalen of opslaan van data, wanneer de gebruiker een paar tellen moet wachten tot dit is voltooid. Er worden duidelijke en consistente taal en symbolen gebruikt. Er kan makkelijk genavigeerd worden door de app door middel van Vue Router en duidelijke navigatie. De beniening is consequent door gebruik van dezelfde knoppen en symbolen. De applicatie is ontworpen om fouten te voorkomen, met duidelijke opties en bevestigingen voordat acties worden uitgevoerd die significante gevolgen kunnen hebben. De applicatie maakt gebruik van iconen die het makkelijk maken voor gebruikers om functies te herkennen. De bediening is flexibel en eenvoudig. Dit wordt onder andere bereikt door het sluiten van formulieren bij het opslaan van data, het automatisch openen van een nieuw toegevoegd formulier en het weer redirecten naar het dashboard, wanneer een inspectie is voltooid. De interface van de app is niet overladen met overbodige informatie of elementen die niet direct bijdragen aan de gebruikersdoelen. Als er fouten optreden worden er duidelijke en begrijpelijke foutmeldingen gegeven die de gebruiker helpen het probleem te begrijpen en op te lossen. Contactinformatie van de beheerder van de app wordt opgenomen in de informatiepagina, zodat de gebruiker te allen tijde hulp kan inschakelen indien nodig.
