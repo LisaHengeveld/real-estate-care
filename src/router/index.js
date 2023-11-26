@@ -119,29 +119,41 @@ const router = createRouter({
   routes
 });
 
+// Get current authenticated user
 const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
+    // Set up a listener for changes to the user's authentication state.
     const removeListener = onAuthStateChanged(
       getAuth(),
       (user) => {
-        removeListener();
-        resolve(user);
+        removeListener(); // Once the user is retrieved, remove the listener to prevent memory leaks.
+        resolve(user); // Resolve the promise with the user object if a user is found.
       },
-      reject
+      reject // If an error occurs during the process, reject the promise with the error.
     );
   });
 };
 
+// Navigation guards
 router.beforeEach(async (to, from, next) => {
+  const currentUser = await getCurrentUser();
+  const isLoggedIn = store.state.isLoggedIn;
+
+  // Check if the route requires authentication
   if (to.matched.some((record) => record.meta.requiresAuth !== false)) {
-    if (await getCurrentUser() && store.state.isLoggedIn) {
-      next();
+    if (currentUser && isLoggedIn) {
+      next(); // User is logged in and trying to access a protected route
     } else {
       console.log("You don't have access!");
-      next("/inloggen");
+      next("/inloggen"); // User is not logged in, redirect to login
     }
   } else {
-    next();
+    // Check if the user is logged in and trying to access the login page
+    if (currentUser && isLoggedIn && to.name === 'inloggen') {
+      next({ name: 'dashboard' }); // Redirect to dashboard because they're already logged in
+    } else {
+      next(); // It's not the login page, or user is not logged in, so proceed
+    }
   }
 })
 
